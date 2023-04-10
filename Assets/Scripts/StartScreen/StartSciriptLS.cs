@@ -7,13 +7,16 @@ public class StartSciriptLS : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject LoadingScreen;
+    public int SceneId = 0;
+
     void Start()
     {
-        StartCoroutine(LoadAsync());
+        StartCoroutine(LoadAsync(SceneId));
     }
-    IEnumerator LoadAsync()
+    IEnumerator LoadAsync(int SceneId)
+ 
     {
-        AsyncOperation loadAsync = SceneManager.LoadSceneAsync(1);
+        AsyncOperation loadAsync = SceneManager.LoadSceneAsync(SceneId);
         loadAsync.allowSceneActivation = false;
         LoadingScreen.SetActive(true);
 
@@ -31,6 +34,7 @@ public class StartSciriptLS : MonoBehaviour
         }
 
     }
+
     // Update is called once per frame
     void Update()
     {

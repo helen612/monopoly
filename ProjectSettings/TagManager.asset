@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SliderTag
+  - TextTag
+  - bg_music_created
+  - MusicTag
   layers:
   - Default
   - TransparentFX
