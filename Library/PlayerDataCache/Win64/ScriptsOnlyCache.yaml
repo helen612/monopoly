@@ -1,16 +1,19 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - BacgroundMusicInstance
     - CanvasOn
-    - ControlMusicVolume
+    - ChangeBGmusic
+    - CopyRoomId
     - Disconnect
     - ExitButton
     - MainMenu
+    - MusicVolume_NEW
+    - PlayMode
     - Player
     - PlayerUI
     - Rules
     - TurnManager
-    - WaitMenu
     Mirror.Components.dll:
     - Mirror.Discovery.NetworkDiscovery
     - Mirror.Discovery.NetworkDiscoveryHUD
@@ -37,10 +40,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -108,9 +109,18 @@ ScriptsOnlyBuild:
   - assembly: Mirror.Components
     fullTypeName: Mirror.Discovery.NetworkDiscoveryHUD
     methodName: OnDiscoveredServer
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
   - assembly: UnityEngine.AudioModule
     fullTypeName: UnityEngine.AudioSource
     methodName: Play
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
   - assembly: Assembly-CSharp
     fullTypeName: Rules
     methodName: onClick
@@ -126,27 +136,6 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: ExitButton
     methodName: ExitMonopoly
-  - assembly: UnityEngine.AnimationModule
-    fullTypeName: UnityEngine.Animator
-    methodName: SetTrigger
-  - assembly: UnityEngine.AudioModule
-    fullTypeName: UnityEngine.AudioSource
-    methodName: Play
-  - assembly: UnityEngine.AudioModule
-    fullTypeName: UnityEngine.AudioSource
-    methodName: Play
-  - assembly: UnityEngine.AnimationModule
-    fullTypeName: UnityEngine.Animator
-    methodName: SetTrigger
-  - assembly: UnityEngine.AnimationModule
-    fullTypeName: UnityEngine.Animator
-    methodName: SetTrigger
-  - assembly: UnityEngine.AnimationModule
-    fullTypeName: UnityEngine.Animator
-    methodName: SetTrigger
-  - assembly: UnityEngine.AudioModule
-    fullTypeName: UnityEngine.AudioSource
-    methodName: Play
   - assembly: Assembly-CSharp
     fullTypeName: Rules
     methodName: onClick
@@ -156,24 +145,102 @@ ScriptsOnlyBuild:
   - assembly: UnityEngine.AudioModule
     fullTypeName: UnityEngine.AudioSource
     methodName: Play
+  - assembly: Assembly-CSharp
+    fullTypeName: MusicVolume_NEW
+    methodName: ChangeMusicVolume
+  - assembly: UnityEngine.AudioModule
+    fullTypeName: UnityEngine.AudioSource
+    methodName: Play
+  - assembly: UnityEngine.AnimationModule
+    fullTypeName: UnityEngine.Animator
+    methodName: SetTrigger
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: UnityEngine.AudioModule
+    fullTypeName: UnityEngine.AudioSource
+    methodName: Play
+  - assembly: UnityEngine.AnimationModule
+    fullTypeName: UnityEngine.Animator
+    methodName: SetTrigger
   - assembly: UnityEngine.AnimationModule
     fullTypeName: UnityEngine.Animator
     methodName: SetTrigger
   - assembly: UnityEngine.AudioModule
     fullTypeName: UnityEngine.AudioSource
     methodName: Play
-  - assembly: Mirror
-    fullTypeName: Mirror.NetworkManager
-    methodName: StartHost
-  - assembly: Mirror
-    fullTypeName: Mirror.NetworkManager
-    methodName: StartClient
+  - assembly: UnityEngine.AudioModule
+    fullTypeName: UnityEngine.AudioSource
+    methodName: Play
+  - assembly: UnityEngine.AnimationModule
+    fullTypeName: UnityEngine.Animator
+    methodName: SetTrigger
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: UnityEngine.AnimationModule
+    fullTypeName: UnityEngine.Animator
+    methodName: SetTrigger
+  - assembly: UnityEngine.AudioModule
+    fullTypeName: UnityEngine.AudioSource
+    methodName: Play
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: UnityEngine.AnimationModule
+    fullTypeName: UnityEngine.Animator
+    methodName: SetTrigger
+  - assembly: UnityEngine.AudioModule
+    fullTypeName: UnityEngine.AudioSource
+    methodName: Play
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: Assembly-CSharp
+    fullTypeName: MusicVolume_NEW
+    methodName: ChangeEffectsVolume
+  - assembly: UnityEngine.AudioModule
+    fullTypeName: UnityEngine.AudioSource
+    methodName: Play
+  - assembly: Assembly-CSharp
+    fullTypeName: PlayMode
+    methodName: TruStartGame
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: UnityEngine.AudioModule
+    fullTypeName: UnityEngine.AudioSource
+    methodName: Play
   - assembly: Assembly-CSharp
     fullTypeName: MainMenu
     methodName: Join
   - assembly: Assembly-CSharp
     fullTypeName: MainMenu
     methodName: StartGame
+  - assembly: Assembly-CSharp
+    fullTypeName: CopyRoomId
+    methodName: onCLick
+  - assembly: UnityEngine.AudioModule
+    fullTypeName: UnityEngine.AudioSource
+    methodName: Play
   - assembly: Assembly-CSharp
     fullTypeName: MainMenu
     methodName: Host
@@ -206,6 +273,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 89
       Script: {instanceID: 0}
     - Class: 91
@@ -223,23 +294,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1604}
     - Class: 114
-      Script: {instanceID: 2690}
+      Script: {instanceID: 2688}
     - Class: 114
-      Script: {instanceID: 2906}
+      Script: {instanceID: 2904}
     - Class: 114
-      Script: {instanceID: 3808}
+      Script: {instanceID: 6160}
     - Class: 114
-      Script: {instanceID: 4578}
+      Script: {instanceID: 6470}
     - Class: 114
-      Script: {instanceID: 5362}
+      Script: {instanceID: 7738}
     - Class: 114
-      Script: {instanceID: 6116}
-    - Class: 114
-      Script: {instanceID: 6158}
-    - Class: 114
-      Script: {instanceID: 6468}
-    - Class: 114
-      Script: {instanceID: 8018}
+      Script: {instanceID: 8022}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -253,6 +318,12 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
+      Script: {instanceID: 0}
+    - Class: 241
+      Script: {instanceID: 0}
+    - Class: 243
+      Script: {instanceID: 0}
+    - Class: 245
       Script: {instanceID: 0}
     Assets/Scenes/Lobby.unity:
     - Class: 1
@@ -268,6 +339,10 @@ ScriptsOnlyBuild:
     - Class: 48
       Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
       Script: {instanceID: 0}
     - Class: 89
       Script: {instanceID: 0}
@@ -286,39 +361,39 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1740}
     - Class: 114
-      Script: {instanceID: 2690}
+      Script: {instanceID: 2688}
     - Class: 114
-      Script: {instanceID: 2794}
+      Script: {instanceID: 2792}
     - Class: 114
-      Script: {instanceID: 2906}
+      Script: {instanceID: 2904}
     - Class: 114
-      Script: {instanceID: 4074}
+      Script: {instanceID: 4072}
     - Class: 114
-      Script: {instanceID: 4252}
+      Script: {instanceID: 4250}
     - Class: 114
-      Script: {instanceID: 4312}
+      Script: {instanceID: 4310}
     - Class: 114
-      Script: {instanceID: 4578}
+      Script: {instanceID: 4576}
     - Class: 114
-      Script: {instanceID: 5020}
+      Script: {instanceID: 5018}
     - Class: 114
-      Script: {instanceID: 5162}
+      Script: {instanceID: 5160}
     - Class: 114
       Script: {instanceID: 5362}
     - Class: 114
-      Script: {instanceID: 6116}
-    - Class: 114
-      Script: {instanceID: 6122}
-    - Class: 114
-      Script: {instanceID: 6466}
+      Script: {instanceID: 6118}
     - Class: 114
       Script: {instanceID: 6468}
     - Class: 114
-      Script: {instanceID: 6478}
+      Script: {instanceID: 6470}
     - Class: 114
-      Script: {instanceID: 7542}
+      Script: {instanceID: 6480}
     - Class: 114
-      Script: {instanceID: 7612}
+      Script: {instanceID: 6518}
+    - Class: 114
+      Script: {instanceID: 7546}
+    - Class: 114
+      Script: {instanceID: 7616}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -334,6 +409,12 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
+      Script: {instanceID: 0}
+    - Class: 241
+      Script: {instanceID: 0}
+    - Class: 243
+      Script: {instanceID: 0}
+    - Class: 245
       Script: {instanceID: 0}
     Assets/Scenes/mainMenuScene.unity:
     - Class: 1
@@ -387,55 +468,51 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1674}
     - Class: 114
-      Script: {instanceID: 1740}
+      Script: {instanceID: 2234}
     - Class: 114
-      Script: {instanceID: 2236}
+      Script: {instanceID: 2688}
     - Class: 114
-      Script: {instanceID: 2690}
+      Script: {instanceID: 2904}
     - Class: 114
-      Script: {instanceID: 2906}
+      Script: {instanceID: 3246}
     - Class: 114
-      Script: {instanceID: 3248}
+      Script: {instanceID: 3254}
     - Class: 114
-      Script: {instanceID: 3308}
+      Script: {instanceID: 3306}
     - Class: 114
-      Script: {instanceID: 3330}
+      Script: {instanceID: 3328}
     - Class: 114
-      Script: {instanceID: 3418}
+      Script: {instanceID: 3416}
     - Class: 114
-      Script: {instanceID: 4208}
+      Script: {instanceID: 4206}
     - Class: 114
-      Script: {instanceID: 4312}
+      Script: {instanceID: 4324}
     - Class: 114
-      Script: {instanceID: 4326}
+      Script: {instanceID: 4576}
     - Class: 114
-      Script: {instanceID: 4578}
+      Script: {instanceID: 4600}
     - Class: 114
-      Script: {instanceID: 4602}
+      Script: {instanceID: 5094}
     - Class: 114
-      Script: {instanceID: 5096}
+      Script: {instanceID: 5100}
     - Class: 114
-      Script: {instanceID: 5102}
+      Script: {instanceID: 5276}
     - Class: 114
-      Script: {instanceID: 5162}
-    - Class: 114
-      Script: {instanceID: 5278}
+      Script: {instanceID: 5318}
     - Class: 114
       Script: {instanceID: 5362}
     - Class: 114
-      Script: {instanceID: 5404}
+      Script: {instanceID: 5800}
     - Class: 114
-      Script: {instanceID: 6116}
+      Script: {instanceID: 6118}
     - Class: 114
-      Script: {instanceID: 6122}
+      Script: {instanceID: 6124}
     - Class: 114
-      Script: {instanceID: 6468}
+      Script: {instanceID: 6470}
     - Class: 114
-      Script: {instanceID: 6520}
+      Script: {instanceID: 6524}
     - Class: 114
-      Script: {instanceID: 7542}
-    - Class: 114
-      Script: {instanceID: 7800}
+      Script: {instanceID: 7804}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -451,6 +528,12 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
+      Script: {instanceID: 0}
+    - Class: 241
+      Script: {instanceID: 0}
+    - Class: 243
+      Script: {instanceID: 0}
+    - Class: 245
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -593,12 +676,6 @@ ScriptsOnlyBuild:
     className: NetworkStatistics
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: playLocal
-  - hash:
-      serializedVersion: 2
       Hash: 1fc15c1b2f64fedcdb0467558c4f748e
     assemblyName: Mirror.Examples.dll
     namespaceName: Mirror.Examples.MultipleAdditiveScenes
@@ -713,7 +790,7 @@ ScriptsOnlyBuild:
     className: TMP_TextSelector_A
   - hash:
       serializedVersion: 2
-      Hash: b9adf39293237c1f08eeca7c33573c12
+      Hash: 2155d1ce8765c87abb4aaa3e358d178d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MainMenu
@@ -1427,6 +1504,12 @@ ScriptsOnlyBuild:
     className: UnityOnCollisionEnter2DMessageListener
   - hash:
       serializedVersion: 2
+      Hash: 27d1e504b0da3203178f11e38dcbaec2
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MusicVolume_NEW
+  - hash:
+      serializedVersion: 2
       Hash: e6f0efd0e20669d577e9d21526b3d3f9
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
@@ -1515,6 +1598,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.State.dll
     namespaceName: Unity.VisualScripting
     className: StateGraphAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayMode
   - hash:
       serializedVersion: 2
       Hash: 3fe74dd3b211760c4ed03510eafabc55
@@ -1683,6 +1772,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: MarkerTrack
+  - hash:
+      serializedVersion: 2
+      Hash: e0766a0e8938b34dbdc572ce4b274d5c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CopyRoomId
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1901,7 +1996,7 @@ ScriptsOnlyBuild:
     className: NetworkTransformReliable
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 5085c149ae898c11398927898b806b9c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TurnManager
@@ -1943,7 +2038,7 @@ ScriptsOnlyBuild:
     className: PlayerCamera
   - hash:
       serializedVersion: 2
-      Hash: 6168ff2632a75f5d90a9b7f923cceeca
+      Hash: ca3a1b6227750a301e00da8434d13c79
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ChangeBGmusic

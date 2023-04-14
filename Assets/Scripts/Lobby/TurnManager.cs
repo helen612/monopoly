@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class TurnManager : MonoBehaviour
+public class TurnManager : NetworkBehaviour
 {
-    private List<Player> players = new List<Player>();
+    
+    public SyncList<Player> players = new SyncList<Player>();
 
     public void AddPlayer(Player player)
     {

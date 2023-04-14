@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using Mirror;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Text;
+using Telepathy;
+using Unity.VisualScripting;
 
 [System.Serializable]
 public class Match : NetworkBehaviour
 {
     public string ID;
-    public readonly List<GameObject> players = new List<GameObject>();
+    public  List<GameObject> players = new List<GameObject>();
+
 
     public Match(string ID, GameObject player)
     {
@@ -32,39 +36,34 @@ public class MainMenu : NetworkBehaviour
     public Button HostButton;
     public Button JoinButton;
     public TMP_InputField RoomID;
-
+    
+    
+    
     public Canvas LobbyCanvas;
 
     public Transform UIPlayerParent;
     public GameObject UIPlayerPrefab;
     public TMP_Text IDText;
     public Button StartGameButton;
-    public GameObject TurnManager;
+    private TurnManager TurnManager;
+    public GameObject turnManager;
     public bool inGame;
-
+    
     private void Start()
     {
         instance = this;
         Debug.Log($"Запущена сцена lobby");
-
+        
+        TurnManager = turnManager.GetComponent<TurnManager>();
     }
 
     private void Update()
     {
-        if(!inGame)
-        {
-            Player[] players = FindObjectsOfType<Player>();
 
-            for(int i = 0; i < players.Length; i++)
-            {
-                players[i].gameObject.transform.localScale = Vector3.zero;
-            }
-        }
     }
 
 
-
-
+    
     public void Host()
     {
         Debug.Log($"Запускаю Создание комнаты");
@@ -72,16 +71,15 @@ public class MainMenu : NetworkBehaviour
         JoinButton.interactable = false;
         RoomID.interactable = false;
         Player.localPlayer.HostGame();
-
     }
-    
-
     public void HostSuccess(bool success, string matchID)
     {
         if (success)
         {
             LobbyCanvas.enabled = true;
-            SpawnPlayerUIPrefab(Player.localPlayer);
+            //SpawnPlayerUIPrefab(Player.localPlayer);
+            TurnManager.players.Add(Player.localPlayer);
+            UpdatePlayers();
             IDText.text = matchID;
         }
         else
@@ -91,6 +89,25 @@ public class MainMenu : NetworkBehaviour
             JoinButton.interactable = true;
             RoomID.interactable = true;
         }
+    }
+
+    public void UpdatePlayers()
+    {
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("PlayerUI");
+        if (objects.Length != 0)
+        {
+            foreach (var plUI in objects)
+            {
+                Destroy(plUI);
+            }
+        }
+        foreach (var player in TurnManager.players)
+        {
+            SpawnPlayerUIPrefab(player);
+        }
+
+
+
     }
     
     public void Join()
@@ -106,7 +123,10 @@ public class MainMenu : NetworkBehaviour
         if (success)
         {
             LobbyCanvas.enabled = true;
-            SpawnPlayerUIPrefab(Player.localPlayer);
+            //SpawnAll();
+            //SpawnPlayerUIPrefab(Player.localPlayer);
+            TurnManager.players.Add(Player.localPlayer);
+            UpdatePlayers();
             IDText.text = matchID;
             StartGameButton.interactable = false;
         }
@@ -155,24 +175,18 @@ public class MainMenu : NetworkBehaviour
         }
         return ID;
     }
-
     public void SpawnPlayerUIPrefab(Player player)
     {
         GameObject newUIPlayer = Instantiate(UIPlayerPrefab, UIPlayerParent);
         newUIPlayer.GetComponent<PlayerUI>().SetPlayer(player);
     }
-   
-   
+    
     public void StartGame()
     {
         Player.localPlayer.BeginGame();
     }
     public void BeginGame(string matchID)
     {
-        GameObject newTurnManager = Instantiate(TurnManager);
-        NetworkServer.Spawn(newTurnManager);
-        newTurnManager.GetComponent<NetworkMatch>().matchId = matchID.ToGuid();
-        TurnManager turnMananger = newTurnManager.GetComponent<TurnManager>();
         for (int i = 0; i < matches.Count; i++)
         {
             if (matches[i].ID == matchID)
@@ -180,7 +194,6 @@ public class MainMenu : NetworkBehaviour
                 foreach(var player in matches[i].players)
                 {
                     Player player1 = player.GetComponent<Player>();
-                    turnMananger.AddPlayer(player1);
                     player1.StartGame();
                 }
                 break;
@@ -188,6 +201,9 @@ public class MainMenu : NetworkBehaviour
         }
     }
 }
+
+
+
 public static class MatchEctension
 {
     public static Guid ToGuid(this string id)
@@ -198,3 +214,4 @@ public static class MatchEctension
         return new Guid(hasBytes);
     }
 }
+

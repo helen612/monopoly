@@ -4,11 +4,15 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
 
+
 public class Player : NetworkBehaviour
 {
     public static Player localPlayer;
     [SyncVar] public string matchId;
     private NetworkMatch NetworkMatch;
+
+
+
 
     private void Start()
     {
@@ -16,17 +20,16 @@ public class Player : NetworkBehaviour
         if (isLocalPlayer)
         {
             localPlayer = this;
-            //MainMenu.instance.SpawnPlayerUIPrefab(this);
         }
         else
         {
-            MainMenu.instance.SpawnPlayerUIPrefab(this);
+           // MainMenu.instance.SpawnPlayerUIPrefab(this);
         }
     }
 
     public void HostGame()
     {
-
+        
         string id = MainMenu.GetRandomID();
         CmdHostGame(id);
     }
@@ -38,6 +41,7 @@ public class Player : NetworkBehaviour
         {
             Debug.Log("Комната была создана успешно!");
             NetworkMatch.matchId = ID.ToGuid();
+            //MainMenu.instance.SpawnPlayerUIPrefab(this);
             TargetHostGame(true, ID);
         }
         else
@@ -66,6 +70,7 @@ public class Player : NetworkBehaviour
         {
             Debug.Log("Успешное подключение к лобби!");
             NetworkMatch.matchId = ID.ToGuid();
+            //MainMenu.instance.SpawnPlayerUIPrefab(this);
             TargetJoinGame(true, ID);
         }
         else
@@ -108,12 +113,12 @@ public class Player : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (hasAuthority)
-        {
-            Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            float speed = 6f * Time.deltaTime;
-            transform.Translate(new Vector2(input.x * speed, input.y * speed));
+        //if (hasAuthority)
+        //{
+        //    Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        //    float speed = 6f * Time.deltaTime;
+        //    transform.Translate(new Vector2(input.x * speed, input.y * speed));
             
-        }
+        //}
     }
 }

@@ -6,18 +6,14 @@ using UnityEngine;
 
 public class ChangeBGmusic : MonoBehaviour
 {
-    [Header("Components")] 
-    [SerializeField] public AudioClip audioSource;
-    
     [Header("Tags")] 
     [SerializeField] private string MusicTag;
     private void Start()
     {
-        GameObject audS = GameObject.FindWithTag(this.MusicTag);
+        GameObject audS = GameObject.Find("Music");
         if (audS != null)
         {
-            this.audioSource = audS.GetComponent<AudioSource>().clip;
-            this.audioSource = Resources.Load<AudioClip>("Assets/Music and sound/InGame.mpp3");
+            Destroy(audS);
         }
     }
 }
