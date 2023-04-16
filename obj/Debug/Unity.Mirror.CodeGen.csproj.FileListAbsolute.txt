@@ -312,3 +312,5 @@ E:\test\test\obj\Debug\Unity.Mirror.CodeGen.csproj.CoreCompileInputs.cache
 E:\test\test\obj\Debug\Unity.Mirror.CodeGen.csproj.CopyComplete
 E:\test\test\obj\Debug\Unity.Mirror.CodeGen.dll
 E:\test\test\obj\Debug\Unity.Mirror.CodeGen.pdb
+E:\test\test\Temp\Bin\Debug\Unity.Mirror.CodeGen\UnityEditor.WindowsStandalone.Extensions.pdb
+E:\test\test\Temp\Bin\Debug\Unity.Mirror.CodeGen\WinPlayerBuildProgram.Data.pdb

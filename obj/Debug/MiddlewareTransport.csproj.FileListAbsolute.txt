@@ -322,3 +322,5 @@ E:\test\test\obj\Debug\MiddlewareTransport.csproj.CoreCompileInputs.cache
 E:\test\test\obj\Debug\MiddlewareTransport.csproj.CopyComplete
 E:\test\test\obj\Debug\MiddlewareTransport.dll
 E:\test\test\obj\Debug\MiddlewareTransport.pdb
+E:\test\test\Temp\Bin\Debug\MiddlewareTransport\UnityEditor.WindowsStandalone.Extensions.pdb
+E:\test\test\Temp\Bin\Debug\MiddlewareTransport\WinPlayerBuildProgram.Data.pdb

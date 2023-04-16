@@ -322,3 +322,5 @@ E:\test\test\obj\Debug\SimpleWebTransport.csproj.CoreCompileInputs.cache
 E:\test\test\obj\Debug\SimpleWebTransport.csproj.CopyComplete
 E:\test\test\obj\Debug\SimpleWebTransport.dll
 E:\test\test\obj\Debug\SimpleWebTransport.pdb
+E:\test\test\Temp\Bin\Debug\SimpleWebTransport\UnityEditor.WindowsStandalone.Extensions.pdb
+E:\test\test\Temp\Bin\Debug\SimpleWebTransport\WinPlayerBuildProgram.Data.pdb

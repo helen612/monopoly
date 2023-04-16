@@ -36,6 +36,7 @@ ScriptsOnlyBuild:
     - TMPro.TMP_Settings
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
+    - TMPro.TMP_SubMeshUI
     - TMPro.TextMeshProUGUI
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
@@ -234,10 +235,19 @@ ScriptsOnlyBuild:
     methodName: Join
   - assembly: Assembly-CSharp
     fullTypeName: MainMenu
+    methodName: SetName
+  - assembly: Assembly-CSharp
+    fullTypeName: MainMenu
     methodName: StartGame
   - assembly: Assembly-CSharp
     fullTypeName: CopyRoomId
     methodName: onCLick
+  - assembly: Assembly-CSharp
+    fullTypeName: MainMenu
+    methodName: SaveName
+  - assembly: Assembly-CSharp
+    fullTypeName: MainMenu
+    methodName: DisconnectGame
   - assembly: UnityEngine.AudioModule
     fullTypeName: UnityEngine.AudioSource
     methodName: Play
@@ -373,6 +383,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4310}
     - Class: 114
+      Script: {instanceID: 4496}
+    - Class: 114
       Script: {instanceID: 4576}
     - Class: 114
       Script: {instanceID: 5018}
@@ -382,8 +394,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 5362}
     - Class: 114
       Script: {instanceID: 6118}
-    - Class: 114
-      Script: {instanceID: 6124}
     - Class: 114
       Script: {instanceID: 6468}
     - Class: 114
@@ -396,6 +406,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 7546}
     - Class: 114
       Script: {instanceID: 7616}
+    - Class: 114
+      Script: {instanceID: 8022}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -488,8 +500,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4206}
     - Class: 114
-      Script: {instanceID: 4250}
-    - Class: 114
       Script: {instanceID: 4324}
     - Class: 114
       Script: {instanceID: 4576}
@@ -515,8 +525,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 6470}
     - Class: 114
       Script: {instanceID: 6524}
-    - Class: 114
-      Script: {instanceID: 7546}
     - Class: 114
       Script: {instanceID: 7804}
     - Class: 115
@@ -796,7 +804,7 @@ ScriptsOnlyBuild:
     className: TMP_TextSelector_A
   - hash:
       serializedVersion: 2
-      Hash: 953174505ac23508859260a272480724
+      Hash: 66e6d8ddfbe241785c98577d9cc1c881
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MainMenu
@@ -964,7 +972,7 @@ ScriptsOnlyBuild:
     className: Player
   - hash:
       serializedVersion: 2
-      Hash: cb09d64888b41fe3d32129ac5c4d7ad4
+      Hash: f10e810df1148f1a8a3d99b84cf48eef
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -2227,4 +2235,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/mainMenuScene.unity
   - Assets/Scenes/Lobby.unity
   - Assets/Scenes/Game.unity
-  playerPath: E:/test/test/result/Monopoly.exe
+  playerPath: E:/test/test/Server/Monopoly.exe

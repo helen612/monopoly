@@ -322,3 +322,5 @@ E:\test\test\obj\Debug\MultiplexTransport.csproj.CoreCompileInputs.cache
 E:\test\test\obj\Debug\MultiplexTransport.csproj.CopyComplete
 E:\test\test\obj\Debug\MultiplexTransport.dll
 E:\test\test\obj\Debug\MultiplexTransport.pdb
+E:\test\test\Temp\Bin\Debug\MultiplexTransport\UnityEditor.WindowsStandalone.Extensions.pdb
+E:\test\test\Temp\Bin\Debug\MultiplexTransport\WinPlayerBuildProgram.Data.pdb

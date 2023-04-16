@@ -326,3 +326,5 @@ E:\test\test\obj\Debug\Mirror.Examples.csproj.CoreCompileInputs.cache
 E:\test\test\obj\Debug\Mirror.Examples.csproj.CopyComplete
 E:\test\test\obj\Debug\Mirror.Examples.dll
 E:\test\test\obj\Debug\Mirror.Examples.pdb
+E:\test\test\Temp\Bin\Debug\Mirror.Examples\UnityEditor.WindowsStandalone.Extensions.pdb
+E:\test\test\Temp\Bin\Debug\Mirror.Examples\WinPlayerBuildProgram.Data.pdb

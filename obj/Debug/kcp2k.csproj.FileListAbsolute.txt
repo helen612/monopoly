@@ -320,3 +320,5 @@ E:\test\test\obj\Debug\kcp2k.csproj.CoreCompileInputs.cache
 E:\test\test\obj\Debug\kcp2k.csproj.CopyComplete
 E:\test\test\obj\Debug\kcp2k.dll
 E:\test\test\obj\Debug\kcp2k.pdb
+E:\test\test\Temp\Bin\Debug\kcp2k\UnityEditor.WindowsStandalone.Extensions.pdb
+E:\test\test\Temp\Bin\Debug\kcp2k\WinPlayerBuildProgram.Data.pdb

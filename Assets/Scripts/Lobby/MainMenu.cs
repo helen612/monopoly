@@ -16,13 +16,22 @@ using Unity.VisualScripting;
 public class Match : NetworkBehaviour
 {
     public string ID;
+    public bool inMatch;
+    public bool MatchFull;
     public  List<GameObject> players = new List<GameObject>();
 
 
     public Match(string ID, GameObject player)
     {
+        MatchFull = false;
+        inMatch = false;
         this.ID = ID;
         players.Add(player);
+    }
+
+    public Match()
+    {
+        
     }
 }
 
@@ -32,37 +41,87 @@ public class MainMenu : NetworkBehaviour
     public static bool HostMode; 
     public readonly SyncList<Match> matches = new SyncList<Match>();
     public readonly SyncList<string> matchIDs = new SyncList<string>();
-    //public InputField JoinInput;
+    public int MaxPlayers;
+    private NetworkManager _networkManager;
+    
+    [Header("MainMenu")]
     public Button HostButton;
     public Button JoinButton;
     public TMP_InputField RoomID;
-    
-    
-    
-    public Canvas LobbyCanvas;
+    public TMP_InputField NikInput;
 
+
+    [Header("Name")]
+    public Button SetNameButtom;
+    public TMP_InputField NameInput;
+    public int firstTime = 1;
+    [SyncVar] public string DisplayName;
+    
+    [Header("Lobby")]
+    public Canvas LobbyCanvas;
     public Transform UIPlayerParent;
     public GameObject UIPlayerPrefab;
     public TMP_Text IDText;
     public Button StartGameButton;
-    private TurnManager TurnManager;
-    public GameObject turnManager;
+    public GameObject localPlayerLobbyUI;
     public bool inGame;
+
+    private Disconnect dicConnect;
     
     private void Start()
     {
         instance = this;
-        Debug.Log($"Запущена сцена lobby");
+        dicConnect = new Disconnect();
         
-        TurnManager = turnManager.GetComponent<TurnManager>();
+        Debug.Log($"Запущена сцена lobby");
+
+        _networkManager = GameObject.FindObjectOfType<NetworkManager>();
+        firstTime = PlayerPrefs.GetInt("FirstTime", 1);
+        
+        if(!PlayerPrefs.HasKey("Name")) return;
+
+        string defaultName = PlayerPrefs.GetString("Name");
+        NameInput.text = defaultName;
+        DisplayName = defaultName;
+        SetName(defaultName);
     }
 
     private void Update()
     {
-
+        if (inGame)
+        {
+            PlayerPrefs.SetInt("FirstTime", firstTime);
+        }
     }
 
+    public void SaveName()
+    {
+        //HostButton.interactable = false;
+        //JoinButton.interactable = false;
+        //RoomID.interactable = false;
+        //Player.localPlayer.HostGame();
+        firstTime = 0;
+        DisplayName = NameInput.text;
+        PlayerPrefs.SetString("Name", DisplayName);
+        Invoke(nameof(Disconnect), 1f);
+    }
 
+    void Disconnect()
+    {
+        if (_networkManager.mode == NetworkManagerMode.Host)
+        {
+            _networkManager.StopHost();
+        }
+        else if (_networkManager.mode == NetworkManagerMode.ClientOnly)
+        {
+            _networkManager.StopClient();
+        }
+    }
+    
+    public void SetName(string name)
+    {
+        SetNameButtom.interactable = !string.IsNullOrEmpty(name);
+    }
     
     public void Host()
     {
@@ -70,16 +129,23 @@ public class MainMenu : NetworkBehaviour
         HostButton.interactable = false;
         JoinButton.interactable = false;
         RoomID.interactable = false;
+        //Chang
         Player.localPlayer.HostGame();
     }
     public void HostSuccess(bool success, string matchID)
     {
         if (success)
         {
+            SetNameButtom.interactable = false;
+            NikInput.enabled = false;
             LobbyCanvas.enabled = true;
-            //SpawnPlayerUIPrefab(Player.localPlayer);
-            TurnManager.players.Add(Player.localPlayer);
-            UpdatePlayers();
+
+            if (!localPlayerLobbyUI == null)
+            {
+                Destroy(localPlayerLobbyUI);
+            }
+            
+            localPlayerLobbyUI = SpawnPlayerUIPrefab(Player.localPlayer);
             IDText.text = matchID;
         }
         else
@@ -90,25 +156,7 @@ public class MainMenu : NetworkBehaviour
             RoomID.interactable = true;
         }
     }
-
-    public void UpdatePlayers()
-    {
-        GameObject[] objects = GameObject.FindGameObjectsWithTag("PlayerUI");
-        if (objects.Length != 0)
-        {
-            foreach (var plUI in objects)
-            {
-                Destroy(plUI);
-            }
-        }
-        foreach (var player in TurnManager.players)
-        {
-            SpawnPlayerUIPrefab(player);
-        }
-
-
-
-    }
+    
     
     public void Join()
     {
@@ -122,11 +170,14 @@ public class MainMenu : NetworkBehaviour
     {
         if (success)
         {
+            SetNameButtom.interactable = false;
+            NikInput.enabled = false;
             LobbyCanvas.enabled = true;
-            //SpawnAll();
-            //SpawnPlayerUIPrefab(Player.localPlayer);
-            TurnManager.players.Add(Player.localPlayer);
-            UpdatePlayers();
+            if (!localPlayerLobbyUI == null)
+            {
+                Destroy(localPlayerLobbyUI);
+            }
+            localPlayerLobbyUI = SpawnPlayerUIPrefab(Player.localPlayer);
             IDText.text = matchID;
             StartGameButton.interactable = false;
         }
@@ -138,12 +189,29 @@ public class MainMenu : NetworkBehaviour
             JoinButton.interactable = true;
         }
     }
+
+    public void DisconnectGame()
+    {
+        if (localPlayerLobbyUI != null)
+        {
+            Destroy(localPlayerLobbyUI);
+        }
+
+        Player.localPlayer.DisconnectGame();
+        LobbyCanvas.enabled = false;
+        RoomID.interactable = true;
+        HostButton.interactable = true;
+        JoinButton.interactable = true;
+    }
+    
     public bool HostGame(string matchID, GameObject player)
     {
         if (!matchIDs.Contains(matchID))
         {
             matchIDs.Add(matchID);
-            matches.Add(new Match(matchID, player));
+            Match match = new Match(matchID, player);
+            matches.Add(match);
+            player.GetComponent<Player>().CurrentMatch = match;
             return true;
         }
         else return false;
@@ -156,8 +224,19 @@ public class MainMenu : NetworkBehaviour
             {
                 if (matches[i].ID == matchID)
                 {
-                    matches[i].players.Add(player);
-                    break;
+                    if (!matches[i].inMatch && !matches[i].MatchFull)
+                    {
+                        matches[i].players.Add(player);
+                        player.GetComponent<Player>().CurrentMatch = matches[i];
+                        matches[i].players[0].GetComponent<Player>().PlayerCountUpdated(matches[i].players.Count);
+                        if (matches[i].players.Count == MaxPlayers)
+                        {
+                            matches[i].MatchFull = true;
+                        }
+
+                        break;
+                    }
+                    else return false;
                 }
             }
             return true;
@@ -175,10 +254,11 @@ public class MainMenu : NetworkBehaviour
         }
         return ID;
     }
-    public void SpawnPlayerUIPrefab(Player player)
+    public GameObject SpawnPlayerUIPrefab(Player player)
     {
         GameObject newUIPlayer = Instantiate(UIPlayerPrefab, UIPlayerParent);
-        newUIPlayer.GetComponent<PlayerUI>().SetPlayer(player);
+        newUIPlayer.GetComponent<PlayerUI>().SetPlayer(player.PlayerDisplayName);
+        return newUIPlayer;
     }
     
     public void StartGame()
@@ -191,18 +271,45 @@ public class MainMenu : NetworkBehaviour
         {
             if (matches[i].ID == matchID)
             {
+                matches[i].inMatch = true;
                 foreach(var player in matches[i].players)
                 {
-                    Player player1 = player.GetComponent<Player>();
-                    player1.StartGame();
+                    player.GetComponent<Player>().StartGame();
                 }
                 break;
             }
         }
     }
+    
+    public void SetBeginButtonActive(bool active)
+    {
+        StartGameButton.interactable = active;
+    }
+
+    public void PlayerDisconnected(GameObject player, string ID)
+    {
+        for (int i = 0; i < matches.Count; i++)
+        {
+            if (matches[i].ID == ID)
+            {
+                int playerIndex = matches[i].players.IndexOf(player);
+                if (matches[i].players.Count > playerIndex) 
+                    matches[i].players.RemoveAt(playerIndex);
+                if (matches[i].players.Count == 0)
+                {
+                    matches.RemoveAt(i);
+                    matchIDs.Remove(ID);
+                }else
+                {
+                    matches[i].players[0].GetComponent<Player>().PlayerCountUpdated(matches[i].players.Count);
+
+                }
+                break;
+            }
+        }
+    }
+
 }
-
-
 
 public static class MatchEctension
 {

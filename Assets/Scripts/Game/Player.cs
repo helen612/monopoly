@@ -1,32 +1,73 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mime;
 using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
-
+using System;
 
 public class Player : NetworkBehaviour
 {
     public static Player localPlayer;
     [SyncVar] public string matchId;
     private NetworkMatch NetworkMatch;
+    //public TextMesh NameDisplayText;
+    [SyncVar(hook = "DisplayPlayerName")] public string PlayerDisplayName;
 
+    [SyncVar] public Match CurrentMatch;
+    public GameObject PlayerLobbyUI;
+    private Guid netIDGuid;
 
-
+    private void Awake()
+    {
+        NetworkMatch = GetComponent<NetworkMatch>();
+    }
 
     private void Start()
     {
-        NetworkMatch = GetComponent<NetworkMatch>();
         if (isLocalPlayer)
         {
-            localPlayer = this;
-        }
-        else
-        {
-           // MainMenu.instance.SpawnPlayerUIPrefab(this);
+            CmdSendName(MainMenu.instance.DisplayName);
         }
     }
 
+    public override void OnStartServer()
+    {
+        netIDGuid = netId.ToString().ToGuid();
+        NetworkMatch.matchId = netIDGuid;
+    }
+
+    public override void OnStartClient()
+    {
+        if (isLocalPlayer) localPlayer = this;
+        else PlayerLobbyUI = MainMenu.instance.SpawnPlayerUIPrefab(this);
+    }
+
+    public override void OnStopClient()
+    {
+        ClientDiscoonect();
+    }
+    
+
+    public override void OnStopServer()
+    {
+        ServerDisconnect();
+    }
+
+
+    [Command]
+    public void CmdSendName(string name)
+    {
+        PlayerDisplayName = name;
+    }
+
+    public void DisplayPlayerName(string name, string playerName)
+    {
+        name = PlayerDisplayName;
+        Debug.Log("Èìÿ " + name + " : " + playerName);
+        //NameDisplayText.text = playerName;
+    }
+    
     public void HostGame()
     {
         
@@ -58,6 +99,53 @@ public class Player : NetworkBehaviour
         MainMenu.instance.HostSuccess(success, ID);
     }
 
+    public void DisconnectGame()
+    {
+        CmdDisconnectGame();
+    }
+
+    [Command]
+    void CmdDisconnectGame()
+    {
+        ServerDisconnect();
+    }
+
+    void ServerDisconnect()
+    {
+        MainMenu.instance.PlayerDisconnected(gameObject, matchId);
+        RpcDisconnectGame();
+        NetworkMatch.matchId = netIDGuid;
+    }
+
+    [ClientRpc]
+    void RpcDisconnectGame()
+    {
+        ClientDiscoonect();
+    }
+
+    void ClientDiscoonect()
+    {
+        if (PlayerLobbyUI != null)
+        {
+            if (!isServer) Destroy(PlayerLobbyUI);
+            else PlayerLobbyUI.SetActive(false);
+        }
+        
+    }
+
+    [Server]
+    public void PlayerCountUpdated(int playerCount)
+    {
+        TargetPlayerCountUpdated(playerCount);
+    }
+
+    [TargetRpc]
+    void TargetPlayerCountUpdated(int playerCount)
+    {
+        if (playerCount > 1) MainMenu.instance.SetBeginButtonActive(true);
+        else MainMenu.instance.SetBeginButtonActive(false);
+    }
+    
     public void JoinGame(string inputID)
     {
         CmdJoinGame(inputID);

@@ -234,10 +234,19 @@ ScriptsOnlyBuild:
     methodName: Join
   - assembly: Assembly-CSharp
     fullTypeName: MainMenu
+    methodName: SetName
+  - assembly: Assembly-CSharp
+    fullTypeName: MainMenu
     methodName: StartGame
   - assembly: Assembly-CSharp
     fullTypeName: CopyRoomId
     methodName: onCLick
+  - assembly: Assembly-CSharp
+    fullTypeName: MainMenu
+    methodName: SaveName
+  - assembly: Assembly-CSharp
+    fullTypeName: MainMenu
+    methodName: DisconnectGame
   - assembly: UnityEngine.AudioModule
     fullTypeName: UnityEngine.AudioSource
     methodName: Play
@@ -394,6 +403,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 7546}
     - Class: 114
       Script: {instanceID: 7616}
+    - Class: 114
+      Script: {instanceID: 8022}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -790,7 +801,7 @@ ScriptsOnlyBuild:
     className: TMP_TextSelector_A
   - hash:
       serializedVersion: 2
-      Hash: 2155d1ce8765c87abb4aaa3e358d178d
+      Hash: 66e6d8ddfbe241785c98577d9cc1c881
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MainMenu
@@ -958,7 +969,7 @@ ScriptsOnlyBuild:
     className: Player
   - hash:
       serializedVersion: 2
-      Hash: cb09d64888b41fe3d32129ac5c4d7ad4
+      Hash: f10e810df1148f1a8a3d99b84cf48eef
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player

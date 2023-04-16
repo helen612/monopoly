@@ -320,3 +320,5 @@ E:\test\test\obj\Debug\Telepathy.csproj.CoreCompileInputs.cache
 E:\test\test\obj\Debug\Telepathy.csproj.CopyComplete
 E:\test\test\obj\Debug\Telepathy.dll
 E:\test\test\obj\Debug\Telepathy.pdb
+E:\test\test\Temp\Bin\Debug\Telepathy\UnityEditor.WindowsStandalone.Extensions.pdb
+E:\test\test\Temp\Bin\Debug\Telepathy\WinPlayerBuildProgram.Data.pdb

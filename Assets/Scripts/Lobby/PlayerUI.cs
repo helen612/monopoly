@@ -8,13 +8,13 @@ using TMPro;
 public class PlayerUI : MonoBehaviour
 {
     public TMP_Text TMP_Text;
-    private Player Player;
+    //private Player Player;
 
 
-    public void SetPlayer(Player player)
+    public void SetPlayer(string Name)
     {
-        this.Player = player;
-        TMP_Text.text = "Имя";
+        //this.Player = player;
+        TMP_Text.text = Name;
 
     }
 }
