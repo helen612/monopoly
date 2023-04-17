@@ -59,6 +59,7 @@ public class MusicVolume_NEW : MonoBehaviour
         PlayerPrefs.SetFloat(saveProcentVolumeMusic, Mathf.Round(_musicSlider.value * 100));
         _textMusic.SetText(Mathf.Round(_musicSlider.value * 100).ToString() + "%");
         _Mixer.audioMixer.SetFloat("Music", Mathf.Lerp(-60, 0, _musicSlider.value));
+        Message.showNotification("Музыка: "+Mathf.Round(_musicSlider.value * 100).ToString()+ "%");
     }
 
     public void ChangeEffectsVolume()
@@ -66,5 +67,7 @@ public class MusicVolume_NEW : MonoBehaviour
         PlayerPrefs.SetFloat(saveProcentVolumeSounds, Mathf.Round(_effectsSlider.value * 100));
         _textSounds.SetText(Mathf.Round(_effectsSlider.value * 100).ToString() + "%");
         _Mixer.audioMixer.SetFloat("Effects", Mathf.Lerp(-60, 0, _effectsSlider.value));
+        Message.showNotification("Звуковые эффекты: "+Mathf.Round(_effectsSlider.value * 100).ToString()+ "%");
+
     }
 }

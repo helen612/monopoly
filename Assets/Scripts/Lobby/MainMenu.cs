@@ -108,6 +108,7 @@ public class MainMenu : NetworkBehaviour
 
     void Disconnect()
     {
+        /*
         if (_networkManager.mode == NetworkManagerMode.Host)
         {
             _networkManager.StopHost();
@@ -115,6 +116,19 @@ public class MainMenu : NetworkBehaviour
         else if (_networkManager.mode == NetworkManagerMode.ClientOnly)
         {
             _networkManager.StopClient();
+        }
+        */
+        if (NetworkServer.active && NetworkClient.isConnected)
+        {
+            NetworkManager.singleton.StopHost();
+        }
+        else if (NetworkClient.isConnected)
+        {
+            NetworkManager.singleton.StopClient();
+        }
+        else if (NetworkServer.active)
+        {
+            NetworkManager.singleton.StopServer();
         }
     }
     
@@ -137,7 +151,7 @@ public class MainMenu : NetworkBehaviour
         if (success)
         {
             SetNameButtom.interactable = false;
-            NikInput.enabled = false;
+            NikInput.interactable = false;
             LobbyCanvas.enabled = true;
 
             if (!localPlayerLobbyUI == null)
@@ -150,6 +164,7 @@ public class MainMenu : NetworkBehaviour
         }
         else
         {
+            Message.show("Создание команты", "Создание комнаты не удалось!");
             //SceneManager.LoadScene("MainMenu");
             HostButton.interactable = true;
             JoinButton.interactable = true;
@@ -171,7 +186,7 @@ public class MainMenu : NetworkBehaviour
         if (success)
         {
             SetNameButtom.interactable = false;
-            NikInput.enabled = false;
+            NikInput.interactable = false;
             LobbyCanvas.enabled = true;
             if (!localPlayerLobbyUI == null)
             {
@@ -183,7 +198,7 @@ public class MainMenu : NetworkBehaviour
         }
         else
         {
-            //SceneManager.LoadScene("MainMenu");
+            Message.show("Подключение к комнате", "Подключение к комнате не удалось!\nВозможно введен неверный код комнаты!");
             RoomID.interactable = true;
             HostButton.interactable = true;
             JoinButton.interactable = true;
@@ -196,12 +211,18 @@ public class MainMenu : NetworkBehaviour
         {
             Destroy(localPlayerLobbyUI);
         }
+        else Invoke(nameof(Disconnect), 0.01f);
+
 
         Player.localPlayer.DisconnectGame();
         LobbyCanvas.enabled = false;
         RoomID.interactable = true;
         HostButton.interactable = true;
         JoinButton.interactable = true;
+        SetNameButtom.interactable = true;
+        NikInput.interactable = true;
+        Message.showNotification("Вы вышли из комнаты");
+        
     }
     
     public bool HostGame(string matchID, GameObject player)

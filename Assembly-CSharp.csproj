@@ -54,6 +54,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
      <Compile Include="Assets\Scripts\MainMenu\Host.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
+     <Compile Include="Assets\Scripts\MainMenu\Message.cs" />
      <Compile Include="Assets\Scripts\Game\WaitMenu.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
@@ -95,6 +96,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\Prefab" />
+     <Folder Include="Assets\UI\Animation\MainMenu\Messages" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <Folder Include="Assets\TextMesh Pro\Examples &amp; Extras\Sprites" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
@@ -154,6 +156,7 @@
      <Folder Include="Assets\UI\mainMenu\buttons\on" />
      <Folder Include="Assets\UI\Animation\ButtonAnimations\Rules" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+     <Folder Include="Assets\UI\Animation\MainMenu\Notification" />
      <Folder Include="Assets\TextMesh Pro\Shaders" />
      <None Include="Assets\Mirror\Notice.txt" />
      <Folder Include="Assets\TextMesh Pro\Examples &amp; Extras\Resources\Sprite Assets" />

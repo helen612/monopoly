@@ -9,6 +9,8 @@ TagManager:
   - bg_music_created
   - MusicTag
   - PlayerUI
+  - Mistake
+  - PopUp
   layers:
   - Default
   - TransparentFX

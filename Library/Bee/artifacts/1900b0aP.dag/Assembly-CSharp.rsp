@@ -335,6 +335,7 @@
 "Assets/Scripts/MainMenu/ControlMusicVolume.cs"
 "Assets/Scripts/MainMenu/ExitButton.cs"
 "Assets/Scripts/MainMenu/Host.cs"
+"Assets/Scripts/MainMenu/Message.cs"
 "Assets/Scripts/MainMenu/MusicVolume_NEW.cs"
 "Assets/Scripts/MainMenu/PlayMode.cs"
 "Assets/Scripts/Rules/Rules.cs"
