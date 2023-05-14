@@ -13,8 +13,10 @@ ScriptsOnlyBuild:
     - PlayMode
     - Player
     - PlayerUI
+    - Route
     - Rules
     - TurnManager
+    - UIController
     Mirror.Components.dll:
     - Mirror.Discovery.NetworkDiscovery
     - Mirror.Discovery.NetworkDiscoveryHUD
@@ -26,7 +28,6 @@ ScriptsOnlyBuild:
     Mirror.dll:
     - Mirror.NetworkIdentity
     - Mirror.NetworkManager
-    - Mirror.NetworkStartPosition
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.RiderScriptEditorData
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -264,8 +265,20 @@ ScriptsOnlyBuild:
     fullTypeName: MainMenu
     methodName: Host
   - assembly: Assembly-CSharp
+    fullTypeName: UIController
+    methodName: nextPlayer
+  - assembly: Assembly-CSharp
+    fullTypeName: UIController
+    methodName: NextCam
+  - assembly: UnityEngine.AnimationModule
+    fullTypeName: UnityEngine.Animator
+    methodName: SetTrigger
+  - assembly: Assembly-CSharp
     fullTypeName: Disconnect
     methodName: StopGame
+  - assembly: Assembly-CSharp
+    fullTypeName: UIController
+    methodName: DragRoll
   sceneClasses:
     Assets/Scenes/Game.unity:
     - Class: 1
@@ -287,6 +300,8 @@ ScriptsOnlyBuild:
     - Class: 48
       Script: {instanceID: 0}
     - Class: 64
+      Script: {instanceID: 0}
+    - Class: 65
       Script: {instanceID: 0}
     - Class: 74
       Script: {instanceID: 0}
@@ -317,14 +332,24 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2904}
     - Class: 114
-      Script: {instanceID: 6162}
+      Script: {instanceID: 3790}
     - Class: 114
-      Script: {instanceID: 6472}
+      Script: {instanceID: 4650}
     - Class: 114
-      Script: {instanceID: 7740}
+      Script: {instanceID: 5366}
     - Class: 114
-      Script: {instanceID: 8024}
+      Script: {instanceID: 6122}
+    - Class: 114
+      Script: {instanceID: 6474}
+    - Class: 114
+      Script: {instanceID: 7742}
+    - Class: 114
+      Script: {instanceID: 8026}
+    - Class: 114
+      Script: {instanceID: 26440}
     - Class: 115
+      Script: {instanceID: 0}
+    - Class: 134
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -404,27 +429,27 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4578}
     - Class: 114
-      Script: {instanceID: 5020}
+      Script: {instanceID: 5022}
     - Class: 114
-      Script: {instanceID: 5162}
+      Script: {instanceID: 5164}
     - Class: 114
-      Script: {instanceID: 5364}
+      Script: {instanceID: 5366}
     - Class: 114
-      Script: {instanceID: 6120}
-    - Class: 114
-      Script: {instanceID: 6470}
+      Script: {instanceID: 6122}
     - Class: 114
       Script: {instanceID: 6472}
     - Class: 114
-      Script: {instanceID: 6482}
+      Script: {instanceID: 6474}
     - Class: 114
-      Script: {instanceID: 6520}
+      Script: {instanceID: 6484}
     - Class: 114
-      Script: {instanceID: 7548}
+      Script: {instanceID: 6522}
     - Class: 114
-      Script: {instanceID: 7618}
+      Script: {instanceID: 7550}
     - Class: 114
-      Script: {instanceID: 8024}
+      Script: {instanceID: 7620}
+    - Class: 114
+      Script: {instanceID: 8026}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -525,30 +550,32 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4602}
     - Class: 114
-      Script: {instanceID: 5096}
+      Script: {instanceID: 5098}
     - Class: 114
-      Script: {instanceID: 5102}
+      Script: {instanceID: 5104}
     - Class: 114
-      Script: {instanceID: 5278}
+      Script: {instanceID: 5280}
     - Class: 114
-      Script: {instanceID: 5320}
+      Script: {instanceID: 5322}
     - Class: 114
-      Script: {instanceID: 5364}
+      Script: {instanceID: 5366}
     - Class: 114
-      Script: {instanceID: 5802}
+      Script: {instanceID: 5804}
     - Class: 114
-      Script: {instanceID: 6120}
+      Script: {instanceID: 6122}
     - Class: 114
-      Script: {instanceID: 6126}
+      Script: {instanceID: 6128}
     - Class: 114
-      Script: {instanceID: 6472}
+      Script: {instanceID: 6474}
     - Class: 114
-      Script: {instanceID: 6526}
+      Script: {instanceID: 6528}
     - Class: 114
-      Script: {instanceID: 7806}
+      Script: {instanceID: 7808}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
+      Script: {instanceID: 0}
+    - Class: 134
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -991,7 +1018,7 @@ ScriptsOnlyBuild:
     className: Player
   - hash:
       serializedVersion: 2
-      Hash: f10e810df1148f1a8a3d99b84cf48eef
+      Hash: 4009ee4326c59cdab310049c626a7db4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -1325,6 +1352,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
     className: TMPro_InstructionOverlay
+  - hash:
+      serializedVersion: 2
+      Hash: feb11cfe0a11dd449a6e2de488af6461
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: UIController
   - hash:
       serializedVersion: 2
       Hash: 3bf268d04ee1e5ba78927f3698dadf09
@@ -2255,6 +2288,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: 8345b5bb154f10c9e79f7f839e61dc6a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Route
   platform: 19
   scenePathNames:
   - Assets/Scenes/mainMenuScene.unity

@@ -8,11 +8,13 @@ public class Message : MonoBehaviour
 {
     public static void show(string title, string message)
     {
-        GameObject Mistake = GameObject.FindGameObjectWithTag("Mistake");
+        string mode = "";
+        if (Player.localPlayer.InGame) mode = "G";
+        GameObject Mistake = GameObject.FindGameObjectWithTag(mode + "Mistake");
 
         Animator animator = Mistake.GetComponent<Animator>();
-        var TitleText =  GameObject.Find("Mistake/Title");
-        var MessageText = GameObject.Find("Mistake/Message");
+        var TitleText =  GameObject.Find(mode +"Mistake/Title");
+        var MessageText = GameObject.Find(mode + "Mistake/Message");
         TitleText.GetComponent<TMP_Text>().text = title;
         MessageText.GetComponent<TMP_Text>().text = message;
         animator.SetTrigger("showMessage");

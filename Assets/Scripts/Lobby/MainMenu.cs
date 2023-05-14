@@ -288,18 +288,76 @@ public class MainMenu : NetworkBehaviour
     }
     public void BeginGame(string matchID)
     {
+        
         for (int i = 0; i < matches.Count; i++)
         {
             if (matches[i].ID == matchID)
             {
                 matches[i].inMatch = true;
+                List<Color> ColorPlayers = GetRandomColor(matches[i].players.Count);
+                List<Vector3> beginCoord = new List<Vector3>
+                {
+                    new Vector3(-19.3f, 23.0f, 122.0f),
+                    new Vector3(-19.3f, 23.0f, 120.7f),
+                    new Vector3(-18.2f, 23.0f, 122.0f),
+                    new Vector3(-18.2f, 23.0f, 120.7f),
+                    new Vector3(-17.1f, 23.0f, 122.0f),
+                    new Vector3(-17.1f, 23.0f, 120.7f),
+                    new Vector3(-16.0f, 23.0f, 122.0f),
+                    new Vector3(-16.0f, 23.0f, 120.7f)
+                };
                 foreach(var player in matches[i].players)
                 {
+                    
+                    player.GetComponent<Player>().playerColor = ColorPlayers[0];
+                    ColorPlayers.RemoveAt(0);
+                    player.GetComponent<Player>().playerCord = beginCoord[0];
+                    beginCoord.RemoveAt(0);
                     player.GetComponent<Player>().StartGame();
+                    
                 }
                 break;
             }
         }
+    }
+
+    
+    private List<T> Shuffle<T>(List<T> list)
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = UnityEngine.Random.Range(0, n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+
+        return list;
+    }
+    private List<Color> GetRandomColor(int countPlayers)
+    {
+        List<Color> AvailableColors = new List<Color>
+        {
+            Color.red,
+            Color.blue,
+            Color.green,
+            Color.yellow,
+            Color.cyan,
+            Color.magenta,
+            Color.grey,
+            Color.white
+        };
+        // Shuffle the list of available colors and return the first one
+        List<Color> result = new List<Color>();
+        for (int i = 0; i < countPlayers; i++)
+        {
+            AvailableColors = Shuffle(AvailableColors);
+            result.Add(AvailableColors[0]);
+            AvailableColors.RemoveAt(0);
+        }
+        return result;
     }
     
     public void SetBeginButtonActive(bool active)

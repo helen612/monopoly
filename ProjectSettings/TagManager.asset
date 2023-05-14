@@ -11,6 +11,7 @@ TagManager:
   - PlayerUI
   - Mistake
   - PopUp
+  - GMistake
   layers:
   - Default
   - TransparentFX
