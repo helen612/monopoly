@@ -12,6 +12,7 @@ TagManager:
   - Mistake
   - PopUp
   - GMistake
+  - ScoreDice1
   layers:
   - Default
   - TransparentFX

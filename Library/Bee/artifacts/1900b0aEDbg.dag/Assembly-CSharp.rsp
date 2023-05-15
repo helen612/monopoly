@@ -372,6 +372,8 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
 "Assets/Scripts/Game/ChangeBGmusic.cs"
+"Assets/Scripts/Game/DiceRoller.cs"
+"Assets/Scripts/Game/DicesTrigger.cs"
 "Assets/Scripts/Game/Disconnect.cs"
 "Assets/Scripts/Game/Player.cs"
 "Assets/Scripts/Game/Route.cs"

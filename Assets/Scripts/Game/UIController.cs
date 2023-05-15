@@ -80,21 +80,8 @@ public class UIController : MonoBehaviour
 
     public void DragRoll()
     {
-        firstRoll = UnityEngine.Random.Range(1, 6+1);
-        secondRoll = UnityEngine.Random.Range(1, 6+1);
-        Message.show("",firstRoll + " " + secondRoll);
-        Player.localPlayer.startMove(firstRoll+secondRoll);
-        if (firstRoll == secondRoll)
-        {
-            bDragRoll.interactable = true;
-            bNextPlayer.interactable = false;
-        }
-        else
-        {
-            bDragRoll.interactable = false;
-            bNextPlayer.interactable = true;
-        }
-        
+        GameObject.Find("Dice1").GetComponent<DiceRoller>().RollDice(1);
+        GameObject.Find("Dice2").GetComponent<DiceRoller>().RollDice(2);
         
     }
 
