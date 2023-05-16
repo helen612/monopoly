@@ -331,29 +331,37 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1616}
     - Class: 114
-      Script: {instanceID: 2700}
+      Script: {instanceID: 2178}
     - Class: 114
-      Script: {instanceID: 2916}
+      Script: {instanceID: 2702}
     - Class: 114
-      Script: {instanceID: 3802}
+      Script: {instanceID: 2918}
     - Class: 114
-      Script: {instanceID: 4662}
+      Script: {instanceID: 3430}
     - Class: 114
-      Script: {instanceID: 5378}
+      Script: {instanceID: 3804}
     - Class: 114
-      Script: {instanceID: 6134}
+      Script: {instanceID: 4592}
     - Class: 114
-      Script: {instanceID: 6486}
+      Script: {instanceID: 4664}
     - Class: 114
-      Script: {instanceID: 6886}
+      Script: {instanceID: 5380}
     - Class: 114
-      Script: {instanceID: 7518}
+      Script: {instanceID: 6136}
     - Class: 114
-      Script: {instanceID: 7758}
+      Script: {instanceID: 6142}
     - Class: 114
-      Script: {instanceID: 8042}
+      Script: {instanceID: 6488}
     - Class: 114
-      Script: {instanceID: 27216}
+      Script: {instanceID: 6888}
+    - Class: 114
+      Script: {instanceID: 7520}
+    - Class: 114
+      Script: {instanceID: 7760}
+    - Class: 114
+      Script: {instanceID: 7826}
+    - Class: 114
+      Script: {instanceID: 8044}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 134
@@ -418,43 +426,43 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1752}
     - Class: 114
-      Script: {instanceID: 2700}
+      Script: {instanceID: 2702}
     - Class: 114
-      Script: {instanceID: 2804}
+      Script: {instanceID: 2806}
     - Class: 114
-      Script: {instanceID: 2916}
+      Script: {instanceID: 2918}
     - Class: 114
-      Script: {instanceID: 3802}
+      Script: {instanceID: 3804}
     - Class: 114
-      Script: {instanceID: 4086}
+      Script: {instanceID: 4088}
     - Class: 114
-      Script: {instanceID: 4264}
+      Script: {instanceID: 4266}
     - Class: 114
-      Script: {instanceID: 4324}
+      Script: {instanceID: 4326}
     - Class: 114
-      Script: {instanceID: 4590}
+      Script: {instanceID: 4592}
     - Class: 114
-      Script: {instanceID: 5034}
+      Script: {instanceID: 5036}
     - Class: 114
-      Script: {instanceID: 5176}
+      Script: {instanceID: 5178}
     - Class: 114
-      Script: {instanceID: 5378}
+      Script: {instanceID: 5380}
     - Class: 114
-      Script: {instanceID: 6134}
-    - Class: 114
-      Script: {instanceID: 6484}
+      Script: {instanceID: 6136}
     - Class: 114
       Script: {instanceID: 6486}
     - Class: 114
-      Script: {instanceID: 6496}
+      Script: {instanceID: 6488}
     - Class: 114
-      Script: {instanceID: 6534}
+      Script: {instanceID: 6498}
     - Class: 114
-      Script: {instanceID: 7566}
+      Script: {instanceID: 6536}
     - Class: 114
-      Script: {instanceID: 7636}
+      Script: {instanceID: 7568}
     - Class: 114
-      Script: {instanceID: 8042}
+      Script: {instanceID: 7638}
+    - Class: 114
+      Script: {instanceID: 8044}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -529,53 +537,53 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1686}
     - Class: 114
-      Script: {instanceID: 2246}
+      Script: {instanceID: 2248}
     - Class: 114
-      Script: {instanceID: 2700}
+      Script: {instanceID: 2702}
     - Class: 114
-      Script: {instanceID: 2916}
+      Script: {instanceID: 2918}
     - Class: 114
-      Script: {instanceID: 3258}
+      Script: {instanceID: 3260}
     - Class: 114
-      Script: {instanceID: 3266}
+      Script: {instanceID: 3268}
     - Class: 114
-      Script: {instanceID: 3318}
+      Script: {instanceID: 3320}
     - Class: 114
-      Script: {instanceID: 3340}
+      Script: {instanceID: 3342}
     - Class: 114
-      Script: {instanceID: 3428}
+      Script: {instanceID: 3430}
     - Class: 114
-      Script: {instanceID: 3802}
+      Script: {instanceID: 3804}
     - Class: 114
-      Script: {instanceID: 4220}
+      Script: {instanceID: 4222}
     - Class: 114
-      Script: {instanceID: 4338}
+      Script: {instanceID: 4340}
     - Class: 114
-      Script: {instanceID: 4590}
+      Script: {instanceID: 4592}
     - Class: 114
-      Script: {instanceID: 4614}
+      Script: {instanceID: 4616}
     - Class: 114
-      Script: {instanceID: 5110}
+      Script: {instanceID: 5112}
     - Class: 114
-      Script: {instanceID: 5116}
+      Script: {instanceID: 5118}
     - Class: 114
-      Script: {instanceID: 5292}
+      Script: {instanceID: 5294}
     - Class: 114
-      Script: {instanceID: 5334}
+      Script: {instanceID: 5336}
     - Class: 114
-      Script: {instanceID: 5378}
+      Script: {instanceID: 5380}
     - Class: 114
-      Script: {instanceID: 5816}
+      Script: {instanceID: 5818}
     - Class: 114
-      Script: {instanceID: 6134}
+      Script: {instanceID: 6136}
     - Class: 114
-      Script: {instanceID: 6140}
+      Script: {instanceID: 6142}
     - Class: 114
-      Script: {instanceID: 6486}
+      Script: {instanceID: 6488}
     - Class: 114
-      Script: {instanceID: 6540}
+      Script: {instanceID: 6542}
     - Class: 114
-      Script: {instanceID: 7824}
+      Script: {instanceID: 7826}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -745,6 +753,12 @@ ScriptsOnlyBuild:
     assemblyName: Mirror.Examples.dll
     namespaceName: Mirror.Examples.MultipleAdditiveScenes
     className: MultiSceneNetManager
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DicesTrigger
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1905,7 +1919,7 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
-      Hash: 8345b5bb154f10c9e79f7f839e61dc6a
+      Hash: e14cb041d7fa85f421d8d0f8dd785778
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Route
@@ -2305,12 +2319,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: DicesTrigger
   platform: 19
   scenePathNames:
   - Assets/Scenes/mainMenuScene.unity

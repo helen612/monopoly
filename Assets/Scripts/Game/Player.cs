@@ -5,6 +5,7 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
 using System;
+using TMPro;
 
 public class XYZCoord
 {
@@ -51,6 +52,7 @@ public class Player : NetworkBehaviour
     private void Start()
     {
         InGame = false;
+        cash = 1500;
         if (isLocalPlayer)
         {
             
@@ -67,6 +69,7 @@ public class Player : NetworkBehaviour
         // Update the player's material color to match their assigned color
         GetComponent<Renderer>().material.color = newValue;
     }
+    
     
     public override void OnStartServer()
     {
@@ -239,6 +242,7 @@ public class Player : NetworkBehaviour
 
     public void setRoute(Route route)
     {
+        
         this.currentRoute = route;
         
     }
@@ -261,7 +265,11 @@ public class Player : NetworkBehaviour
             routePosition++;
             routePosition %= currentRoute.childNodeList.Count;
 
-            Vector3 nextPos = currentRoute.childNodeList[routePosition].position;
+            Vector3 nextPos = currentRoute.childNodeList[routePosition].getPos();
+            //Vector3 nextPos = currentRoute.childNodeList[routePosition].node.transform.position;
+            Debug.Log(currentRoute.childNodeList[routePosition].node.name);
+            currentRoute.childNodeList[routePosition].countPlayer++;
+            //Vector3 nextPos = currentRoute.childNodeList[routePosition].position;
             while (MoveToNextNode(nextPos))
             {
                 yield return null;
@@ -269,33 +277,29 @@ public class Player : NetworkBehaviour
 
             yield return new WaitForSeconds(0.1f);
             steps--;
+            if (steps != 0)
+            {
+                currentRoute.childNodeList[routePosition].countPlayer--;
+            }
 
         }
 
+        
         isMoving = false;
-
+        
     }
 
     bool MoveToNextNode(Vector3 goal)
     {
         return goal != (transform.position = Vector3.MoveTowards(transform.position, goal, 8f * Time.deltaTime));
     }
-    
-    // Update is called once per frame
-    
-    void Update()
+
+    private void OnTriggerEnter(Collider other)
     {
-        /*
-        if (GetComponent<Transform>().position.y < 0)
+        if (other.CompareTag("Player"))
         {
             
-        }*/
-        //if (hasAuthority)
-        //{
-        //    Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        //    float speed = 6f * Time.deltaTime;
-        //    transform.Translate(new Vector2(input.x * speed, input.y * speed));
-            
-        //}
+        }
+        
     }
 }

@@ -30,8 +30,14 @@ public class UIController : MonoBehaviour
         mainCam.enabled = true;
         selectedCam = 1;
         //GameObject.Find("Route").
+        UpodateCash();
         
         Player.localPlayer.setRoute(route);
+    }
+
+    public void UpodateCash()
+    {
+        cashInfo.text = "Ваш счет: " + Player.localPlayer.cash + " М";
     }
 
     public void NextCam()
@@ -82,7 +88,8 @@ public class UIController : MonoBehaviour
     {
         GameObject.Find("Dice1").GetComponent<DiceRoller>().RollDice(1);
         GameObject.Find("Dice2").GetComponent<DiceRoller>().RollDice(2);
-        
+        Player.localPlayer.cash -= 100;
+        UpodateCash();
     }
 
     public void nextPlayer()
