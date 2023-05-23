@@ -203,7 +203,6 @@ GameObject:
   - component: {fileID: 19491057}
   - component: {fileID: 19491055}
   - component: {fileID: 19491059}
-  - component: {fileID: 19491061}
   - component: {fileID: 19491060}
   m_Layer: 0
   m_Name: NetworkManager
@@ -260,12 +259,13 @@ MonoBehaviour:
   onlineScene: Assets/Scenes/Lobby.unity
   transport: {fileID: 19491055}
   networkAddress: localhost
-  maxConnections: 8
+  maxConnections: 100
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 1557511699472734302, guid: e05a00a48212f1f4ebcc3c1c3c6acc36, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 1
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 7024785329532810434, guid: 87d9dae4dcc745147a5a82441d89d9a9, type: 3}
   timeInterpolationGui: 0
 --- !u!4 &19491058
 Transform:
@@ -301,45 +301,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19491054}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88c37d3deca7a834d80cfd8d3cfcc510, type: 3}
+  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkDiscovery: {fileID: 19491061}
---- !u!114 &19491061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19491054}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c761308e733c51245b2e8bb4201f46dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  secretHandshake: -1991119431542214436
-  serverBroadcastListenPort: 47777
-  enableActiveDiscovery: 1
-  ActiveDiscoveryInterval: 3
-  BroadcastAddress: 
-  transport: {fileID: 0}
-  OnServerFound:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 19491060}
-        m_TargetAssemblyTypeName: Mirror.Discovery.NetworkDiscoveryHUD, Mirror.Components
-        m_MethodName: OnDiscoveredServer
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  offsetX: 0
+  offsetY: 0
 --- !u!1 &26016626
 GameObject:
   m_ObjectHideFlags: 0
@@ -8620,7 +8588,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 959.99994, y: 539.77014}
+  m_AnchoredPosition: {x: 959.9999, y: 539.77014}
   m_SizeDelta: {x: 1920, y: 1079.5403}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1529436635

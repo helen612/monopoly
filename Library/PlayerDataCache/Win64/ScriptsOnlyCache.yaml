@@ -14,14 +14,12 @@ ScriptsOnlyBuild:
     - MusicVolume_NEW
     - PlayMode
     - Player
+    - PlayerManager
     - PlayerUI
     - Route
     - Rules
-    - TurnManager
     - UIController
     Mirror.Components.dll:
-    - Mirror.Discovery.NetworkDiscovery
-    - Mirror.Discovery.NetworkDiscoveryHUD
     - Mirror.MatchInterestManagement
     - Mirror.NetworkMatch
     - Mirror.NetworkTransform
@@ -30,6 +28,7 @@ ScriptsOnlyBuild:
     Mirror.dll:
     - Mirror.NetworkIdentity
     - Mirror.NetworkManager
+    - Mirror.NetworkManagerHUD
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.RiderScriptEditorData
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -69,8 +68,6 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Slider
   serializedClasses:
-    Mirror.Components:
-    - Mirror.Discovery.ServerFoundUnityEvent
     Unity.TextMeshPro:
     - TMPro.FaceInfo_Legacy
     - TMPro.FontAssetCreationSettings
@@ -112,9 +109,6 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Slider/SliderEvent
     - UnityEngine.UI.SpriteState
   methodsToPreserve:
-  - assembly: Mirror.Components
-    fullTypeName: Mirror.Discovery.NetworkDiscoveryHUD
-    methodName: OnDiscoveredServer
   - assembly: Assembly-CSharp
     fullTypeName: Rules
     methodName: onClick
@@ -337,11 +331,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2918}
     - Class: 114
-      Script: {instanceID: 3430}
-    - Class: 114
       Script: {instanceID: 3804}
-    - Class: 114
-      Script: {instanceID: 4592}
     - Class: 114
       Script: {instanceID: 4664}
     - Class: 114
@@ -349,19 +339,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 6136}
     - Class: 114
-      Script: {instanceID: 6142}
-    - Class: 114
       Script: {instanceID: 6488}
     - Class: 114
       Script: {instanceID: 6888}
     - Class: 114
       Script: {instanceID: 7520}
     - Class: 114
-      Script: {instanceID: 7760}
+      Script: {instanceID: 7762}
     - Class: 114
-      Script: {instanceID: 7826}
-    - Class: 114
-      Script: {instanceID: 8044}
+      Script: {instanceID: 8046}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 134
@@ -393,7 +379,13 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 21
       Script: {instanceID: 0}
+    - Class: 23
+      Script: {instanceID: 0}
     - Class: 28
+      Script: {instanceID: 0}
+    - Class: 33
+      Script: {instanceID: 0}
+    - Class: 43
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
@@ -450,6 +442,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 6136}
     - Class: 114
+      Script: {instanceID: 6142}
+    - Class: 114
       Script: {instanceID: 6486}
     - Class: 114
       Script: {instanceID: 6488}
@@ -458,11 +452,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 6536}
     - Class: 114
-      Script: {instanceID: 7568}
+      Script: {instanceID: 7572}
     - Class: 114
-      Script: {instanceID: 7638}
+      Script: {instanceID: 7640}
     - Class: 114
-      Script: {instanceID: 8044}
+      Script: {instanceID: 7828}
+    - Class: 114
+      Script: {instanceID: 8046}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -535,15 +531,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1616}
     - Class: 114
-      Script: {instanceID: 1686}
-    - Class: 114
       Script: {instanceID: 2248}
     - Class: 114
       Script: {instanceID: 2702}
     - Class: 114
       Script: {instanceID: 2918}
-    - Class: 114
-      Script: {instanceID: 3260}
     - Class: 114
       Script: {instanceID: 3268}
     - Class: 114
@@ -562,6 +554,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 4592}
     - Class: 114
       Script: {instanceID: 4616}
+    - Class: 114
+      Script: {instanceID: 4716}
     - Class: 114
       Script: {instanceID: 5112}
     - Class: 114
@@ -583,7 +577,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 6542}
     - Class: 114
-      Script: {instanceID: 7826}
+      Script: {instanceID: 7572}
+    - Class: 114
+      Script: {instanceID: 7828}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -869,7 +865,7 @@ ScriptsOnlyBuild:
     className: TMP_TextSelector_A
   - hash:
       serializedVersion: 2
-      Hash: 66e6d8ddfbe241785c98577d9cc1c881
+      Hash: 8743043d80065a4f861554c0b13556f8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MainMenu
@@ -1037,7 +1033,7 @@ ScriptsOnlyBuild:
     className: Player
   - hash:
       serializedVersion: 2
-      Hash: 4009ee4326c59cdab310049c626a7db4
+      Hash: 5abff38e3554d98270159e961e0178b4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -1373,7 +1369,7 @@ ScriptsOnlyBuild:
     className: TMPro_InstructionOverlay
   - hash:
       serializedVersion: 2
-      Hash: feb11cfe0a11dd449a6e2de488af6461
+      Hash: 2ef935e3508746c001b7de4b6ab2cc02
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIController
@@ -1919,7 +1915,7 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
-      Hash: e14cb041d7fa85f421d8d0f8dd785778
+      Hash: 8345b5bb154f10c9e79f7f839e61dc6a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Route
@@ -2103,6 +2099,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TurnManager
+  - hash:
+      serializedVersion: 2
+      Hash: feedb3f26e26cc8212a7fe88effe3399
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerManager
   - hash:
       serializedVersion: 2
       Hash: 2676719139dd6ac2d128edf62579431a

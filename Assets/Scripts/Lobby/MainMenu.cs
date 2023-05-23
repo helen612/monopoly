@@ -18,9 +18,10 @@ public class Match : NetworkBehaviour
     public string ID;
     public bool inMatch;
     public bool MatchFull;
-    public  List<GameObject> players = new List<GameObject>();
-
-
+    public List<GameObject> players = new List<GameObject>();
+    public PlayerManager PM;
+    
+    
     public Match(string ID, GameObject player)
     {
         MatchFull = false;
@@ -42,6 +43,8 @@ public class MainMenu : NetworkBehaviour
     public readonly SyncList<Match> matches = new SyncList<Match>();
     public readonly SyncList<string> matchIDs = new SyncList<string>();
     public int MaxPlayers;
+
+    public GameObject _playerManager;
     private NetworkManager _networkManager;
     
     [Header("MainMenu")]
@@ -254,7 +257,7 @@ public class MainMenu : NetworkBehaviour
                         {
                             matches[i].MatchFull = true;
                         }
-
+                        
                         break;
                     }
                     else return false;
@@ -288,6 +291,10 @@ public class MainMenu : NetworkBehaviour
     }
     public void BeginGame(string matchID)
     {
+        GameObject obj = Instantiate(_playerManager);
+        NetworkServer.Spawn(obj);
+        obj.GetComponent<NetworkMatch>().matchId = matchID.ToGuid();
+        PlayerManager newPM = obj.GetComponent<PlayerManager>();
         
         for (int i = 0; i < matches.Count; i++)
         {
@@ -306,22 +313,73 @@ public class MainMenu : NetworkBehaviour
                     new Vector3(-16.0f, 23.0f, 122.0f),
                     new Vector3(-16.0f, 23.0f, 120.7f)
                 };
-                foreach(var player in matches[i].players)
+                
+                
+                foreach (var player in matches[i].players)
                 {
+                    var _player = player.GetComponent<Player>();
+                    _player.CurrentMatch = matches[i];
                     
-                    player.GetComponent<Player>().playerColor = ColorPlayers[0];
+                    _player.playerColor = ColorPlayers[0];
                     ColorPlayers.RemoveAt(0);
-                    player.GetComponent<Player>().playerCord = beginCoord[0];
+                    _player.playerCord = beginCoord[0];
                     beginCoord.RemoveAt(0);
-                    player.GetComponent<Player>().StartGame();
                     
+                    _player.playerManager = newPM;
+                    player.GetComponent<Player>().StartGame();
+
                 }
+
                 break;
             }
         }
     }
 
-    
+    public void SetStartV(string matchID)
+    {
+        for (int i = 0; i < matches.Count; i++)
+        {
+            if (matches[i].ID == matchID)
+            {
+                var pwm = new List<Player>();
+                foreach (var p in matches[i].players)
+                {
+                    
+                    pwm.Add(p.GetComponent<Player>());
+                }
+                
+                matches[i].players[0].GetComponent<Player>().MyMove = true;
+                for (int ip  = 0; ip < matches[i].players.Count; ip++)
+                {
+                    matches[i].players[0].GetComponent<Player>().PlayersWithMe = pwm;
+                    matches[i].players[ip].GetComponent<Player>().TargetStartPM(pwm);
+                    //matches[i].players[ip].GetComponent<Player>().updatePm();
+                }
+                
+            }
+        }
+    }
+
+    public List<Player> getMatchPlayers(string matchID)
+    {
+        for (int i = 0; i < matches.Count; i++)
+        {
+            if (matches[i].ID == matchID)
+            {
+                var res = new List<Player>();
+                foreach(var player in matches[i].players)
+                {
+                    res.Add(player.GetComponent<Player>());
+                }
+
+                return res;
+                //return new MyMatch(matches[i].players);
+            }
+        }
+
+        return null;
+    }
+
     private List<T> Shuffle<T>(List<T> list)
     {
         int n = list.Count;

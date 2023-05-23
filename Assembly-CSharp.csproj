@@ -89,6 +89,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
      <Compile Include="Assets\Scripts\Game\DiceRoller.cs" />
      <Compile Include="Assets\Scripts\Lobby\TurnManager.cs" />
+     <Compile Include="Assets\Scripts\Game\PlayerManager.cs" />
      <Compile Include="Assets\Scripts\LoadScreen\LoadScreen.cs" />
      <Compile Include="Assets\Scripts\Game\ChangeBGmusic.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />

@@ -13,6 +13,7 @@ TagManager:
   - PopUp
   - GMistake
   - ScoreDice1
+  - PlayerManager
   layers:
   - Default
   - TransparentFX

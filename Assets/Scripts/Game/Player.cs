@@ -6,24 +6,36 @@ using Mirror;
 using UnityEngine.SceneManagement;
 using System;
 using TMPro;
+using Unity.VisualScripting;
 
-public class XYZCoord
+
+[System.Serializable]
+public class MyMatch : NetworkBehaviour
 {
-    public float x;
-    public float y;
-    public float z;
+    public int qqPlayer;
+    public List<Player> players = new List<Player>();
+    public Route currentRoute;
 
-    public XYZCoord(float _x, float _y, float _z)
+
+    public MyMatch(List<Player> players)
     {
-        x = _x;
-        y = _y;
-        z = _z;
+        this.players = players;
+        currentRoute = null;
+        qqPlayer = 0;
+    }
+
+    public MyMatch()
+    {
+        qqPlayer = 0;
+        this.players = null;
+        currentRoute = null;
     }
 }
 public class Player : NetworkBehaviour
 {
     public static Player localPlayer;
     [SyncVar] public string matchId;
+
     private NetworkMatch NetworkMatch;
     //public TextMesh NameDisplayText;
     [SyncVar(hook = "DisplayPlayerName")] public string PlayerDisplayName;
@@ -31,19 +43,33 @@ public class Player : NetworkBehaviour
     [SyncVar(hook = nameof(OnColorChanged))] public Color playerColor;
     [SyncVar(hook = nameof(OnPositionChanged))] public Vector3 playerCord;
     
-    [SyncVar] public Match CurrentMatch;
+    public Match CurrentMatch;
+  
+    //[SyncVar (hook = nameof(OnMCChanged))]
+    //[SyncObject] 
+    public MyMatch MatchControl;
+
+    public List<Player> PlayersWithMe;
+    public PlayerManager playerManager;
     public GameObject PlayerLobbyUI;
     private Guid netIDGuid;
 
     public bool InGame;
     public int cash;
 
-    private Route currentRoute;
-    private int routePosition;
+    public Route currentRoute;
+    private int routePosition; 
     private int steps;
     private bool isMoving;
-    
-    
+
+    [SyncVar(hook = nameof(ChangeMyMove))] public bool MyMove;
+    public int DoubleCount;
+
+    private void Update()
+    {
+        
+    }
+
     private void Awake()
     {
         NetworkMatch = GetComponent<NetworkMatch>();
@@ -53,6 +79,9 @@ public class Player : NetworkBehaviour
     {
         InGame = false;
         cash = 1500;
+        MatchControl = new MyMatch();
+        MyMove = false;
+        DoubleCount = 0;
         if (isLocalPlayer)
         {
             
@@ -69,14 +98,27 @@ public class Player : NetworkBehaviour
         // Update the player's material color to match their assigned color
         GetComponent<Renderer>().material.color = newValue;
     }
-    
-    
+
+    private void OnMCChanged(MyMatch oldValue, MyMatch newValue)
+    {
+        MatchControl = newValue;
+    }
     public override void OnStartServer()
     {
         netIDGuid = netId.ToString().ToGuid();
         NetworkMatch.matchId = netIDGuid;
     }
 
+    public void ChangeMyMove(bool oldValue, bool newValue)
+    {
+        MyMove = newValue;
+        if (UIController.instance != null)
+        {
+            UIController.instance.updateUI();
+        }
+    }
+
+    
     public override void OnStartClient()
     {
         if (isLocalPlayer) localPlayer = this;
@@ -222,8 +264,41 @@ public class Player : NetworkBehaviour
     [Command]
     public void CmdBeginGame()
     {
-        MainMenu.instance.BeginGame(matchId);
         Debug.Log("Игра началась!");
+        MainMenu.instance.BeginGame(matchId);
+        
+    }
+
+    public void setPM()
+    {
+        CmdSetPM();
+    }
+
+    [Command]
+    public void CmdSetPM()
+    {
+        Debug.Log("Установка PlayerManager");
+        MainMenu.instance.SetStartV(matchId);
+    }
+
+    [TargetRpc]
+    public void TargetStartPM(List<Player> pwm)
+    {
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().UpdatePlayers(pwm);
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().FillNodes();
+        Debug.Log("StartPM");
+    }
+
+    public void updatePm()
+    {
+        TargetUpdatePM();
+    }
+    
+    [TargetRpc]
+    public void TargetUpdatePM()
+    {
+        Debug.Log("Мой PlayerManager обновлен");
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().updateMe(playerManager);
     }
 
     public void StartGame()
@@ -235,11 +310,15 @@ public class Player : NetworkBehaviour
     void TargetBeginGame()
     {
         Debug.Log($"ID {matchId} | Начало");
-        DontDestroyOnLoad(gameObject);
+        var players = FindObjectsOfType<Player>();
+        for (int i = 0; i < players.Length; i++)
+        {
+            DontDestroyOnLoad(players[i]);
+        }
         MainMenu.instance.inGame = true;
         SceneManager.LoadScene("Game", LoadSceneMode.Additive);
     }
-
+    
     public void setRoute(Route route)
     {
         
@@ -259,16 +338,20 @@ public class Player : NetworkBehaviour
             yield break;
         }
         isMoving = true;
-
+        var pm = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>();
         while (steps > 0)
         {
+
+            pm.moves[routePosition].countPlayer--;
+            //currentRoute.childNodeList[routePosition].countPlayer--;
+
             routePosition++;
             routePosition %= currentRoute.childNodeList.Count;
 
-            Vector3 nextPos = currentRoute.childNodeList[routePosition].getPos();
+            Vector3 nextPos = currentRoute.childNodeList[routePosition].position + pm.moves[routePosition].getPos();
             //Vector3 nextPos = currentRoute.childNodeList[routePosition].node.transform.position;
-            Debug.Log(currentRoute.childNodeList[routePosition].node.name);
-            currentRoute.childNodeList[routePosition].countPlayer++;
+            Debug.Log(currentRoute.childNodeList[routePosition].name);
+            pm.moves[routePosition].countPlayer++;
             //Vector3 nextPos = currentRoute.childNodeList[routePosition].position;
             while (MoveToNextNode(nextPos))
             {
@@ -277,23 +360,19 @@ public class Player : NetworkBehaviour
 
             yield return new WaitForSeconds(0.1f);
             steps--;
-            if (steps != 0)
-            {
-                currentRoute.childNodeList[routePosition].countPlayer--;
-            }
 
         }
 
-        
+
         isMoving = false;
         
+
     }
 
     bool MoveToNextNode(Vector3 goal)
     {
         return goal != (transform.position = Vector3.MoveTowards(transform.position, goal, 8f * Time.deltaTime));
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

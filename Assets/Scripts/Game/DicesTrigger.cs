@@ -12,6 +12,7 @@ public class DicesTrigger : MonoBehaviour
     {
         dices = 0;
         prev = 0;
+        
     }
 
     private void OnTriggerStay(Collider other)
@@ -37,7 +38,9 @@ public class DicesTrigger : MonoBehaviour
                 }
                 default:
                 {
-                    Debug.Log(other.transform.parent.gameObject.name);
+                    prev = 0;
+                    dices = 0;
+                    Debug.Log("Один из кубиков упал на ребро");
                     break;
                 }
             }
@@ -51,6 +54,27 @@ public class DicesTrigger : MonoBehaviour
                 int thisvalue = 0;
                 int.TryParse(other.name, out thisvalue);
                 Player.localPlayer.startMove(thisvalue + prev);
+
+                if (prev == thisvalue)
+                {
+                    Player.localPlayer.DoubleCount++;
+                    UIController.instance.bNextPlayer.interactable = false;
+                    UIController.instance.bDragRoll.interactable = true;
+                    if (Player.localPlayer.DoubleCount == 3)
+                    {
+                        Debug.Log("Иди в тюрьму");
+                        Player.localPlayer.DoubleCount = 0;
+                        UIController.instance.bNextPlayer.interactable = true;
+                        UIController.instance.bDragRoll.interactable = false;
+                    }
+                }
+                else
+                {
+                    Player.localPlayer.DoubleCount = 0;
+                }
+                
+                
+                
                 prev = 0;
                 dices = 0;
             }

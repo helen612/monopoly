@@ -376,6 +376,7 @@
 "Assets/Scripts/Game/DicesTrigger.cs"
 "Assets/Scripts/Game/Disconnect.cs"
 "Assets/Scripts/Game/Player.cs"
+"Assets/Scripts/Game/PlayerManager.cs"
 "Assets/Scripts/Game/Route.cs"
 "Assets/Scripts/Game/UIController.cs"
 "Assets/Scripts/Game/WaitMenu.cs"

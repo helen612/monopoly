@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 6471546344037388764}
   - component: {fileID: 3136929039826391339}
   - component: {fileID: -2286959427003982708}
-  - component: {fileID: 6181933511186593597}
   - component: {fileID: 3889136959321719451}
+  - component: {fileID: 6181933511186593597}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Player
@@ -142,7 +142,7 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  onlySyncOnChange: 1
+  onlySyncOnChange: 0
   bufferResetMultiplier: 5
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
@@ -163,21 +163,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6181933511186593597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1557511699472734302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d17e718851449a6879986e45c458fb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
 --- !u!114 &3889136959321719451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,6 +183,26 @@ MonoBehaviour:
   playerColor: {r: 0, g: 0, b: 0, a: 0}
   playerCord: {x: 0, y: 0, z: 0}
   CurrentMatch: {fileID: 0}
+  MatchControl: {fileID: 0}
+  _playerManager: {fileID: 7024785329532810434, guid: 87d9dae4dcc745147a5a82441d89d9a9, type: 3}
   PlayerLobbyUI: {fileID: 0}
   InGame: 0
   cash: 0
+  currentRoute: {fileID: 0}
+  MyMove: 0
+  DoubleCount: 0
+--- !u!114 &6181933511186593597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557511699472734302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d17e718851449a6879986e45c458fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1

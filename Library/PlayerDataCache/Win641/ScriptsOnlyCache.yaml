@@ -5,15 +5,21 @@ ScriptsOnlyBuild:
     - CanvasOn
     - ChangeBGmusic
     - CopyRoomId
+    - DiceRoller
+    - DicesTrigger
     - Disconnect
     - ExitButton
     - MainMenu
+    - Message
     - MusicVolume_NEW
     - PlayMode
     - Player
+    - PlayerManager
     - PlayerUI
+    - Route
     - Rules
     - TurnManager
+    - UIController
     Mirror.Components.dll:
     - Mirror.Discovery.NetworkDiscovery
     - Mirror.Discovery.NetworkDiscoveryHUD
@@ -25,7 +31,6 @@ ScriptsOnlyBuild:
     Mirror.dll:
     - Mirror.NetworkIdentity
     - Mirror.NetworkManager
-    - Mirror.NetworkStartPosition
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.RiderScriptEditorData
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -36,7 +41,6 @@ ScriptsOnlyBuild:
     - TMPro.TMP_Settings
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
-    - TMPro.TMP_SubMeshUI
     - TMPro.TextMeshProUGUI
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
@@ -161,45 +165,48 @@ ScriptsOnlyBuild:
   - assembly: UnityEngine.AudioModule
     fullTypeName: UnityEngine.AudioSource
     methodName: Play
-  - assembly: UnityEngine.AnimationModule
-    fullTypeName: UnityEngine.Animator
-    methodName: SetTrigger
-  - assembly: UnityEngine.AnimationModule
-    fullTypeName: UnityEngine.Animator
-    methodName: SetTrigger
-  - assembly: UnityEngine.AudioModule
-    fullTypeName: UnityEngine.AudioSource
-    methodName: Play
-  - assembly: UnityEngine.AudioModule
-    fullTypeName: UnityEngine.AudioSource
-    methodName: Play
-  - assembly: UnityEngine.AnimationModule
-    fullTypeName: UnityEngine.Animator
-    methodName: SetTrigger
   - assembly: Assembly-CSharp
-    fullTypeName: Rules
-    methodName: onClick
-  - assembly: Assembly-CSharp
-    fullTypeName: Rules
-    methodName: onClick
-  - assembly: Assembly-CSharp
-    fullTypeName: Rules
-    methodName: onClick
-  - assembly: Assembly-CSharp
-    fullTypeName: Rules
-    methodName: onClick
-  - assembly: Assembly-CSharp
-    fullTypeName: Rules
-    methodName: onClick
-  - assembly: Assembly-CSharp
-    fullTypeName: Rules
-    methodName: onClick
+    fullTypeName: PlayMode
+    methodName: StartSinglePlay
   - assembly: UnityEngine.AnimationModule
     fullTypeName: UnityEngine.Animator
     methodName: SetTrigger
   - assembly: UnityEngine.AudioModule
     fullTypeName: UnityEngine.AudioSource
     methodName: Play
+  - assembly: UnityEngine.AudioModule
+    fullTypeName: UnityEngine.AudioSource
+    methodName: Play
+  - assembly: UnityEngine.AnimationModule
+    fullTypeName: UnityEngine.Animator
+    methodName: SetTrigger
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
+  - assembly: UnityEngine.AnimationModule
+    fullTypeName: UnityEngine.Animator
+    methodName: SetTrigger
+  - assembly: UnityEngine.AudioModule
+    fullTypeName: UnityEngine.AudioSource
+    methodName: Play
+  - assembly: Assembly-CSharp
+    fullTypeName: Rules
+    methodName: onClick
   - assembly: Assembly-CSharp
     fullTypeName: Rules
     methodName: onClick
@@ -236,6 +243,9 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: MainMenu
     methodName: SetName
+  - assembly: UnityEngine.AnimationModule
+    fullTypeName: UnityEngine.Animator
+    methodName: SetTrigger
   - assembly: Assembly-CSharp
     fullTypeName: MainMenu
     methodName: StartGame
@@ -255,8 +265,20 @@ ScriptsOnlyBuild:
     fullTypeName: MainMenu
     methodName: Host
   - assembly: Assembly-CSharp
+    fullTypeName: UIController
+    methodName: nextPlayer
+  - assembly: Assembly-CSharp
+    fullTypeName: UIController
+    methodName: NextCam
+  - assembly: UnityEngine.AnimationModule
+    fullTypeName: UnityEngine.Animator
+    methodName: SetTrigger
+  - assembly: Assembly-CSharp
     fullTypeName: Disconnect
     methodName: StopGame
+  - assembly: Assembly-CSharp
+    fullTypeName: UIController
+    methodName: DragRoll
   sceneClasses:
     Assets/Scenes/Game.unity:
     - Class: 1
@@ -277,7 +299,11 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
     - Class: 64
+      Script: {instanceID: 0}
+    - Class: 65
       Script: {instanceID: 0}
     - Class: 74
       Script: {instanceID: 0}
@@ -298,24 +324,42 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1554}
+      Script: {instanceID: 1566}
     - Class: 114
-      Script: {instanceID: 1556}
+      Script: {instanceID: 1568}
     - Class: 114
-      Script: {instanceID: 1604}
+      Script: {instanceID: 1616}
     - Class: 114
-      Script: {instanceID: 2688}
+      Script: {instanceID: 2178}
     - Class: 114
-      Script: {instanceID: 2904}
+      Script: {instanceID: 2702}
     - Class: 114
-      Script: {instanceID: 6160}
+      Script: {instanceID: 2918}
     - Class: 114
-      Script: {instanceID: 6470}
+      Script: {instanceID: 3804}
     - Class: 114
-      Script: {instanceID: 7738}
+      Script: {instanceID: 4592}
     - Class: 114
-      Script: {instanceID: 8022}
+      Script: {instanceID: 4664}
+    - Class: 114
+      Script: {instanceID: 5380}
+    - Class: 114
+      Script: {instanceID: 6136}
+    - Class: 114
+      Script: {instanceID: 6488}
+    - Class: 114
+      Script: {instanceID: 6888}
+    - Class: 114
+      Script: {instanceID: 7520}
+    - Class: 114
+      Script: {instanceID: 7572}
+    - Class: 114
+      Script: {instanceID: 7762}
+    - Class: 114
+      Script: {instanceID: 8046}
     - Class: 115
+      Script: {instanceID: 0}
+    - Class: 134
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -348,6 +392,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 82
@@ -356,58 +402,62 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 89
       Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1552}
+      Script: {instanceID: 1564}
     - Class: 114
-      Script: {instanceID: 1554}
+      Script: {instanceID: 1566}
     - Class: 114
-      Script: {instanceID: 1556}
+      Script: {instanceID: 1568}
     - Class: 114
-      Script: {instanceID: 1604}
+      Script: {instanceID: 1616}
     - Class: 114
-      Script: {instanceID: 1740}
+      Script: {instanceID: 1752}
     - Class: 114
-      Script: {instanceID: 2688}
+      Script: {instanceID: 2702}
     - Class: 114
-      Script: {instanceID: 2792}
+      Script: {instanceID: 2806}
     - Class: 114
-      Script: {instanceID: 2904}
+      Script: {instanceID: 2918}
     - Class: 114
-      Script: {instanceID: 4072}
+      Script: {instanceID: 3804}
     - Class: 114
-      Script: {instanceID: 4250}
+      Script: {instanceID: 4088}
     - Class: 114
-      Script: {instanceID: 4310}
+      Script: {instanceID: 4266}
     - Class: 114
-      Script: {instanceID: 4496}
+      Script: {instanceID: 4326}
     - Class: 114
-      Script: {instanceID: 4576}
+      Script: {instanceID: 4592}
     - Class: 114
-      Script: {instanceID: 5018}
+      Script: {instanceID: 5036}
     - Class: 114
-      Script: {instanceID: 5160}
+      Script: {instanceID: 5178}
     - Class: 114
-      Script: {instanceID: 5362}
+      Script: {instanceID: 5380}
     - Class: 114
-      Script: {instanceID: 6118}
+      Script: {instanceID: 6136}
     - Class: 114
-      Script: {instanceID: 6468}
+      Script: {instanceID: 6486}
     - Class: 114
-      Script: {instanceID: 6470}
+      Script: {instanceID: 6488}
     - Class: 114
-      Script: {instanceID: 6480}
+      Script: {instanceID: 6498}
     - Class: 114
-      Script: {instanceID: 6518}
+      Script: {instanceID: 6536}
     - Class: 114
-      Script: {instanceID: 7546}
+      Script: {instanceID: 7568}
     - Class: 114
-      Script: {instanceID: 7616}
+      Script: {instanceID: 7640}
     - Class: 114
-      Script: {instanceID: 8022}
+      Script: {instanceID: 8046}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -474,62 +524,66 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1554}
+      Script: {instanceID: 1566}
     - Class: 114
-      Script: {instanceID: 1556}
+      Script: {instanceID: 1568}
     - Class: 114
-      Script: {instanceID: 1604}
+      Script: {instanceID: 1616}
     - Class: 114
-      Script: {instanceID: 1674}
+      Script: {instanceID: 1686}
     - Class: 114
-      Script: {instanceID: 2234}
+      Script: {instanceID: 2248}
     - Class: 114
-      Script: {instanceID: 2688}
+      Script: {instanceID: 2702}
     - Class: 114
-      Script: {instanceID: 2904}
+      Script: {instanceID: 2918}
     - Class: 114
-      Script: {instanceID: 3246}
+      Script: {instanceID: 3260}
     - Class: 114
-      Script: {instanceID: 3254}
+      Script: {instanceID: 3268}
     - Class: 114
-      Script: {instanceID: 3306}
+      Script: {instanceID: 3320}
     - Class: 114
-      Script: {instanceID: 3328}
+      Script: {instanceID: 3342}
     - Class: 114
-      Script: {instanceID: 3416}
+      Script: {instanceID: 3430}
     - Class: 114
-      Script: {instanceID: 4206}
+      Script: {instanceID: 3804}
     - Class: 114
-      Script: {instanceID: 4324}
+      Script: {instanceID: 4222}
     - Class: 114
-      Script: {instanceID: 4576}
+      Script: {instanceID: 4340}
     - Class: 114
-      Script: {instanceID: 4600}
+      Script: {instanceID: 4592}
     - Class: 114
-      Script: {instanceID: 5094}
+      Script: {instanceID: 4616}
     - Class: 114
-      Script: {instanceID: 5100}
+      Script: {instanceID: 5112}
     - Class: 114
-      Script: {instanceID: 5276}
+      Script: {instanceID: 5118}
     - Class: 114
-      Script: {instanceID: 5318}
+      Script: {instanceID: 5294}
     - Class: 114
-      Script: {instanceID: 5362}
+      Script: {instanceID: 5336}
     - Class: 114
-      Script: {instanceID: 5800}
+      Script: {instanceID: 5380}
     - Class: 114
-      Script: {instanceID: 6118}
+      Script: {instanceID: 5818}
     - Class: 114
-      Script: {instanceID: 6124}
+      Script: {instanceID: 6136}
     - Class: 114
-      Script: {instanceID: 6470}
+      Script: {instanceID: 6142}
     - Class: 114
-      Script: {instanceID: 6524}
+      Script: {instanceID: 6488}
     - Class: 114
-      Script: {instanceID: 7804}
+      Script: {instanceID: 6542}
+    - Class: 114
+      Script: {instanceID: 7828}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
+      Script: {instanceID: 0}
+    - Class: 134
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -694,6 +748,12 @@ ScriptsOnlyBuild:
     assemblyName: Mirror.Examples.dll
     namespaceName: Mirror.Examples.MultipleAdditiveScenes
     className: MultiSceneNetManager
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DicesTrigger
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -972,7 +1032,7 @@ ScriptsOnlyBuild:
     className: Player
   - hash:
       serializedVersion: 2
-      Hash: f10e810df1148f1a8a3d99b84cf48eef
+      Hash: f18074f98faa8721eb4150330e0df866
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -1066,6 +1126,12 @@ ScriptsOnlyBuild:
     assemblyName: Mirror.Components.dll
     namespaceName: Mirror
     className: SceneInterestManagement
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Message
   - hash:
       serializedVersion: 2
       Hash: 5085c149ae898c11398927898b806b9c
@@ -1300,6 +1366,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
     className: TMPro_InstructionOverlay
+  - hash:
+      serializedVersion: 2
+      Hash: feb11cfe0a11dd449a6e2de488af6461
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: UIController
   - hash:
       serializedVersion: 2
       Hash: 3bf268d04ee1e5ba78927f3698dadf09
@@ -1842,6 +1914,12 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
+      Hash: 8345b5bb154f10c9e79f7f839e61dc6a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Route
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
@@ -2010,10 +2088,22 @@ ScriptsOnlyBuild:
     className: NetworkTransformReliable
   - hash:
       serializedVersion: 2
+      Hash: 58c27f74339c7223f2eab5242f9856d9
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DiceRoller
+  - hash:
+      serializedVersion: 2
       Hash: 5085c149ae898c11398927898b806b9c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TurnManager
+  - hash:
+      serializedVersion: 2
+      Hash: 3749a17cd23f8aabe074f8561acbc730
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerManager
   - hash:
       serializedVersion: 2
       Hash: 2676719139dd6ac2d128edf62579431a
