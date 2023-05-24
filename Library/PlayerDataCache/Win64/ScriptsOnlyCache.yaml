@@ -43,10 +43,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -1033,7 +1031,7 @@ ScriptsOnlyBuild:
     className: Player
   - hash:
       serializedVersion: 2
-      Hash: 5abff38e3554d98270159e961e0178b4
+      Hash: 832b5418db3dad84218f2e5a5739e95e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -2101,7 +2099,7 @@ ScriptsOnlyBuild:
     className: TurnManager
   - hash:
       serializedVersion: 2
-      Hash: feedb3f26e26cc8212a7fe88effe3399
+      Hash: 8ae4324406fa838d4cb202dc23f0daed
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerManager

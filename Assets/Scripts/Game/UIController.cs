@@ -64,8 +64,6 @@ public class UIController : MonoBehaviour
 
     public void NextCam()
     {
-        
-        //PlayerManager.instance.StartGame();
         switch (selectedCam)
         {
             case 1:
@@ -113,14 +111,13 @@ public class UIController : MonoBehaviour
         GameObject.Find("Dice1").GetComponent<DiceRoller>().RollDice(1);
         GameObject.Find("Dice2").GetComponent<DiceRoller>().RollDice(2);
         Player.localPlayer.cash -= 100;
-        bNextPlayer.interactable = true;
         bDragRoll.interactable = false;
         UpodateCash();
     }
 
     public void nextPlayer()
     {
-        //PlayerManager.instance.ToNextPlayer();
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().NextPlayer();
     }
     // Update is called once per frame
     void Update()

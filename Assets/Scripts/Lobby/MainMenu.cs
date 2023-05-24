@@ -313,8 +313,6 @@ public class MainMenu : NetworkBehaviour
                     new Vector3(-16.0f, 23.0f, 122.0f),
                     new Vector3(-16.0f, 23.0f, 120.7f)
                 };
-                
-                
                 foreach (var player in matches[i].players)
                 {
                     var _player = player.GetComponent<Player>();
@@ -341,6 +339,7 @@ public class MainMenu : NetworkBehaviour
         {
             if (matches[i].ID == matchID)
             {
+                //получение игроков с сервера
                 var pwm = new List<Player>();
                 foreach (var p in matches[i].players)
                 {
@@ -358,6 +357,39 @@ public class MainMenu : NetworkBehaviour
                 
             }
         }
+    }
+
+    public void NextPlayer(string matchID, int oldIndex, List<forMove> moves)
+    {
+        for (int i = 0; i < matches.Count; i++)
+        {
+            if (matches[i].ID == matchID)
+            {
+                //получение игроков с сервера
+                var pwm = new List<Player>();
+                foreach (var p in matches[i].players)
+                {
+                    pwm.Add(p.GetComponent<Player>());
+                }
+                
+                matches[i].players[oldIndex].GetComponent<Player>().MyMove = false;
+                
+                oldIndex++;
+                if (pwm.Count == oldIndex)
+                {
+                    oldIndex = 0;
+                }
+                matches[i].players[oldIndex].GetComponent<Player>().MyMove = true;
+                
+                for (int ip = 0; ip < matches[i].players.Count; ip++)
+                {
+                    matches[i].players[ip].GetComponent<Player>().TargetNextPlayer(moves);
+                    //matches[i].players[ip].GetComponent<Player>().updatePm();
+                }
+
+            }
+        }
+
     }
 
     public List<Player> getMatchPlayers(string matchID)

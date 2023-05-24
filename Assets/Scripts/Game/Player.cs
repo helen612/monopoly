@@ -58,7 +58,7 @@ public class Player : NetworkBehaviour
     public int cash;
 
     public Route currentRoute;
-    private int routePosition; 
+    public int routePosition; 
     private int steps;
     private bool isMoving;
 
@@ -257,28 +257,16 @@ public class Player : NetworkBehaviour
         MainMenu.instance.JoinSuccess(success, ID);
     }
 
-    public void BeginGame()
-    {
-        CmdBeginGame();
-    }
-    [Command]
-    public void CmdBeginGame()
-    {
-        Debug.Log("Игра началась!");
-        MainMenu.instance.BeginGame(matchId);
-        
-    }
-
     public void setPM()
     {
-        CmdSetPM();
+        CmdSetPM(matchId);
     }
 
     [Command]
-    public void CmdSetPM()
+    public void CmdSetPM(string MatchID)
     {
         Debug.Log("Установка PlayerManager");
-        MainMenu.instance.SetStartV(matchId);
+        MainMenu.instance.SetStartV(MatchID);
     }
 
     [TargetRpc]
@@ -289,16 +277,39 @@ public class Player : NetworkBehaviour
         Debug.Log("StartPM");
     }
 
-    public void updatePm()
+    public void NextPlayer(int oldIndex)
     {
-        TargetUpdatePM();
+        CmdNextPlayer(matchId,  oldIndex,GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves );
+    }
+    
+    [Command]
+    public void CmdNextPlayer(string MatchID, int oldIndex, List<forMove> moves)
+    {
+        Debug.Log("Обновляю PlayerManager для " + MatchID);
+        MainMenu.instance.NextPlayer(MatchID, oldIndex, moves);
     }
     
     [TargetRpc]
-    public void TargetUpdatePM()
+    public void TargetNextPlayer(List<forMove> newRoute)
     {
-        Debug.Log("Мой PlayerManager обновлен");
-        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().updateMe(playerManager);
+        Debug.Log("Мой PlayerManager обновляеться");
+        //GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().UpdatePlayers(pwm);
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().updateMove(newRoute);
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().updateQQ();
+
+    }
+    
+    
+    public void BeginGame()
+    {
+        CmdBeginGame();
+    }
+    [Command]
+    public void CmdBeginGame()
+    {
+        Debug.Log("Игра началась!");
+        MainMenu.instance.BeginGame(matchId);
+        
     }
 
     public void StartGame()
@@ -338,20 +349,19 @@ public class Player : NetworkBehaviour
             yield break;
         }
         isMoving = true;
-        var pm = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>();
         while (steps > 0)
         {
 
-            pm.moves[routePosition].countPlayer--;
+            GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[routePosition].countPlayer--;
             //currentRoute.childNodeList[routePosition].countPlayer--;
 
             routePosition++;
             routePosition %= currentRoute.childNodeList.Count;
 
-            Vector3 nextPos = currentRoute.childNodeList[routePosition].position + pm.moves[routePosition].getPos();
+            Vector3 nextPos = currentRoute.childNodeList[routePosition].position + GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[routePosition].getPos();
             //Vector3 nextPos = currentRoute.childNodeList[routePosition].node.transform.position;
             Debug.Log(currentRoute.childNodeList[routePosition].name);
-            pm.moves[routePosition].countPlayer++;
+            GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[routePosition].countPlayer++;
             //Vector3 nextPos = currentRoute.childNodeList[routePosition].position;
             while (MoveToNextNode(nextPos))
             {
@@ -360,12 +370,18 @@ public class Player : NetworkBehaviour
 
             yield return new WaitForSeconds(0.1f);
             steps--;
-
+    
         }
 
 
         isMoving = false;
-        
+        if (DoubleCount != 0)
+        {
+            UIController.instance.bNextPlayer.interactable = false;
+        }
+        else          
+            UIController.instance.bNextPlayer.interactable = true;
+
 
     }
 

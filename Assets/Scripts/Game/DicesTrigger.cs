@@ -58,13 +58,13 @@ public class DicesTrigger : MonoBehaviour
                 if (prev == thisvalue)
                 {
                     Player.localPlayer.DoubleCount++;
-                    UIController.instance.bNextPlayer.interactable = false;
+                    //UIController.instance.bNextPlayer.interactable = false;
                     UIController.instance.bDragRoll.interactable = true;
                     if (Player.localPlayer.DoubleCount == 3)
                     {
                         Debug.Log("Иди в тюрьму");
                         Player.localPlayer.DoubleCount = 0;
-                        UIController.instance.bNextPlayer.interactable = true;
+                        //UIController.instance.bNextPlayer.interactable = true;
                         UIController.instance.bDragRoll.interactable = false;
                     }
                 }

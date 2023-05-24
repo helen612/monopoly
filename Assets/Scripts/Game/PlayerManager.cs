@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
-[System.Serializable]
-public class forMove : NetworkBehaviour
+public class forMove
 {
     public string name;
     public int countPlayer;
@@ -74,29 +73,35 @@ public class PlayerManager : NetworkBehaviour
     void Start()
     {
         GetComponent<MeshRenderer>().enabled = true;
+        GetComponent<NetworkMatch>();
     }
 
-    [Command]
-    private void CmdNextPlayer()
+    public void NextPlayer()
     {
-        players[qqPlayer].MyMove = false;
+        /*
+        int oldIndex = qqPlayer;
+        qqPlayer++;
+        if (players.Count == qqPlayer)
+        {
+            qqPlayer = 0;
+        }*/
+        Player.localPlayer.NextPlayer(qqPlayer);
+
+    }
+
+    public void updateMove(List<forMove> moves)
+    {
+        this.moves = moves;
+    }
+    public void updateQQ()
+    {
         qqPlayer++;
         if (players.Count == qqPlayer)
         {
             qqPlayer = 0;
         }
-        players[qqPlayer].MyMove = true;
-
-    }
-
-    public void ToNextPlayer()
-    {
-        CmdNextPlayer();
     }
     
-    
-    
-
     public void UpdatePlayers(List<Player> players)
     {
         this.players = players;
@@ -105,7 +110,7 @@ public class PlayerManager : NetworkBehaviour
     public void FillNodes()
     {
         var r = GameObject.Find("Route").GetComponent<Route>().childNodeList;
-        moves.Clear();
+        //moves.Clear();
         foreach (var node in r)
         {
             moves.Add(new forMove(node.transform.name));
@@ -115,20 +120,15 @@ public class PlayerManager : NetworkBehaviour
         players[0].MyMove = true;
         Debug.Log("Начальные значения установлены"); 
     }
-
-
     public void updateMe(PlayerManager newValue)
     {
         this.players = newValue.players;
         this.moves = newValue.moves;
         this.qqPlayer = newValue.qqPlayer;
+        Debug.Log("PlayerManager обновлен!");
 
     }
 
-    private void setVariables()
-    {
-        
-    }
     
 
     // Update is called once per frame
