@@ -279,7 +279,7 @@ public class Player : NetworkBehaviour
 
     public void NextPlayer(int oldIndex)
     {
-        CmdNextPlayer(matchId,  oldIndex,GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves );
+        CmdNextPlayer(matchId, oldIndex,GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves );
     }
     
     [Command]
@@ -290,12 +290,14 @@ public class Player : NetworkBehaviour
     }
     
     [TargetRpc]
-    public void TargetNextPlayer(List<forMove> newRoute)
+    public void TargetNextPlayer(List<forMove> newRoute, List<Player> players)
     {
         Debug.Log("Мой PlayerManager обновляеться");
         //GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().UpdatePlayers(pwm);
         GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().updateMove(newRoute);
         GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().updateQQ();
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().UpdatePlayers(players);
+
 
     }
     
@@ -360,7 +362,7 @@ public class Player : NetworkBehaviour
 
             Vector3 nextPos = currentRoute.childNodeList[routePosition].position + GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[routePosition].getPos();
             //Vector3 nextPos = currentRoute.childNodeList[routePosition].node.transform.position;
-            Debug.Log(currentRoute.childNodeList[routePosition].name);
+            Debug.Log(GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[routePosition].name);
             GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[routePosition].countPlayer++;
             //Vector3 nextPos = currentRoute.childNodeList[routePosition].position;
             while (MoveToNextNode(nextPos))
@@ -370,11 +372,12 @@ public class Player : NetworkBehaviour
 
             yield return new WaitForSeconds(0.1f);
             steps--;
-    
+            if(routePosition == 0) GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[0].onHere();
         }
 
 
         isMoving = false;
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[routePosition].onHere();
         if (DoubleCount != 0)
         {
             UIController.instance.bNextPlayer.interactable = false;

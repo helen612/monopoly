@@ -39,6 +39,7 @@ ScriptsOnlyBuild:
     - TMPro.TMP_Settings
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
+    - TMPro.TextMeshPro
     - TMPro.TextMeshProUGUI
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
@@ -328,6 +329,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 2702}
     - Class: 114
       Script: {instanceID: 2918}
+    - Class: 114
+      Script: {instanceID: 3712}
     - Class: 114
       Script: {instanceID: 3804}
     - Class: 114
@@ -1367,7 +1370,7 @@ ScriptsOnlyBuild:
     className: TMPro_InstructionOverlay
   - hash:
       serializedVersion: 2
-      Hash: 2ef935e3508746c001b7de4b6ab2cc02
+      Hash: 11516f1d86c9aa56dfb726f78c8791a0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIController

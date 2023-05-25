@@ -383,7 +383,7 @@ public class MainMenu : NetworkBehaviour
                 
                 for (int ip = 0; ip < matches[i].players.Count; ip++)
                 {
-                    matches[i].players[ip].GetComponent<Player>().TargetNextPlayer(moves);
+                    matches[i].players[ip].GetComponent<Player>().TargetNextPlayer(moves,pwm);
                     //matches[i].players[ip].GetComponent<Player>().updatePm();
                 }
 

@@ -24,6 +24,8 @@ public class UIController : MonoBehaviour
     public TMP_Text cashInfo;
     public Route route;
     public GameObject pm;
+    public TMP_Text listPlayersUI;
+    
     void Start()
     {
         Player.localPlayer.setPM();
@@ -34,13 +36,18 @@ public class UIController : MonoBehaviour
         mainCam.enabled = true;
         selectedCam = 1;
         
-        UpodateCash();
+        updateCash();
         Player.localPlayer.currentRoute = route;
-        
-        //PlayerManager.instance.CmdgetPlayers();
-        
     }
 
+    public void updateListPlayersUI(List<Player> players)
+    {
+        listPlayersUI.text = "";
+        foreach (var p in players)
+        {
+            listPlayersUI.text += $"<color=#{ColorUtility.ToHtmlStringRGB(p.playerColor)}>{p.PlayerDisplayName}</color>\n";
+        }
+    }
     public void updateUI()
     {
         if (Player.localPlayer.MyMove)
@@ -57,7 +64,7 @@ public class UIController : MonoBehaviour
         }
         
     }
-    public void UpodateCash()
+    public void updateCash()
     {
         cashInfo.text = "Ваш счет: " + Player.localPlayer.cash + " М";
     }
@@ -112,7 +119,7 @@ public class UIController : MonoBehaviour
         GameObject.Find("Dice2").GetComponent<DiceRoller>().RollDice(2);
         Player.localPlayer.cash -= 100;
         bDragRoll.interactable = false;
-        UpodateCash();
+        updateCash();
     }
 
     public void nextPlayer()

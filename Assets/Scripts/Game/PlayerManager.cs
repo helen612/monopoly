@@ -55,8 +55,23 @@ public class forMove
     {
         return spawndots[countPlayer];
     }
-    
+    public void onHere()
+    {
+        switch (name)
+        {
+            case "GO":
+                stayGo();
+                break;
+        }
+    }
+
+    private void stayGo()
+    {
+        Player.localPlayer.cash += 200;
+        UIController.instance.updateCash();
+    }
 }
+
 
 public class PlayerManager : NetworkBehaviour
 {
@@ -78,13 +93,6 @@ public class PlayerManager : NetworkBehaviour
 
     public void NextPlayer()
     {
-        /*
-        int oldIndex = qqPlayer;
-        qqPlayer++;
-        if (players.Count == qqPlayer)
-        {
-            qqPlayer = 0;
-        }*/
         Player.localPlayer.NextPlayer(qqPlayer);
 
     }
@@ -101,12 +109,13 @@ public class PlayerManager : NetworkBehaviour
             qqPlayer = 0;
         }
     }
-    
     public void UpdatePlayers(List<Player> players)
     {
         this.players = players;
+        UIController.instance.updateListPlayersUI(this.players);
         
     }
+    
     public void FillNodes()
     {
         var r = GameObject.Find("Route").GetComponent<Route>().childNodeList;
