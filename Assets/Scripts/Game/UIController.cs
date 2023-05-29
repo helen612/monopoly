@@ -19,6 +19,7 @@ public class UIController : MonoBehaviour
     private int secondRoll;
     public Button bDragRoll;
 
+    public GameObject ShopUI;
     public Button Shop;
     public Button bNextPlayer;
     public TMP_Text cashInfo;
@@ -48,12 +49,20 @@ public class UIController : MonoBehaviour
             listPlayersUI.text += $"<color=#{ColorUtility.ToHtmlStringRGB(p.playerColor)}>{p.PlayerDisplayName}</color>\n";
         }
     }
+
     public void updateUI()
     {
         if (Player.localPlayer.MyMove)
         {
             bNextPlayer.interactable = false;
-            bDragRoll.interactable = true;
+            if (Player.localPlayer.forSkip == 0)
+                bDragRoll.interactable = true;
+            else
+            {
+                bDragRoll.interactable = false;
+                bNextPlayer.interactable = true;
+            }
+               
             Shop.interactable = true;
         }
         else
@@ -62,8 +71,9 @@ public class UIController : MonoBehaviour
             bDragRoll.interactable = false;
             Shop.interactable = false;
         }
-        
+
     }
+
     public void updateCash()
     {
         cashInfo.text = "Ваш счет: " + Player.localPlayer.cash + " М";
@@ -120,6 +130,17 @@ public class UIController : MonoBehaviour
         Player.localPlayer.cash -= 100;
         bDragRoll.interactable = false;
         updateCash();
+    }
+
+    public void ShowShopUI()
+    {
+        ShopUI.SetActive(true);
+        ShopUI.GetComponent<ShopUIContoller>().JoinShop();
+    }
+
+    public void HideShopUI()
+    {
+        ShopUI.SetActive(false);
     }
 
     public void nextPlayer()

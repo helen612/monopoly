@@ -64,6 +64,7 @@ public class Player : NetworkBehaviour
 
     [SyncVar(hook = nameof(ChangeMyMove))] public bool MyMove;
     public int DoubleCount;
+    public int forSkip;
 
     private void Update()
     {
@@ -279,26 +280,43 @@ public class Player : NetworkBehaviour
 
     public void NextPlayer(int oldIndex)
     {
+        if (forSkip != 0) forSkip--;
         CmdNextPlayer(matchId, oldIndex,GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves );
     }
     
     [Command]
-    public void CmdNextPlayer(string MatchID, int oldIndex, List<forMove> moves)
+    public void CmdNextPlayer(string MatchID, int oldIndex, List<Field> moves)
     {
         Debug.Log("Обновляю PlayerManager для " + MatchID);
         MainMenu.instance.NextPlayer(MatchID, oldIndex, moves);
     }
     
     [TargetRpc]
-    public void TargetNextPlayer(List<forMove> newRoute, List<Player> players)
+    public void TargetNextPlayer(List<Field> newRoute, List<Player> players)
     {
         Debug.Log("Мой PlayerManager обновляеться");
         //GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().UpdatePlayers(pwm);
         GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().updateMove(newRoute);
-        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().updateQQ();
         GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().UpdatePlayers(players);
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().updateQQ();
+    }
 
+    public void payTo(int owner, int money)
+    {
+        CmdPayTo(matchId,owner, money);
+    }
 
+    [Command]
+    public void CmdPayTo(string MatchID, int owner, int money)
+    {
+        MainMenu.instance.SendMoney(MatchID, owner , money);
+    }
+
+    [TargetRpc]
+    public void TargetGetMoney(int money)
+    {
+        cash += money;
+        UIController.instance.updateCash();
     }
     
     
@@ -350,6 +368,7 @@ public class Player : NetworkBehaviour
         {
             yield break;
         }
+
         isMoving = true;
         while (steps > 0)
         {
@@ -360,7 +379,8 @@ public class Player : NetworkBehaviour
             routePosition++;
             routePosition %= currentRoute.childNodeList.Count;
 
-            Vector3 nextPos = currentRoute.childNodeList[routePosition].position + GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[routePosition].getPos();
+            Vector3 nextPos = currentRoute.childNodeList[routePosition].position + GameObject
+                .FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[routePosition].getPos();
             //Vector3 nextPos = currentRoute.childNodeList[routePosition].node.transform.position;
             Debug.Log(GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[routePosition].name);
             GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[routePosition].countPlayer++;
@@ -372,17 +392,19 @@ public class Player : NetworkBehaviour
 
             yield return new WaitForSeconds(0.1f);
             steps--;
-            if(routePosition == 0) GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[0].onHere();
+            if (routePosition == 0)
+                GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[0].onHere("GO");
         }
 
 
         isMoving = false;
-        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[routePosition].onHere();
+        if (routePosition != 0)
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[routePosition].onHere(currentRoute.childNodeList[routePosition].tag);
         if (DoubleCount != 0)
         {
             UIController.instance.bNextPlayer.interactable = false;
         }
-        else          
+        else
             UIController.instance.bNextPlayer.interactable = true;
 
 

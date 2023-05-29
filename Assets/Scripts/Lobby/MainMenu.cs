@@ -359,7 +359,7 @@ public class MainMenu : NetworkBehaviour
         }
     }
 
-    public void NextPlayer(string matchID, int oldIndex, List<forMove> moves)
+    public void NextPlayer(string matchID, int oldIndex, List<Field> moves)
     {
         for (int i = 0; i < matches.Count; i++)
         {
@@ -392,6 +392,19 @@ public class MainMenu : NetworkBehaviour
 
     }
 
+    public void SendMoney(string matchID,int owner, int money)
+    {
+        for (int i = 0; i < matches.Count; i++)
+        {
+            if (matches[i].ID == matchID)
+            {
+                matches[i].players[owner].GetComponent<Player>().TargetGetMoney(money);
+
+            }
+        }
+    }
+    
+    
     public List<Player> getMatchPlayers(string matchID)
     {
         for (int i = 0; i < matches.Count; i++)
@@ -437,7 +450,7 @@ public class MainMenu : NetworkBehaviour
             Color.cyan,
             Color.magenta,
             Color.grey,
-            Color.white
+            Color.black
         };
         // Shuffle the list of available colors and return the first one
         List<Color> result = new List<Color>();

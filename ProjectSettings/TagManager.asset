@@ -14,6 +14,16 @@ TagManager:
   - GMistake
   - ScoreDice1
   - PlayerManager
+  - GO
+  - Street
+  - TR
+  - Tax
+  - Com
+  - Jail
+  - Free
+  - Chanse
+  - PT
+  - ShopUI
   layers:
   - Default
   - TransparentFX

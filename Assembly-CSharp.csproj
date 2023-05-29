@@ -69,6 +69,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
+     <Compile Include="Assets\Scripts\Game\FieldInfo.cs" />
      <Compile Include="Assets\Scripts\Rules\Rules.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
      <Compile Include="Assets\Scripts\MainMenu\MusicVolume_NEW.cs" />
@@ -79,6 +80,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
      <Compile Include="Assets\Scripts\StartScreen\StartSciriptLS.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+     <Compile Include="Assets\Scripts\Game\Field.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
      <Compile Include="Assets\Scripts\Lobby\CanvasOn.cs" />
      <Compile Include="Assets\Scripts\Lobby\CopyRoomId.cs" />
@@ -99,6 +101,8 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
+     <Compile Include="Assets\Scripts\Game\ShopUIContoller.cs" />
+     <Compile Include="Assets\Scripts\Game\OwnButtonUI.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\Prefab" />
      <Folder Include="Assets\UI\Animation\MainMenu\Messages" />
@@ -197,6 +201,7 @@
      <Folder Include="Assets\TextMesh Pro\Examples &amp; Extras\Resources\Sprite Assets" />
      <Folder Include="Assets\Dice_6\Textures\2k" />
      <Folder Include="Assets\TextMesh Pro\Resources\Style Sheets" />
+     <Folder Include="Assets\UI\Game\Shop" />
      <Folder Include="Assets\KevinCastejon" />
      <Folder Include="Assets\TextMesh Pro\Fonts" />
      <Folder Include="Assets\MASH Virtual\Demo\Table Demo" />

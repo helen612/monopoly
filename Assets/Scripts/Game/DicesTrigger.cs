@@ -53,7 +53,7 @@ public class DicesTrigger : MonoBehaviour
             {
                 int thisvalue = 0;
                 int.TryParse(other.name, out thisvalue);
-                Player.localPlayer.startMove(thisvalue + prev);
+                
 
                 if (prev == thisvalue)
                 {
@@ -62,15 +62,18 @@ public class DicesTrigger : MonoBehaviour
                     UIController.instance.bDragRoll.interactable = true;
                     if (Player.localPlayer.DoubleCount == 3)
                     {
-                        Debug.Log("Иди в тюрьму");
+                        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[Player.localPlayer.routePosition].onHere("Jail");
                         Player.localPlayer.DoubleCount = 0;
                         //UIController.instance.bNextPlayer.interactable = true;
                         UIController.instance.bDragRoll.interactable = false;
                     }
+                    else 
+                        Player.localPlayer.startMove(thisvalue + prev);
                 }
                 else
                 {
                     Player.localPlayer.DoubleCount = 0;
+                    Player.localPlayer.startMove(thisvalue + prev);
                 }
                 
                 
