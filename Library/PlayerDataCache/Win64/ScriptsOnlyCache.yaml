@@ -13,6 +13,7 @@ ScriptsOnlyBuild:
     - MainMenu
     - Message
     - MusicVolume_NEW
+    - OwnButtonUI
     - PlayMode
     - Player
     - PlayerManager
@@ -264,6 +265,9 @@ ScriptsOnlyBuild:
     fullTypeName: MainMenu
     methodName: Host
   - assembly: Assembly-CSharp
+    fullTypeName: OwnButtonUI
+    methodName: onClick
+  - assembly: Assembly-CSharp
     fullTypeName: UIController
     methodName: ShowShopUI
   - assembly: Assembly-CSharp
@@ -285,8 +289,14 @@ ScriptsOnlyBuild:
     fullTypeName: ShopUIContoller
     methodName: BuyKS
   - assembly: Assembly-CSharp
+    fullTypeName: ShopUIContoller
+    methodName: onClickUpgrade
+  - assembly: Assembly-CSharp
     fullTypeName: UIController
     methodName: DragRoll
+  - assembly: Assembly-CSharp
+    fullTypeName: ShopUIContoller
+    methodName: onClickDowngrade
   sceneClasses:
     Assets/Scenes/Game.unity:
     - Class: 1
@@ -338,19 +348,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1568}
     - Class: 114
-      Script: {instanceID: 1618}
+      Script: {instanceID: 1616}
     - Class: 114
-      Script: {instanceID: 2180}
+      Script: {instanceID: 2178}
     - Class: 114
-      Script: {instanceID: 2704}
+      Script: {instanceID: 2702}
     - Class: 114
-      Script: {instanceID: 2920}
+      Script: {instanceID: 2918}
     - Class: 114
-      Script: {instanceID: 3714}
+      Script: {instanceID: 3712}
     - Class: 114
-      Script: {instanceID: 3806}
+      Script: {instanceID: 3804}
     - Class: 114
-      Script: {instanceID: 4090}
+      Script: {instanceID: 4088}
+    - Class: 114
+      Script: {instanceID: 4588}
     - Class: 114
       Script: {instanceID: 4666}
     - Class: 114
@@ -372,12 +384,14 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 7646}
     - Class: 114
-      Script: {instanceID: 7768}
+      Script: {instanceID: 7722}
     - Class: 114
-      Script: {instanceID: 8052}
+      Script: {instanceID: 7770}
     - Class: 114
-      Script: {instanceID: 61308}
+      Script: {instanceID: 8054}
     - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
       Script: {instanceID: 0}
     - Class: 134
       Script: {instanceID: 0}
@@ -443,25 +457,25 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1568}
     - Class: 114
-      Script: {instanceID: 1618}
+      Script: {instanceID: 1616}
     - Class: 114
-      Script: {instanceID: 1754}
+      Script: {instanceID: 1752}
     - Class: 114
-      Script: {instanceID: 2704}
+      Script: {instanceID: 2702}
     - Class: 114
-      Script: {instanceID: 2808}
+      Script: {instanceID: 2806}
     - Class: 114
-      Script: {instanceID: 2920}
+      Script: {instanceID: 2918}
     - Class: 114
-      Script: {instanceID: 3806}
+      Script: {instanceID: 3804}
     - Class: 114
-      Script: {instanceID: 4090}
+      Script: {instanceID: 4088}
     - Class: 114
-      Script: {instanceID: 4268}
+      Script: {instanceID: 4266}
     - Class: 114
-      Script: {instanceID: 4328}
+      Script: {instanceID: 4326}
     - Class: 114
-      Script: {instanceID: 4514}
+      Script: {instanceID: 4512}
     - Class: 114
       Script: {instanceID: 4594}
     - Class: 114
@@ -487,9 +501,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 7646}
     - Class: 114
-      Script: {instanceID: 7834}
+      Script: {instanceID: 7836}
     - Class: 114
-      Script: {instanceID: 8052}
+      Script: {instanceID: 8054}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -562,29 +576,29 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1568}
     - Class: 114
-      Script: {instanceID: 1618}
+      Script: {instanceID: 1616}
     - Class: 114
-      Script: {instanceID: 2250}
+      Script: {instanceID: 2248}
     - Class: 114
-      Script: {instanceID: 2704}
+      Script: {instanceID: 2702}
     - Class: 114
-      Script: {instanceID: 2920}
+      Script: {instanceID: 2918}
     - Class: 114
-      Script: {instanceID: 3270}
+      Script: {instanceID: 3268}
     - Class: 114
-      Script: {instanceID: 3322}
+      Script: {instanceID: 3320}
     - Class: 114
-      Script: {instanceID: 3344}
+      Script: {instanceID: 3342}
     - Class: 114
-      Script: {instanceID: 3432}
+      Script: {instanceID: 3430}
     - Class: 114
-      Script: {instanceID: 3806}
+      Script: {instanceID: 3804}
     - Class: 114
-      Script: {instanceID: 4090}
+      Script: {instanceID: 4088}
     - Class: 114
-      Script: {instanceID: 4224}
+      Script: {instanceID: 4222}
     - Class: 114
-      Script: {instanceID: 4342}
+      Script: {instanceID: 4340}
     - Class: 114
       Script: {instanceID: 4594}
     - Class: 114
@@ -618,7 +632,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 7646}
     - Class: 114
-      Script: {instanceID: 7834}
+      Script: {instanceID: 7836}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -904,7 +918,7 @@ ScriptsOnlyBuild:
     className: TMP_TextSelector_A
   - hash:
       serializedVersion: 2
-      Hash: 8743043d80065a4f861554c0b13556f8
+      Hash: 410c872d04b93d0dc4929303ef1a1b47
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MainMenu
@@ -1072,7 +1086,7 @@ ScriptsOnlyBuild:
     className: Player
   - hash:
       serializedVersion: 2
-      Hash: 805e127599bb2995e668e14b4ecf9853
+      Hash: 74836e94453cc9c7dcc8acdefecf3199
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -1376,6 +1390,12 @@ ScriptsOnlyBuild:
     assemblyName: Mirror.Examples.dll
     namespaceName: Mirror.Examples.AdditiveLevels
     className: FadeInOut
+  - hash:
+      serializedVersion: 2
+      Hash: bfa6e4052f73b20ef80c7cbf794eea72
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: OwnButtonUI
   - hash:
       serializedVersion: 2
       Hash: 2794388f422014fa80b187c00787d598
@@ -2146,7 +2166,7 @@ ScriptsOnlyBuild:
     className: TurnManager
   - hash:
       serializedVersion: 2
-      Hash: 8ae4324406fa838d4cb202dc23f0daed
+      Hash: c4e31bdc1af4e7440e04de159bb5669e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerManager
@@ -2180,6 +2200,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ScrollRect
+  - hash:
+      serializedVersion: 2
+      Hash: e325c5713c17141452ae100b3887e30e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ShopUIContoller
   - hash:
       serializedVersion: 2
       Hash: 5085c149ae898c11398927898b806b9c
@@ -2366,12 +2392,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
-  - hash:
-      serializedVersion: 2
-      Hash: b6015b59b941e7047bedfa3d402efbc6
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ShopUIContoller
   platform: 19
   scenePathNames:
   - Assets/Scenes/mainMenuScene.unity

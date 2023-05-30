@@ -266,6 +266,7 @@ MonoBehaviour:
   playerSpawnMethod: 1
   spawnPrefabs:
   - {fileID: 7024785329532810434, guid: 87d9dae4dcc745147a5a82441d89d9a9, type: 3}
+  - {fileID: 8802741927468022733, guid: 5c8bf8f5a0c6ea842ba391c63bbb877c, type: 3}
   timeInterpolationGui: 0
 --- !u!4 &19491058
 Transform:
@@ -5509,7 +5510,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 606446618}
   m_HandleRect: {fileID: 606446617}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0.9999995
   m_Size: 0.76281357
   m_NumberOfSteps: 0
   m_OnValueChanged:

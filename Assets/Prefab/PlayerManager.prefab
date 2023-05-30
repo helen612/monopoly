@@ -164,3 +164,9 @@ MonoBehaviour:
   syncInterval: 0
   qqPlayer: 0
   players: []
+  Houses:
+  - {x: -1.28, y: 0.8, z: -2.79}
+  - {x: -2.79, y: -0.8, z: 1.28}
+  - {x: 1.28, y: -0.8, z: 2.79}
+  - {x: 2.79, y: 0.8, z: -1.28}
+  forCom: 0

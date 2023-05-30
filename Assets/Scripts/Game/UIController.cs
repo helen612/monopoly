@@ -76,7 +76,7 @@ public class UIController : MonoBehaviour
 
     public void updateCash()
     {
-        cashInfo.text = "Ваш счет: " + Player.localPlayer.cash + " М";
+        cashInfo.text = "Ваш счет: " + Player.localPlayer.getCash() + " М";
     }
 
     public void NextCam()
@@ -127,7 +127,6 @@ public class UIController : MonoBehaviour
     {
         GameObject.Find("Dice1").GetComponent<DiceRoller>().RollDice(1);
         GameObject.Find("Dice2").GetComponent<DiceRoller>().RollDice(2);
-        Player.localPlayer.cash -= 100;
         bDragRoll.interactable = false;
         updateCash();
     }

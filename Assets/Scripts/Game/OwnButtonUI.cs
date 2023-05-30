@@ -23,6 +23,6 @@ public class OwnButtonUI : MonoBehaviour
 
     public void onClick()
     {
-        GameObject.FindWithTag("ShopUI").GetComponent<ShopUIContoller>().SetChoosenKS(GetMove());
+        GameObject.FindWithTag("ShopUI").GetComponent<ShopUIContoller>().SetChoosenKS(GetMove(), routePosition);
     }
 }

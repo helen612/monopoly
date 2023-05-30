@@ -2040,6 +2040,7 @@ MonoBehaviour:
   syncInterval: 0
   MaxPlayers: 8
   _playerManager: {fileID: 7024785329532810434, guid: 87d9dae4dcc745147a5a82441d89d9a9, type: 3}
+  _House: {fileID: 8802741927468022733, guid: 5c8bf8f5a0c6ea842ba391c63bbb877c, type: 3}
   HostButton: {fileID: 1887592841}
   JoinButton: {fileID: 216715802}
   RoomID: {fileID: 1270875424}

@@ -12,7 +12,6 @@ public class DicesTrigger : MonoBehaviour
     {
         dices = 0;
         prev = 0;
-        
     }
 
     private void OnTriggerStay(Collider other)
@@ -54,6 +53,14 @@ public class DicesTrigger : MonoBehaviour
                 int thisvalue = 0;
                 int.TryParse(other.name, out thisvalue);
                 
+                if (GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().forCom)
+                {
+                    GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[Player.localPlayer.routePosition].PayCom(thisvalue + prev);
+                    GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().forCom = false;
+                    prev = 0;
+                    dices = 0;
+                    return;
+                }
 
                 if (prev == thisvalue)
                 {

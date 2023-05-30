@@ -45,6 +45,7 @@ public class MainMenu : NetworkBehaviour
     public int MaxPlayers;
 
     public GameObject _playerManager;
+    public GameObject _House;
     private NetworkManager _networkManager;
     
     [Header("MainMenu")]
@@ -359,7 +360,7 @@ public class MainMenu : NetworkBehaviour
         }
     }
 
-    public void NextPlayer(string matchID, int oldIndex, List<Field> moves)
+    public void NextPlayer(string matchID, int oldIndex, List<Field> moves, List<cards> cardsQueue)
     {
         for (int i = 0; i < matches.Count; i++)
         {
@@ -383,7 +384,7 @@ public class MainMenu : NetworkBehaviour
                 
                 for (int ip = 0; ip < matches[i].players.Count; ip++)
                 {
-                    matches[i].players[ip].GetComponent<Player>().TargetNextPlayer(moves,pwm);
+                    matches[i].players[ip].GetComponent<Player>().TargetNextPlayer(moves,pwm, cardsQueue);
                     //matches[i].players[ip].GetComponent<Player>().updatePm();
                 }
 
@@ -392,18 +393,42 @@ public class MainMenu : NetworkBehaviour
 
     }
 
-    public void SendMoney(string matchID,int owner, int money)
+    public void SendMoney(string matchID,Color owner, int money)
     {
         for (int i = 0; i < matches.Count; i++)
         {
             if (matches[i].ID == matchID)
             {
-                matches[i].players[owner].GetComponent<Player>().TargetGetMoney(money);
+                for (int j = 0; j < matches[i].players.Count; j++)
+                {
+                    var color = matches[i].players[j].GetComponent<Player>().playerColor;
+                    if (owner == color)
+                    {
+                        matches[i].players[j].GetComponent<Player>().TargetGetMoney(money);
+                    }
+                }
+                
 
             }
         }
     }
-    
+
+    public void SpawnHouse(string matchID, Vector3 housePos, int position)
+    {
+        for (int i = 0; i < matches.Count; i++)
+        {
+            if (matches[i].ID == matchID)
+            {
+                GameObject obj = Instantiate(_House, housePos,Quaternion.identity);
+                NetworkServer.Spawn(obj);
+                obj.GetComponent<NetworkMatch>().matchId = matchID.ToGuid();
+                for (int ip  = 0; ip < matches[i].players.Count; ip++)
+                {
+                    matches[i].players[ip].GetComponent<Player>().TargetSpawnHouse(obj, position);
+                }
+            }
+        }
+    }
     
     public List<Player> getMatchPlayers(string matchID)
     {

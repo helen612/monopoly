@@ -11,14 +11,16 @@ public class Message : MonoBehaviour
         string mode = "";
         if (Player.localPlayer.InGame) mode = "G";
         GameObject Mistake = GameObject.FindGameObjectWithTag(mode + "Mistake");
-
         Animator animator = Mistake.GetComponent<Animator>();
-        var TitleText =  GameObject.Find(mode +"Mistake/Title");
+
+
+        var TitleText = GameObject.Find(mode + "Mistake/Title");
         var MessageText = GameObject.Find(mode + "Mistake/Message");
         TitleText.GetComponent<TMP_Text>().text = title;
         MessageText.GetComponent<TMP_Text>().text = message;
+
         animator.SetTrigger("showMessage");
-        
+
     }
 
     public static void showNotification(string message)

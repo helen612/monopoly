@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,8 @@ public class ShopUIContoller : MonoBehaviour
     [Header("Current Position")] 
     public Button Buy;
 
+    
+    
     [Header("Street")] 
     public Image owner;
     public GameObject Street;
@@ -42,11 +45,13 @@ public class ShopUIContoller : MonoBehaviour
     
     
     #endregion
-    
 
     #region Choosen Position
 
-    [Header("Choosen Position")]
+    [Header("Choosen Position")] 
+    public Button upgrade;
+    public Button downgrade;
+    public TMP_Text Status;
     [Header("Street")] 
     public GameObject CStreet;
     public TMP_Text CName;
@@ -72,8 +77,9 @@ public class ShopUIContoller : MonoBehaviour
     public GameObject CEnergy;
 
     #endregion
-    
 
+    
+    private int choosenRoutePosition;
     public void JoinShop()
     {
         var curPos = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>()
@@ -162,24 +168,122 @@ public class ShopUIContoller : MonoBehaviour
 
     public void BuyKS()
     {
+        //списываем деньги со счета
+        Player.localPlayer.updateCash(-1 * GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>()
+            .moves[Player.localPlayer.routePosition].field.cost);
+        //Устанавливаем владельца улице
         GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>()
             .moves[Player.localPlayer.routePosition].field.owner = Player.localPlayer.playerColor;
-        Player.localPlayer.cash -= GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>()
-            .moves[Player.localPlayer.routePosition].field.cost;
-        UIController.instance.updateCash();
+        
+        //Добавляем кнопку в магазин
         GameObject obj = Instantiate(OwnPrefab, OwnPrefabParent);
         obj.GetComponent<OwnButtonUI>().SetOwnName(GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>()
             .moves[Player.localPlayer.routePosition].field.fullName, GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>()
             .moves[Player.localPlayer.routePosition].field.Color);
+        //получаем наш field
+        var r = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[Player.localPlayer.routePosition];
+        
+        
+        setLevel(r);
+        choosenRoutePosition = Player.localPlayer.routePosition;
+        SetChoosenKS(r, choosenRoutePosition);
+        
         JoinShop();
     }
 
-    public void SetChoosenKS(Field field)
+    public void setLevel(Field field)
     {
+        int countOwn = 0;
+        countOwn = getCountBoughtInGroupGroup(field.field.Color, Player.localPlayer.playerColor);
+        switch (field.field.tag)
+        {
+            case "Street":
+            {
+                if (getCountInFieldGroup(field.field.Color) == countOwn)
+                {
+                    setFieldLevel(field.field.Color,Player.localPlayer.playerColor,2);
+                }
+                else
+                {
+                    setFieldLevel(field.field.Color,Player.localPlayer.playerColor,1);
+                }
+                break;
+            }
+            case "TR":
+            {
+                
+                setFieldLevel(field.field.Color,Player.localPlayer.playerColor, 2 + countOwn);
+                break;
+            }
+            case "Com":
+            {
+                setFieldLevel(field.field.Color,Player.localPlayer.playerColor, 2 + countOwn);
+                break;
+            }
+            default:
+            {
+                Debug.Log("Не удалось установить уровень");
+                break;
+            }
+        }
+        
+        
+        
+        
+        
+    }
+    public int getCountInFieldGroup(Color groupColor)
+    {
+        int streetsInGroup = 0;
+        foreach (var fiels in GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves)
+        {
+            if (fiels.field.Color == groupColor)
+            {
+                streetsInGroup++;
+            }
+        }
+
+        return streetsInGroup;
+    }
+    public int getCountBoughtInGroupGroup(Color groupColor, Color Player)
+    {
+        int MyOwn = 0;
+        foreach (var fiels in GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves)
+        {
+            if (fiels.field.Color == groupColor)
+            {
+                if (fiels.field.owner == Player)
+                {
+                    MyOwn++;
+                }
+            }
+        }
+
+        return MyOwn;
+    }
+
+    public void setFieldLevel(Color groupColor, Color owner, int level)
+    {
+        for (int i = 0; i < GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves.Count; i++)
+        {
+            if (groupColor == GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[i]
+                    .field.Color &&
+               owner == GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[i]
+                    .field.owner)
+            { 
+                GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[i].field.level = level;
+            }
+        }
+    }
+    
+    public void SetChoosenKS(Field field, int routePosition)
+    {
+        choosenRoutePosition = routePosition;
         switch (field.field.tag)
         {
             case "Street":
                 //owner.color = field.field.owner;
+                Status.text = "Уровень вашей улицы: " + field.field.level;
                 CTR.SetActive(false);
                 Cwater.SetActive(false);
                 CEnergy.SetActive(false);
@@ -196,23 +300,41 @@ public class ShopUIContoller : MonoBehaviour
                 CHotel.text = field.field.hotel.ToString();
                 CBuildHome.text = field.field.costBuild.ToString();
                 CBuildHotel.text = field.field.costBuild.ToString();
+                
+                upgrade.interactable = false; 
+                downgrade.interactable = false;
+             
+                if (field.field.level > 1 && field.field.level < 7)
+                {
+                    upgrade.interactable = true;  
+                }
+
+                if (field.field.level > 2)
+                {
+                    downgrade.interactable = true;
+                }
+                    
                 break;
             case "TR":
                 //owner.color = field.field.owner;
+                Status.text = "Уровень вашей станции: " + field.field.level;
                 Cwater.SetActive(false);
                 CEnergy.SetActive(false);
                 CStreet.SetActive(false);
                 CTR.SetActive(true);
-                
+                upgrade.interactable = false; 
+                downgrade.interactable = false;
                 CNameTR.text = field.field.fullName;
                 break;
             case "Com":
                 //owner.color = field.field.owner;
+                Status.text = "Уровень вашей ком. предприятия: " + field.field.level;
                 CStreet.SetActive(false);
                 CTR.SetActive(false);
                 Cwater.SetActive(false);
                 CEnergy.SetActive(false);
-
+                upgrade.interactable = false; 
+                downgrade.interactable = false;
                 if (field.name == "Com1")
                     CEnergy.SetActive(true);
                 else
@@ -225,7 +347,31 @@ public class ShopUIContoller : MonoBehaviour
                 CEnergy.SetActive(false);
                 break;
         }
+        
     }
+
+    public void onClickUpgrade()
+    {
+        var r = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[choosenRoutePosition];
+        Player.localPlayer.updateCash(r.field.costBuild * -1);
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[choosenRoutePosition].field.level++;
+        if (r.field.level > 2)
+        {
+            Player.localPlayer.ToSpawnHouse(choosenRoutePosition);
+        }
+        
+        SetChoosenKS(r, choosenRoutePosition);
+    }
+    public void onClickDowngrade()
+    {
+        var r = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[choosenRoutePosition];
+        Player.localPlayer.updateCash(r.field.costBuild/2);
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[choosenRoutePosition].field.level--;
+
+        SetChoosenKS(r, choosenRoutePosition);
+    }
+    
+    
     // Update is called once per frame
     void Update()
     {

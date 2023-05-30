@@ -377,6 +377,7 @@
 "Assets/Scripts/Game/Disconnect.cs"
 "Assets/Scripts/Game/Field.cs"
 "Assets/Scripts/Game/FieldInfo.cs"
+"Assets/Scripts/Game/OwnButtonUI.cs"
 "Assets/Scripts/Game/Player.cs"
 "Assets/Scripts/Game/PlayerManager.cs"
 "Assets/Scripts/Game/Route.cs"

@@ -5,6 +5,7 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
 using System;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 
@@ -55,7 +56,18 @@ public class Player : NetworkBehaviour
     private Guid netIDGuid;
 
     public bool InGame;
-    public int cash;
+    private int cash;
+
+    public void updateCash(int money)
+    {
+        this.cash += money;
+        UIController.instance.updateCash();
+    }
+
+    public int getCash()
+    {
+        return cash;
+    }
 
     public Route currentRoute;
     public int routePosition; 
@@ -65,12 +77,13 @@ public class Player : NetworkBehaviour
     [SyncVar(hook = nameof(ChangeMyMove))] public bool MyMove;
     public int DoubleCount;
     public int forSkip;
+    public int FreeJail;
 
     private void Update()
     {
         
     }
-
+    
     private void Awake()
     {
         NetworkMatch = GetComponent<NetworkMatch>();
@@ -83,6 +96,7 @@ public class Player : NetworkBehaviour
         MatchControl = new MyMatch();
         MyMove = false;
         DoubleCount = 0;
+        FreeJail = 0;
         if (isLocalPlayer)
         {
             
@@ -281,33 +295,35 @@ public class Player : NetworkBehaviour
     public void NextPlayer(int oldIndex)
     {
         if (forSkip != 0) forSkip--;
-        CmdNextPlayer(matchId, oldIndex,GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves );
+        var pm = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>();
+        CmdNextPlayer(matchId, oldIndex,pm.moves,pm.CardsList.ToList() );
     }
     
     [Command]
-    public void CmdNextPlayer(string MatchID, int oldIndex, List<Field> moves)
+    public void CmdNextPlayer(string MatchID, int oldIndex, List<Field> moves, List<cards> cardsQueue)
     {
         Debug.Log("Обновляю PlayerManager для " + MatchID);
-        MainMenu.instance.NextPlayer(MatchID, oldIndex, moves);
+        MainMenu.instance.NextPlayer(MatchID, oldIndex, moves, cardsQueue);
     }
     
     [TargetRpc]
-    public void TargetNextPlayer(List<Field> newRoute, List<Player> players)
+    public void TargetNextPlayer(List<Field> newRoute, List<Player> players, List<cards> cardsQueue)
     {
         Debug.Log("Мой PlayerManager обновляеться");
         //GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().UpdatePlayers(pwm);
         GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().updateMove(newRoute);
         GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().UpdatePlayers(players);
         GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().updateQQ();
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().updateCards(cardsQueue);
     }
 
-    public void payTo(int owner, int money)
+    public void payTo(Color owner, int money)
     {
         CmdPayTo(matchId,owner, money);
     }
 
     [Command]
-    public void CmdPayTo(string MatchID, int owner, int money)
+    public void CmdPayTo(string MatchID, Color owner, int money)
     {
         MainMenu.instance.SendMoney(MatchID, owner , money);
     }
@@ -346,8 +362,71 @@ public class Player : NetworkBehaviour
         {
             DontDestroyOnLoad(players[i]);
         }
+        InGame = true;
         MainMenu.instance.inGame = true;
         SceneManager.LoadScene("Game", LoadSceneMode.Additive);
+    }
+
+
+    public void ToSpawnHouse(int Position)
+    {
+        var posNode = currentRoute.childNodeList[routePosition].position;
+        int r = Position / 10;
+        var HousePos = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().Houses[r];
+        var countHouses = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[Position].houses.Count;
+        switch (r)
+        {
+            case 0:
+            {
+                posNode.z += HousePos.z;
+                posNode.x += HousePos.x;
+                
+                posNode.x += countHouses * HousePos.y;
+                
+                break;
+            }
+            case 1:
+            {
+                posNode.z += HousePos.z;
+                posNode.x += HousePos.x;
+                
+                posNode.z += countHouses * HousePos.y;
+                break;
+            }
+            case 2:
+            {
+                posNode.z += HousePos.z;
+                posNode.x += HousePos.x;
+                
+                posNode.x += countHouses * HousePos.y;
+                break;
+            }
+            case 3:
+            {
+                posNode.z += HousePos.z;
+                posNode.x += HousePos.x;
+                
+                posNode.z += countHouses * HousePos.y;
+                break;
+            }
+            default:
+            {
+                break;
+            }
+        }
+        CmdToSpawnHouse(matchId,posNode,Position);
+    }
+
+    [Command]
+    public void CmdToSpawnHouse(string matchID, Vector3 posHouse, int position)
+    {
+        MainMenu.instance.SpawnHouse(matchId, posHouse, position);
+    }
+
+    [TargetRpc]
+    public void TargetSpawnHouse(GameObject newHouse, int position)
+    {
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[position].houses.Add(newHouse);
     }
     
     public void setRoute(Route route)
