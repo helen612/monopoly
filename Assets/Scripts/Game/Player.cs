@@ -366,11 +366,12 @@ public class Player : NetworkBehaviour
         MainMenu.instance.inGame = true;
         SceneManager.LoadScene("Game", LoadSceneMode.Additive);
     }
-
+    
+    
 
     public void ToSpawnHouse(int Position)
     {
-        var posNode = currentRoute.childNodeList[routePosition].position;
+        var posNode = currentRoute.childNodeList[Position].position;
         int r = Position / 10;
         var HousePos = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().Houses[r];
         var countHouses = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[Position].houses.Count;
@@ -417,6 +418,71 @@ public class Player : NetworkBehaviour
         CmdToSpawnHouse(matchId,posNode,Position);
     }
 
+    public void ToSpawnHotel(int Position)
+    {
+        
+        foreach (var house in GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[Position].houses)
+        {
+            CmdDestroyObj(house);
+        }
+
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[Position].houses.Clear();
+        
+        var posNode = currentRoute.childNodeList[Position].position;
+        int r = Position / 10;
+        var HousePos = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().Houses[r];
+        switch (r)
+        {
+            case 0:
+            {
+                posNode.z += HousePos.z;
+                
+                break;
+            }
+            case 1:
+            {
+                posNode.x += HousePos.x;
+                break;
+            }
+            case 2:
+            {
+                posNode.z += HousePos.z;
+                break;
+            }
+            case 3:
+            {
+                posNode.x += HousePos.x;
+                break;
+            }
+            default:
+            {
+                break;
+            }
+        }
+        CmdToSpawnHotel(matchId,posNode,Position);
+        
+    }
+
+    
+    
+    [Command]
+    public void CmdToDestroyHotel(string matchID, int position, Vector3 matchPos, Vector3 posNode)
+    {
+
+        MainMenu.instance.destroyHotel(matchID, position, matchPos,posNode);
+
+    }
+    
+    [Command]
+    public void CmdToSpawnHotel(string matchID, Vector3 posHotel, int position)
+    {
+
+        MainMenu.instance.SpawnHotel(matchID, posHotel, position);
+
+    }
+    
+    
+    
     [Command]
     public void CmdToSpawnHouse(string matchID, Vector3 posHouse, int position)
     {
@@ -427,6 +493,37 @@ public class Player : NetworkBehaviour
     public void TargetSpawnHouse(GameObject newHouse, int position)
     {
         GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[position].houses.Add(newHouse);
+    }
+    
+    
+    [TargetRpc]
+    public void TargetSpawnHouses(List<GameObject> newHouses, int position)
+    {
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[position].houses = newHouses;
+    }
+
+    public void ToDestroyHouse(int Position)
+    {
+        int index = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[Position].houses.Count - 1;
+        CmdDestroyObj(GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[Position].houses[index]);
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[Position].houses.RemoveAt(index);
+    }
+    
+    public void ToDestoyHotel(int Position)
+    {
+        var posNode = currentRoute.childNodeList[Position].position;
+        CmdDestroyObj(GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[Position].houses[0]);
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[Position].houses.Clear();
+        int r = Position / 10;
+        var HousePos = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().Houses[r];
+        CmdToDestroyHotel(matchId,Position,HousePos,posNode);
+    }
+    [Command]
+    public void CmdDestroyObj(GameObject obj)
+    {
+        
+        Destroy(obj);
+        
     }
     
     public void setRoute(Route route)

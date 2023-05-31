@@ -430,6 +430,114 @@ public class MainMenu : NetworkBehaviour
         }
     }
     
+    public void SpawnHotel(string matchID, Vector3 housePos, int position)
+    {
+        for (int i = 0; i < matches.Count; i++)
+        {
+            if (matches[i].ID == matchID)
+            {
+                
+                GameObject obj = Instantiate(_House, housePos,Quaternion.identity);
+                obj.GetComponent<Renderer>().material.color = Color.red;
+                NetworkServer.Spawn(obj);
+                obj.GetComponent<NetworkMatch>().matchId = matchID.ToGuid();
+                for (int ip  = 0; ip < matches[i].players.Count; ip++)
+                {
+                    matches[i].players[ip].GetComponent<Player>().TargetSpawnHouse(obj, position);
+                }
+            }
+        }
+    }
+
+    public void destroyHotel(string matchID, int position, Vector3 HousePos, Vector3 posNode)
+    {
+        for (int i = 0; i < matches.Count; i++)
+        {
+            if (matches[i].ID == matchID)
+            {
+                int r = position / 10;
+                List<GameObject> houses = new List<GameObject>();
+                switch (r)
+                {
+                    case 0:
+                    {
+                        posNode.z += HousePos.z;
+                        posNode.x += HousePos.x;
+                        var st = posNode.x;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            posNode.x = st;
+                            posNode.x += j * HousePos.y;
+                            houses.Add(spawnHouse(posNode, matchID));
+                        }
+                        
+                
+                        break;
+                    }
+                    case 1:
+                    {
+                        posNode.z += HousePos.z;
+                        posNode.x += HousePos.x;
+                        var st = posNode.z;
+
+                        for (int j = 0; j < 4; j++)
+                        {
+                            posNode.z = st;
+                            posNode.z += j * HousePos.y;
+                            houses.Add(spawnHouse(posNode, matchID));
+                        }
+                        break;
+                    }
+                    case 2:
+                    {
+                        posNode.z += HousePos.z;
+                        posNode.x += HousePos.x;
+                
+                        var st = posNode.x;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            posNode.x = st;
+                            posNode.x += j * HousePos.y;
+                            houses.Add(spawnHouse(posNode, matchID));
+                        }
+                        break;
+                    }
+                    case 3:
+                    {
+                        posNode.z += HousePos.z;
+                        posNode.x += HousePos.x;
+                
+                        var st = posNode.z;
+
+                        for (int j = 0; j < 4; j++)
+                        {
+                            posNode.z = st;
+                            posNode.z += j * HousePos.y;
+                            houses.Add(spawnHouse(posNode, matchID));
+                        }
+                        break;
+                    }
+                    default:
+                    {
+                        break;
+                    }
+                }
+                for (int ip  = 0; ip < matches[i].players.Count; ip++)
+                {
+                    matches[i].players[ip].GetComponent<Player>().TargetSpawnHouses(houses, position);
+                }
+            }
+        }
+    }
+
+    public GameObject spawnHouse(Vector3 housePos,string matchID)
+    {
+        GameObject obj = Instantiate(_House, housePos,Quaternion.identity);
+        NetworkServer.Spawn(obj);
+        obj.GetComponent<NetworkMatch>().matchId = matchID.ToGuid();
+        return obj;
+    }
+    
     public List<Player> getMatchPlayers(string matchID)
     {
         for (int i = 0; i < matches.Count; i++)

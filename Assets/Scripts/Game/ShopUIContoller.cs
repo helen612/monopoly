@@ -355,9 +355,13 @@ public class ShopUIContoller : MonoBehaviour
         var r = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[choosenRoutePosition];
         Player.localPlayer.updateCash(r.field.costBuild * -1);
         GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[choosenRoutePosition].field.level++;
-        if (r.field.level > 2)
+        if (r.field.level > 2 && r.field.level < 7)
         {
             Player.localPlayer.ToSpawnHouse(choosenRoutePosition);
+        }
+        else
+        {
+            Player.localPlayer.ToSpawnHotel(choosenRoutePosition);
         }
         
         SetChoosenKS(r, choosenRoutePosition);
@@ -367,7 +371,16 @@ public class ShopUIContoller : MonoBehaviour
         var r = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[choosenRoutePosition];
         Player.localPlayer.updateCash(r.field.costBuild/2);
         GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[choosenRoutePosition].field.level--;
-
+        if (r.field.level == 6)
+        {
+            Player.localPlayer.ToDestoyHotel(choosenRoutePosition);
+        }
+        else if (r.field.level >= 2 )
+        {
+            Player.localPlayer.ToDestroyHouse(choosenRoutePosition);
+        }
+        
+        
         SetChoosenKS(r, choosenRoutePosition);
     }
     
