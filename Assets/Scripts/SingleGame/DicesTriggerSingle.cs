@@ -1,0 +1,64 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class DicesTriggerSingle : MonoBehaviour
+{
+    private int dices;
+    private int prev;
+
+    private void Start()
+    {
+        dices = 0;
+        prev = 0;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.attachedRigidbody.velocity.magnitude == 0 
+            && other.attachedRigidbody.angularVelocity.magnitude == 0)
+        {
+            switch (other.transform.parent.gameObject.name)
+            {
+                case "Dice1":
+                {
+                    other.transform.parent.gameObject.transform.position = new Vector3(-23.5f, 23.24f, 104f);
+                    Debug.Log("ПЕРШЫЙ");
+                    dices++;
+                    break;
+                }
+                case "Dice2":
+                {
+                    other.transform.parent.gameObject.transform.position = new Vector3(-21.9f, 23.24f, 104f);
+                    Debug.Log("Други");
+                    dices++;
+                    break;
+                }
+                default:
+                {
+                    prev = 0;
+                    dices = 0;
+                    Debug.Log("Один из кубиков упал на ребро");
+                    break;
+                }
+            }
+
+            if (dices == 1)
+            {
+                int.TryParse(other.name, out prev);
+            }
+            else if (dices == 2 && prev != 0)
+            {
+                int thisvalue = 0;
+                int.TryParse(other.name, out thisvalue);
+               
+                GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManagerSingle>().dicesDroped(prev, thisvalue);
+                
+                
+                prev = 0;
+                dices = 0;
+            }
+        }
+    }
+}

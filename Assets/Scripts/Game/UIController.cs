@@ -79,6 +79,31 @@ public class UIController : MonoBehaviour
         cashInfo.text = "Ваш счет: " + Player.localPlayer.getCash() + " М";
     }
 
+    public void toLose()
+    {
+        var moves = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves;
+        
+        for (int i = 0; i < moves.Count; i++)
+        {
+            if (moves[i].field.owner == Player.localPlayer.playerColor)
+            {
+                GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[i].field.owner =
+                    Color.white;
+                GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[i].field.level =
+                    0;
+                foreach (var house in moves[i].houses)
+                {
+                    Destroy(house);
+                }
+            }
+        }
+
+        GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[Player.localPlayer.routePosition]
+            .countPlayer--;
+        Player.localPlayer.toLose();
+        
+    }
+
     public void NextCam()
     {
         switch (selectedCam)

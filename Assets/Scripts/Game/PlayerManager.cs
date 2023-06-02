@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
+
+
+
 public class PlayerManager : NetworkBehaviour
 {
 
@@ -132,6 +135,10 @@ public class PlayerManager : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             Player.localPlayer.startMove(2);
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Player.localPlayer.updateCash(-1499);
         }
     }
 }

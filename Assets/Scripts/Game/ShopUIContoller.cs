@@ -379,8 +379,6 @@ public class ShopUIContoller : MonoBehaviour
         {
             Player.localPlayer.ToDestroyHouse(choosenRoutePosition);
         }
-        
-        
         SetChoosenKS(r, choosenRoutePosition);
     }
     

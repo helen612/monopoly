@@ -62,6 +62,10 @@ public class Player : NetworkBehaviour
     {
         this.cash += money;
         UIController.instance.updateCash();
+        if (cash < 0)
+        {
+            UIController.instance.toLose();
+        }
     }
 
     public int getCash()
@@ -198,6 +202,7 @@ public class Player : NetworkBehaviour
 
     public void DisconnectGame()
     {
+        
         CmdDisconnectGame();
     }
 
@@ -292,6 +297,46 @@ public class Player : NetworkBehaviour
         Debug.Log("StartPM");
     }
 
+    public void toLose()
+    {
+        var pm = GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>();
+        CmdToLose(matchId, pm.qqPlayer,pm.moves,pm.CardsList.ToList());
+    }
+
+    [Command]
+    public void CmdToLose(string matchID, int oldIndex, List<Field> moves, List<cards> cardsQueue)
+    {
+        MainMenu.instance.toLose(matchID, oldIndex, moves, cardsQueue, connectionToClient);
+    }
+
+    [TargetRpc]
+    public void TargetWin(string matchID)
+    {
+        Message.show("Победа", "Все оппоненты были разорены. Вы стали победителем. Поздравляем!!!");
+        new WaitForSeconds(3);
+        MainMenu.instance.CmdDestroyMatch(matchID, connectionToClient);
+    }
+
+
+    
+    [TargetRpc]
+    public void TargetToLose()
+    {
+        if(!isLocalPlayer) return;
+        if (NetworkServer.active && NetworkClient.isConnected)
+        {
+            NetworkManager.singleton.StopHost();
+        }
+        else if (NetworkClient.isConnected)
+        {
+            NetworkManager.singleton.StopClient();
+        }
+        else if (NetworkServer.active)
+        {
+            NetworkManager.singleton.StopServer();
+        }
+    }
+    
     public void NextPlayer(int oldIndex)
     {
         if (forSkip != 0) forSkip--;
@@ -495,6 +540,11 @@ public class Player : NetworkBehaviour
         GameObject.FindWithTag("PlayerManager").GetComponent<PlayerManager>().moves[position].houses.Add(newHouse);
     }
     
+    [TargetRpc]
+    public void TargetChangeColorToHotel(GameObject gameObject)
+    {
+        gameObject.GetComponent<Renderer>().material.color = Color.red;
+    } 
     
     [TargetRpc]
     public void TargetSpawnHouses(List<GameObject> newHouses, int position)

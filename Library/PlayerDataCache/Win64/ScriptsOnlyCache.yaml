@@ -7,6 +7,7 @@ ScriptsOnlyBuild:
     - CopyRoomId
     - DiceRoller
     - DicesTrigger
+    - DicesTriggerSingle
     - Disconnect
     - ExitButton
     - FieldInfo
@@ -17,11 +18,14 @@ ScriptsOnlyBuild:
     - PlayMode
     - Player
     - PlayerManager
+    - PlayerManagerSingle
+    - PlayerSingle
     - PlayerUI
     - Route
     - Rules
     - ShopUIContoller
     - UIController
+    - UIControllerSingle
     Mirror.Components.dll:
     - Mirror.MatchInterestManagement
     - Mirror.NetworkMatch
@@ -42,13 +46,16 @@ ScriptsOnlyBuild:
     - TMPro.TMP_Settings
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
+    - TMPro.TMP_SubMeshUI
     - TMPro.TextMeshPro
     - TMPro.TextMeshProUGUI
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -118,6 +125,9 @@ ScriptsOnlyBuild:
     fullTypeName: UnityEngine.AudioSource
     methodName: Play
   - assembly: Assembly-CSharp
+    fullTypeName: PlayMode
+    methodName: ChangeValueSlider
+  - assembly: Assembly-CSharp
     fullTypeName: Rules
     methodName: onClick
   - assembly: Assembly-CSharp
@@ -159,9 +169,6 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: Rules
     methodName: onClick
-  - assembly: UnityEngine.AudioModule
-    fullTypeName: UnityEngine.AudioSource
-    methodName: Play
   - assembly: Assembly-CSharp
     fullTypeName: PlayMode
     methodName: StartSinglePlay
@@ -294,6 +301,27 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: ShopUIContoller
     methodName: onClickDowngrade
+  - assembly: Assembly-CSharp
+    fullTypeName: OwnButtonUI
+    methodName: onClick
+  - assembly: Assembly-CSharp
+    fullTypeName: UIControllerSingle
+    methodName: NextCam
+  - assembly: UnityEngine.AnimationModule
+    fullTypeName: UnityEngine.Animator
+    methodName: SetTrigger
+  - assembly: Assembly-CSharp
+    fullTypeName: ShopUIContoller
+    methodName: BuyKS
+  - assembly: Assembly-CSharp
+    fullTypeName: ShopUIContoller
+    methodName: onClickUpgrade
+  - assembly: Assembly-CSharp
+    fullTypeName: UIControllerSingle
+    methodName: DragRoll
+  - assembly: Assembly-CSharp
+    fullTypeName: ShopUIContoller
+    methodName: onClickDowngrade
   sceneClasses:
     Assets/Scenes/Game.unity:
     - Class: 1
@@ -371,21 +399,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 6140}
     - Class: 114
-      Script: {instanceID: 6494}
+      Script: {instanceID: 6496}
     - Class: 114
-      Script: {instanceID: 6504}
+      Script: {instanceID: 6506}
     - Class: 114
-      Script: {instanceID: 6894}
+      Script: {instanceID: 6896}
     - Class: 114
-      Script: {instanceID: 7526}
+      Script: {instanceID: 7528}
     - Class: 114
-      Script: {instanceID: 7646}
+      Script: {instanceID: 7648}
     - Class: 114
-      Script: {instanceID: 7722}
+      Script: {instanceID: 7726}
     - Class: 114
-      Script: {instanceID: 7770}
+      Script: {instanceID: 7774}
     - Class: 114
-      Script: {instanceID: 8054}
+      Script: {instanceID: 8058}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -472,6 +500,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4326}
     - Class: 114
+      Script: {instanceID: 4512}
+    - Class: 114
       Script: {instanceID: 4594}
     - Class: 114
       Script: {instanceID: 5038}
@@ -484,24 +514,143 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 6146}
     - Class: 114
-      Script: {instanceID: 6492}
-    - Class: 114
       Script: {instanceID: 6494}
     - Class: 114
-      Script: {instanceID: 6504}
+      Script: {instanceID: 6496}
     - Class: 114
-      Script: {instanceID: 6542}
+      Script: {instanceID: 6506}
     - Class: 114
-      Script: {instanceID: 7578}
+      Script: {instanceID: 6544}
     - Class: 114
-      Script: {instanceID: 7646}
+      Script: {instanceID: 7580}
     - Class: 114
-      Script: {instanceID: 7836}
+      Script: {instanceID: 7648}
     - Class: 114
-      Script: {instanceID: 8054}
+      Script: {instanceID: 7840}
+    - Class: 114
+      Script: {instanceID: 8058}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    - Class: 241
+      Script: {instanceID: 0}
+    - Class: 243
+      Script: {instanceID: 0}
+    - Class: 245
+      Script: {instanceID: 0}
+    Assets/Scenes/SinglePlayer.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 23
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 33
+      Script: {instanceID: 0}
+    - Class: 43
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
+    - Class: 64
+      Script: {instanceID: 0}
+    - Class: 65
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
+    - Class: 89
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 1564}
+    - Class: 114
+      Script: {instanceID: 1566}
+    - Class: 114
+      Script: {instanceID: 1568}
+    - Class: 114
+      Script: {instanceID: 1616}
+    - Class: 114
+      Script: {instanceID: 2702}
+    - Class: 114
+      Script: {instanceID: 2918}
+    - Class: 114
+      Script: {instanceID: 3712}
+    - Class: 114
+      Script: {instanceID: 3804}
+    - Class: 114
+      Script: {instanceID: 4088}
+    - Class: 114
+      Script: {instanceID: 4588}
+    - Class: 114
+      Script: {instanceID: 5038}
+    - Class: 114
+      Script: {instanceID: 5100}
+    - Class: 114
+      Script: {instanceID: 5384}
+    - Class: 114
+      Script: {instanceID: 6140}
+    - Class: 114
+      Script: {instanceID: 6188}
+    - Class: 114
+      Script: {instanceID: 6496}
+    - Class: 114
+      Script: {instanceID: 6506}
+    - Class: 114
+      Script: {instanceID: 6896}
+    - Class: 114
+      Script: {instanceID: 7528}
+    - Class: 114
+      Script: {instanceID: 7648}
+    - Class: 114
+      Script: {instanceID: 7656}
+    - Class: 114
+      Script: {instanceID: 7726}
+    - Class: 114
+      Script: {instanceID: 7774}
+    - Class: 114
+      Script: {instanceID: 8058}
+    - Class: 114
+      Script: {instanceID: 33160}
+    - Class: 114
+      Script: {instanceID: 50836}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 134
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -617,17 +766,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 6146}
     - Class: 114
-      Script: {instanceID: 6494}
+      Script: {instanceID: 6496}
     - Class: 114
-      Script: {instanceID: 6504}
+      Script: {instanceID: 6506}
     - Class: 114
-      Script: {instanceID: 6548}
+      Script: {instanceID: 6550}
     - Class: 114
-      Script: {instanceID: 7578}
+      Script: {instanceID: 7580}
     - Class: 114
-      Script: {instanceID: 7646}
+      Script: {instanceID: 7648}
     - Class: 114
-      Script: {instanceID: 7836}
+      Script: {instanceID: 7840}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1747,7 +1896,7 @@ ScriptsOnlyBuild:
     className: StateGraphAsset
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: fbead4c78390b0b9841948b4c4beb2ca
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayMode
@@ -1829,6 +1978,12 @@ ScriptsOnlyBuild:
     assemblyName: Mirror.dll
     namespaceName: Mirror
     className: NetworkStartPosition
+  - hash:
+      serializedVersion: 2
+      Hash: c968e1e2001e153d047ec000fffa3420
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerManagerSingle
   - hash:
       serializedVersion: 2
       Hash: 5071eedf7a18e3e85b41c0594ad2c036
@@ -2197,6 +2352,12 @@ ScriptsOnlyBuild:
     className: ScrollRect
   - hash:
       serializedVersion: 2
+      Hash: 5699ce27e792d40da9e419726a3fe7e8
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerSingle
+  - hash:
+      serializedVersion: 2
       Hash: e325c5713c17141452ae100b3887e30e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -2387,9 +2548,22 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: 8cf1263759f8bdfcdd766ca0eec9ef73
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: UIControllerSingle
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DicesTriggerSingle
   platform: 19
   scenePathNames:
   - Assets/Scenes/mainMenuScene.unity
   - Assets/Scenes/Lobby.unity
   - Assets/Scenes/Game.unity
+  - Assets/Scenes/SinglePlayer.unity
   playerPath: E:/test/test/result/Monopoly.exe

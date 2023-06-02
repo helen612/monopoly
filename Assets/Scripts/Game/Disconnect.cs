@@ -4,7 +4,7 @@ using UnityEngine;
 using Mirror;
 public class Disconnect : MonoBehaviour
 {
-    public void StopGame()
+    public static void StopGame()
     {
         if (NetworkServer.active && NetworkClient.isConnected)
         {

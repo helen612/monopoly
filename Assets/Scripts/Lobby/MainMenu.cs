@@ -376,7 +376,7 @@ public class MainMenu : NetworkBehaviour
                 matches[i].players[oldIndex].GetComponent<Player>().MyMove = false;
                 
                 oldIndex++;
-                if (pwm.Count == oldIndex)
+                if (oldIndex >= pwm.Count)
                 {
                     oldIndex = 0;
                 }
@@ -391,6 +391,61 @@ public class MainMenu : NetworkBehaviour
             }
         }
 
+    }
+
+    [Command]
+    public void CmdDestroyMatch(string matchID, NetworkConnectionToClient winer)
+    {
+        for (int i = 0; i < matches.Count; i++)
+        {
+            if (matches[i].ID == matchID)
+            {
+                NetworkServer.DestroyPlayerForConnection(winer); 
+            }
+        }
+    }
+    
+    public void toLose(string matchID,int  oldIndex, List<Field> moves, List<cards> cardsQueue, NetworkConnectionToClient loser)
+    {
+        for (int i = 0; i < matches.Count; i++)
+        {
+            if (matches[i].ID == matchID)
+            {
+                //получение игроков с сервера
+                var pwm = new List<Player>();
+                //matches[i].players[oldIndex].GetComponent<Player>().TargetToLose();
+                //matches[i].players.RemoveAt(oldIndex);
+                NetworkServer.DestroyPlayerForConnection(loser);
+                //Destroy(matches[i].players[oldIndex]);
+                if (matches[i].players.Count == 1)
+                {
+                    matches[i].players[0].GetComponent<Player>().TargetWin(matchID);
+                }
+                else
+                {
+                    foreach (var p in matches[i].players)
+                    {
+                        pwm.Add(p.GetComponent<Player>());
+                    }
+
+                    oldIndex++;
+                    if (oldIndex >= pwm.Count)
+                    {
+                        oldIndex = 0;
+                    }
+
+                    matches[i].players[oldIndex].GetComponent<Player>().MyMove = true;
+
+                    for (int ip = 0; ip < matches[i].players.Count; ip++)
+                    {
+                        matches[i].players[ip].GetComponent<Player>().TargetNextPlayer(moves, pwm, cardsQueue);
+                    }
+                }
+
+
+
+            }
+        }
     }
 
     public void SendMoney(string matchID,Color owner, int money)
@@ -438,17 +493,20 @@ public class MainMenu : NetworkBehaviour
             {
                 
                 GameObject obj = Instantiate(_House, housePos,Quaternion.identity);
-                obj.GetComponent<Renderer>().material.color = Color.red;
+                //obj.GetComponent<Renderer>().material.color = Color.red;
+                
                 NetworkServer.Spawn(obj);
                 obj.GetComponent<NetworkMatch>().matchId = matchID.ToGuid();
                 for (int ip  = 0; ip < matches[i].players.Count; ip++)
                 {
                     matches[i].players[ip].GetComponent<Player>().TargetSpawnHouse(obj, position);
+                    matches[i].players[ip].GetComponent<Player>().TargetChangeColorToHotel(obj);
                 }
             }
         }
     }
-
+    
+    
     public void destroyHotel(string matchID, int position, Vector3 HousePos, Vector3 posNode)
     {
         for (int i = 0; i < matches.Count; i++)
