@@ -351,6 +351,7 @@
 "Assets/Scripts/SingleGame/DicesTriggerSingle.cs"
 "Assets/Scripts/SingleGame/PlayerManagerSingle.cs"
 "Assets/Scripts/SingleGame/PlayerSingle.cs"
+"Assets/Scripts/SingleGame/ShopUiControllerSingle.cs"
 "Assets/Scripts/SingleGame/UIControllerSingle.cs"
 "Assets/Scripts/StartScreen/StartSciriptLS.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"

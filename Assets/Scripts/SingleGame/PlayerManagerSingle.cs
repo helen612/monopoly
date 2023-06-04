@@ -189,6 +189,8 @@ public class FieldSingle
 
 public class PlayerManagerSingle : MonoBehaviour
 {
+    //префаб дома/отеля
+    public GameObject _House;
     //инлдекс игрока который сейчас ходит
     public int QqPlayer;
     // количество игроков
@@ -278,7 +280,7 @@ public class PlayerManagerSingle : MonoBehaviour
         if ( Players[QqPlayer].GetComponent<PlayerSingle>().FreeJail == 0)
         {
             Debug.Log("Отправляйтесь в тюрьму");
-            moves[Player.localPlayer.routePosition].countPlayer--;
+            moves[Players[QqPlayer].GetComponent<PlayerSingle>().routePosition].countPlayer--;
             Players[QqPlayer].GetComponent<PlayerSingle>().transform.position = GameObject.Find("Jail").transform.position;
             Players[QqPlayer].GetComponent<PlayerSingle>().routePosition = 10;
             moves[Players[QqPlayer].GetComponent<PlayerSingle>().routePosition].countPlayer++;
@@ -424,6 +426,108 @@ public class PlayerManagerSingle : MonoBehaviour
     
 
     #endregion
+
+    #region Spawners
+
+    public void SpawnPlayers()
+    {
+        for (int i = 0; i < CountPlayers; i++)
+        {
+            GameObject obj = Instantiate(PlayerPrefab);
+            obj.GetComponent<PlayerSingle>().playerCord = beginCoord[0];
+            obj.GetComponent<Transform>().position = beginCoord[0];
+            beginCoord.RemoveAt(0);
+            obj.GetComponent<PlayerSingle>().playerColor = ColorPlayers[0];
+            obj.GetComponent<Renderer>().material.color = ColorPlayers[0];
+            ColorPlayers.RemoveAt(0);
+            Players.Add(obj);
+            obj.GetComponent<PlayerSingle>().cash = 1500;
+        }
+    }
+
+    public GameObject spawnHouse(int PositionOnRoad)
+    {
+        var posNode = currentRoute.childNodeList[PositionOnRoad].position;
+        int mode = PositionOnRoad / 10;
+        var Multipliers = Houses[mode];
+        switch (mode) 
+        {
+            case 0:
+            {
+                posNode.z += Multipliers.z;
+                posNode.x += Multipliers.x;
+                
+                posNode.x += moves[PositionOnRoad].houses.Count * Multipliers.y;
+                
+                break;
+            }
+            case 1:
+            {
+                posNode.z += Multipliers.z;
+                posNode.x += Multipliers.x;
+                
+                posNode.z += moves[PositionOnRoad].houses.Count * Multipliers.y;
+                
+                break;
+            }
+            case 2:
+            {
+                posNode.z += Multipliers.z;
+                posNode.x += Multipliers.x;
+                
+                posNode.x += moves[PositionOnRoad].houses.Count * Multipliers.y;
+                
+                break;
+            }
+            case 3:
+            {
+                posNode.z += Multipliers.z;
+                posNode.x += Multipliers.x;
+                
+                posNode.z += moves[PositionOnRoad].houses.Count * Multipliers.y;
+                
+                break;
+            }
+        }
+        return Instantiate(_House, posNode,Quaternion.identity);
+    }
+
+    public GameObject spawnHotel(int PositionOnRoad)
+    {
+        var posNode = currentRoute.childNodeList[PositionOnRoad].position;
+        int r = PositionOnRoad / 10;
+        var HousePos = Houses[r];
+        switch (r)
+        {
+            case 0:
+            {
+                posNode.z += HousePos.z;
+                
+                break;
+            }
+            case 1:
+            {
+                posNode.x += HousePos.x;
+                break;
+            }
+            case 2:
+            {
+                posNode.z += HousePos.z;
+                break;
+            }
+            case 3:
+            {
+                posNode.x += HousePos.x;
+                break;
+            }
+            default:
+            {
+                break;
+            }
+        }
+        return Instantiate(_House, posNode,Quaternion.identity);
+    }
+    #endregion
     
     private void Update()
     {
@@ -435,6 +539,10 @@ public class PlayerManagerSingle : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             Players[QqPlayer].GetComponent<PlayerSingle>().startMove(2);
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            changeMoney(-1499);
         }
     }
 
@@ -454,17 +562,38 @@ public class PlayerManagerSingle : MonoBehaviour
     
     public void updateQQ()
     {
+        if (Players[QqPlayer].GetComponent<PlayerSingle>().forSkip == 0) Players[QqPlayer].GetComponent<PlayerSingle>().forSkip--;
         Players[QqPlayer].GetComponent<PlayerSingle>().MyMove = false;
+        for (int i = 0; i < Players[QqPlayer].GetComponent<PlayerSingle>().Owns.Count; i++)
+        {
+            Players[QqPlayer].GetComponent<PlayerSingle>().Owns[i].SetActive(false);
+        }
         QqPlayer++;
         if (QqPlayer >= Players.Count )
         {
             QqPlayer = 0;
         }
         Players[QqPlayer].GetComponent<PlayerSingle>().MyMove = true;
+        for (int i = 0; i < Players[QqPlayer].GetComponent<PlayerSingle>().Owns.Count; i++)
+        {
+            Players[QqPlayer].GetComponent<PlayerSingle>().Owns[i].SetActive(true);
+        }
         GetComponent<Renderer>().material.color = Players[QqPlayer].GetComponent<PlayerSingle>().playerColor;
         var pl = Players[QqPlayer].GetComponent<PlayerSingle>();
         UIControllerSingle.instance.updateCash(pl.cash, pl.playerColor);
-        UIControllerSingle.instance.bNextPlayer.interactable = false;
+        if (Players[QqPlayer].GetComponent<PlayerSingle>().forSkip == 0)
+        {
+            UIControllerSingle.instance.bDragRoll.interactable = true;
+            UIControllerSingle.instance.bNextPlayer.interactable = false;
+        }
+        else
+        {
+            UIControllerSingle.instance.bDragRoll.interactable = false;
+            UIControllerSingle.instance.bNextPlayer.interactable = true;
+        }
+
+
+
     }
     
     public void FillNodes()
@@ -513,21 +642,7 @@ public class PlayerManagerSingle : MonoBehaviour
         
     }
 
-    public void SpawnPlayers()
-    {
-        for (int i = 0; i < CountPlayers; i++)
-        {
-            GameObject obj = Instantiate(PlayerPrefab);
-            obj.GetComponent<PlayerSingle>().playerCord = beginCoord[0];
-            obj.GetComponent<Transform>().position = beginCoord[0];
-            beginCoord.RemoveAt(0);
-            obj.GetComponent<PlayerSingle>().playerColor = ColorPlayers[0];
-            obj.GetComponent<Renderer>().material.color = ColorPlayers[0];
-            ColorPlayers.RemoveAt(0);
-            Players.Add(obj);
-            obj.GetComponent<PlayerSingle>().cash = 1500;
-        }
-    }
+    
 
     public void PayTo(Color owner, int money)
     {
@@ -542,6 +657,7 @@ public class PlayerManagerSingle : MonoBehaviour
         UIControllerSingle.instance.updateCash
             (Players[QqPlayer].GetComponent<PlayerSingle>().cash,
                 Players[QqPlayer].GetComponent<PlayerSingle>().playerColor);
+        if(Players[QqPlayer].GetComponent<PlayerSingle>().cash < 0) toLose();
     }
 
     public void changeMoney(int money)
@@ -549,9 +665,9 @@ public class PlayerManagerSingle : MonoBehaviour
         Players[QqPlayer].GetComponent<PlayerSingle>().cash += money;
         UIControllerSingle.instance.updateCash(Players[QqPlayer].GetComponent<PlayerSingle>().cash,
             Players[QqPlayer].GetComponent<PlayerSingle>().playerColor);
+        if(Players[QqPlayer].GetComponent<PlayerSingle>().cash < 0) toLose();
     }
 
-   
     public void dicesDroped(int first, int second)
     {
         if (forCom)
@@ -581,6 +697,212 @@ public class PlayerManagerSingle : MonoBehaviour
             Players[QqPlayer].GetComponent<PlayerSingle>().DoubleCount = 0;
             Players[QqPlayer].GetComponent<PlayerSingle>().startMove(first + second);
         }
+    }
+
+    public FieldSingle changeOwner()
+    {
+      
+        //списываем деньги со счета
+        var curPos = Players[QqPlayer].GetComponent<PlayerSingle>().routePosition;
+        changeMoney(-1 * moves[curPos].field.cost);
+        //Устанавливаем владельца улице
+        moves[curPos].field.owner = Players[QqPlayer].GetComponent<PlayerSingle>().playerColor;
+        
+        //Добавляем кнопку в магазин
+        var newButtonOwner = ShopUiControllerSingle.instance.spawnButtowOwber();
+        newButtonOwner.GetComponent<OwnButtonUISingle>().SetOwnName(moves[curPos].field.fullName, moves[curPos].field.Color, curPos);
+        //получаем наш field
+        setLevel(moves[curPos]);
+        Players[QqPlayer].GetComponent<PlayerSingle>().Owns.Add(newButtonOwner);
+        return moves[curPos];
+    }
+    
+    
+    public int getCountInFieldGroup(Color groupColor)
+    {
+        int streetsInGroup = 0;
+        foreach (var fiels in moves)
+        {
+            if (fiels.field.Color == groupColor)
+            {
+                streetsInGroup++;
+            }
+        }
+
+        return streetsInGroup;
+    }
+    public int getCountBoughtInGroupGroup(Color groupColor, Color Player)
+    {
+        int MyOwn = 0;
+        foreach (var fiels in moves)
+        {
+            if (fiels.field.Color == groupColor)
+            {
+                if (fiels.field.owner == Player)
+                {
+                    MyOwn++;
+                }
+            }
+        }
+
+        return MyOwn;
+    }
+
+    public void setFieldLevel(Color groupColor, Color owner, int level)
+    {
+        for (int i = 0; i < moves.Count; i++)
+        {
+            if (groupColor == moves[i].field.Color &&
+                owner == moves[i].field.owner)
+            { 
+                moves[i].field.level = level;
+            }
+        }
+    }
+    
+    public void setLevel(FieldSingle field)
+    {
+        int countOwn = 0;
+        countOwn = getCountBoughtInGroupGroup(field.field.Color, Players[QqPlayer].GetComponent<PlayerSingle>().playerColor);
+        switch (field.field.tag)
+        {
+            case "Street":
+            {
+                if (getCountInFieldGroup(field.field.Color) == countOwn)
+                {
+                    setFieldLevel(field.field.Color,Players[QqPlayer].GetComponent<PlayerSingle>().playerColor,2);
+                }
+                else
+                {
+                    setFieldLevel(field.field.Color,Players[QqPlayer].GetComponent<PlayerSingle>().playerColor,1);
+                }
+                break;
+            }
+            case "TR":
+            {
+                setFieldLevel(field.field.Color,Players[QqPlayer].GetComponent<PlayerSingle>().playerColor, 2 + countOwn);
+                break;
+            }
+            case "Com":
+            {
+                setFieldLevel(field.field.Color,Players[QqPlayer].GetComponent<PlayerSingle>().playerColor, 2 + countOwn);
+                break;
+            }
+            default:
+            {
+                Debug.Log("Не удалось установить уровень");
+                break;
+            }
+        }
+ 
+    }
+
+    public FieldSingle addHouseOnStreet(int choosenRoutePosition)
+    {
+        changeMoney(moves[choosenRoutePosition].field.costBuild * -1);
+        moves[choosenRoutePosition].field.level++;
+        if (moves[choosenRoutePosition].field.level > 2 && moves[choosenRoutePosition].field.level < 7)
+        {
+            var house = spawnHouse(choosenRoutePosition);
+            moves[choosenRoutePosition].houses.Add(house);
+        }
+        else
+        {
+
+            foreach (var vhouse in moves[choosenRoutePosition].houses)
+            {
+                Destroy(vhouse);
+            }
+            moves[choosenRoutePosition].houses.Clear();
+            var hotel = spawnHotel(choosenRoutePosition);
+            hotel.GetComponent<Renderer>().material.color = Color.red;
+            moves[choosenRoutePosition].houses.Add(hotel);
+        }
+
+        return moves[choosenRoutePosition];
+    }
+
+    public FieldSingle destroyHouseOnStreet(int choosenRoutePosition)
+    {
+        
+        changeMoney(moves[choosenRoutePosition].field.costBuild/2);
+        moves[choosenRoutePosition].field.level--;
+        if (moves[choosenRoutePosition].field.level == 6)
+        {
+            Destroy(moves[choosenRoutePosition].houses[0]);
+            moves[choosenRoutePosition].houses.Clear();
+            for (int i = 0; i < 4; i++)
+            {
+                var house = spawnHouse(choosenRoutePosition);
+                moves[choosenRoutePosition].houses.Add(house);
+            }
+        }
+        else if (moves[choosenRoutePosition].field.level >= 2 )
+        {
+            var indexHouse = moves[choosenRoutePosition].houses.Count - 1;
+            Destroy(moves[choosenRoutePosition].houses[indexHouse]);
+            moves[choosenRoutePosition].houses.RemoveAt(indexHouse);
+        }
+
+        return moves[choosenRoutePosition];
+    }
+
+    public void toLose()
+    {
+        var loser = Players[QqPlayer];
+        Players.RemoveAt(QqPlayer);
+        for (int i = 0; i < moves.Count; i++)
+        {
+            if (moves[i].field.owner == loser.GetComponent<PlayerSingle>().playerColor)
+            {
+                moves[i].field.owner = Color.white;
+                moves[i].field.level = 0;
+                foreach (var house in moves[i].houses)
+                {
+                    Destroy(house);
+                }
+                moves[i].houses.Clear();
+            }
+        }
+        
+        moves[loser.GetComponent<PlayerSingle>().routePosition].countPlayer--;
+        
+        
+        
+        UIControllerSingle.instance.updateCash(Players[QqPlayer].GetComponent<PlayerSingle>().cash, Players[QqPlayer].GetComponent<PlayerSingle>().playerColor);
+        GetComponent<Renderer>().material.color = Players[QqPlayer].GetComponent<PlayerSingle>().playerColor;
+        if (Players[QqPlayer].GetComponent<PlayerSingle>().forSkip == 0)
+        {
+            UIControllerSingle.instance.bDragRoll.interactable = true;
+            UIControllerSingle.instance.bNextPlayer.interactable = false;
+        }
+        else
+        {
+            UIControllerSingle.instance.bDragRoll.interactable = false;
+            UIControllerSingle.instance.bNextPlayer.interactable = true;
+        }
+
+        if (Players.Count == 1)
+        {
+            Message.showSingle("Конец игры!", $"<color=#{ColorUtility.ToHtmlStringRGB(loser.GetComponent<PlayerSingle>().playerColor)}>Игрок</color> " +
+                                           $"разорился и выбывает из игры. Монополистом становиться: " +
+                                           $"<color=#{ColorUtility.ToHtmlStringRGB(Players[QqPlayer].GetComponent<PlayerSingle>().playerColor)}>Игрок</color>");
+        }
+        else
+        {
+            Message.showSingle("Банкрот!", $"<color=#{ColorUtility.ToHtmlStringRGB(loser.GetComponent<PlayerSingle>().playerColor)}>Игрок</color> " +
+                                           $"разорился и выбывает из игры. все долги были выплачены банкам, а его исущество онулировано!\n");
+        }
+
+        foreach (var buttons in loser.GetComponent<PlayerSingle>().Owns)
+        {
+            Destroy(buttons);
+        }
+        for (int i = 0; i < Players[QqPlayer].GetComponent<PlayerSingle>().Owns.Count; i++)
+        {
+            Players[QqPlayer].GetComponent<PlayerSingle>().Owns[i].SetActive(true);
+        }
+        Destroy(loser);    
     }
     
 }

@@ -1266,7 +1266,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 136687817}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 35338592}
+        m_TargetAssemblyTypeName: UIControllerSingle, Assembly-CSharp
+        m_MethodName: ShowShopUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &136687817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4076,6 +4088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5377df80fa8e32428d3a4e8c060729c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _House: {fileID: 8802741927468022733, guid: 3e69a69b7d4d1f44c81794e66be31f52, type: 3}
   QqPlayer: 0
   CountPlayers: 0
   PlayerPrefab: {fileID: 8802741927468022733, guid: 3fd16a8ebec680241a2c48e5b450005c, type: 3}
@@ -9093,8 +9106,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+      - m_Target: {fileID: 35338592}
+        m_TargetAssemblyTypeName: UIControllerSingle, Assembly-CSharp
         m_MethodName: HideShopUI
         m_Mode: 1
         m_Arguments:
@@ -10545,7 +10558,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1810915877}
-        m_TargetAssemblyTypeName: ShopUIContoller, Assembly-CSharp
+        m_TargetAssemblyTypeName: ShopUiControllerSingle, Assembly-CSharp
         m_MethodName: BuyKS
         m_Mode: 1
         m_Arguments:
@@ -11149,7 +11162,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1810915877}
-        m_TargetAssemblyTypeName: ShopUIContoller, Assembly-CSharp
+        m_TargetAssemblyTypeName: ShopUiControllerSingle, Assembly-CSharp
         m_MethodName: onClickUpgrade
         m_Mode: 1
         m_Arguments:
@@ -12674,12 +12687,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810915875}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd5cd6cf28ae8c04da22bb310f2dc7e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 627ea4ec27f129c47820644a82cdf1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OwnPrefab: {fileID: 2161142665208818614, guid: f149fc250d86eb04ea02153dc659a78d, type: 3}
+  OwnPrefab: {fileID: 2161142665208818614, guid: 91c1e99bd7f7a7048b49d08906fa22a7, type: 3}
   OwnPrefabParent: {fileID: 1492070515}
   Buy: {fileID: 1426238078}
   owner: {fileID: 356961449}
@@ -13289,7 +13302,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1810915877}
-        m_TargetAssemblyTypeName: ShopUIContoller, Assembly-CSharp
+        m_TargetAssemblyTypeName: ShopUiControllerSingle, Assembly-CSharp
         m_MethodName: onClickDowngrade
         m_Mode: 1
         m_Arguments:

@@ -17,6 +17,7 @@ public class PlayerSingle : MonoBehaviour
     public int DoubleCount;
     public int forSkip;
     public int FreeJail;
+    public List<GameObject> Owns;
 
 
     private void Update()
@@ -31,6 +32,7 @@ public class PlayerSingle : MonoBehaviour
         DoubleCount = 0;
         forSkip = 0;
         FreeJail = 0;
+        Owns = new List<GameObject>();
     }
     
     public void startMove(int steps)

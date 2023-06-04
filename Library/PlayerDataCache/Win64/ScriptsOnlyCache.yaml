@@ -24,6 +24,7 @@ ScriptsOnlyBuild:
     - Route
     - Rules
     - ShopUIContoller
+    - ShopUiControllerSingle
     - UIController
     - UIControllerSingle
     Mirror.Components.dll:
@@ -306,22 +307,22 @@ ScriptsOnlyBuild:
     methodName: onClick
   - assembly: Assembly-CSharp
     fullTypeName: UIControllerSingle
+    methodName: ShowShopUI
+  - assembly: Assembly-CSharp
+    fullTypeName: PlayerManagerSingle
+    methodName: updateQQ
+  - assembly: Assembly-CSharp
+    fullTypeName: UIControllerSingle
     methodName: NextCam
   - assembly: UnityEngine.AnimationModule
     fullTypeName: UnityEngine.Animator
     methodName: SetTrigger
   - assembly: Assembly-CSharp
-    fullTypeName: ShopUIContoller
-    methodName: BuyKS
-  - assembly: Assembly-CSharp
-    fullTypeName: ShopUIContoller
-    methodName: onClickUpgrade
+    fullTypeName: UIControllerSingle
+    methodName: HideShopUI
   - assembly: Assembly-CSharp
     fullTypeName: UIControllerSingle
     methodName: DragRoll
-  - assembly: Assembly-CSharp
-    fullTypeName: ShopUIContoller
-    methodName: onClickDowngrade
   sceneClasses:
     Assets/Scenes/Game.unity:
     - Class: 1
@@ -397,23 +398,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5384}
     - Class: 114
-      Script: {instanceID: 6140}
+      Script: {instanceID: 6142}
     - Class: 114
-      Script: {instanceID: 6496}
+      Script: {instanceID: 6498}
     - Class: 114
-      Script: {instanceID: 6506}
+      Script: {instanceID: 6508}
     - Class: 114
-      Script: {instanceID: 6896}
+      Script: {instanceID: 6898}
     - Class: 114
-      Script: {instanceID: 7528}
+      Script: {instanceID: 7530}
     - Class: 114
-      Script: {instanceID: 7648}
+      Script: {instanceID: 7650}
     - Class: 114
-      Script: {instanceID: 7726}
+      Script: {instanceID: 7728}
     - Class: 114
-      Script: {instanceID: 7774}
+      Script: {instanceID: 7776}
     - Class: 114
-      Script: {instanceID: 8058}
+      Script: {instanceID: 8062}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -510,25 +511,25 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5384}
     - Class: 114
-      Script: {instanceID: 6140}
+      Script: {instanceID: 6142}
     - Class: 114
-      Script: {instanceID: 6146}
-    - Class: 114
-      Script: {instanceID: 6494}
+      Script: {instanceID: 6148}
     - Class: 114
       Script: {instanceID: 6496}
     - Class: 114
-      Script: {instanceID: 6506}
+      Script: {instanceID: 6498}
     - Class: 114
-      Script: {instanceID: 6544}
+      Script: {instanceID: 6508}
     - Class: 114
-      Script: {instanceID: 7580}
+      Script: {instanceID: 6546}
     - Class: 114
-      Script: {instanceID: 7648}
+      Script: {instanceID: 7582}
     - Class: 114
-      Script: {instanceID: 7840}
+      Script: {instanceID: 7650}
     - Class: 114
-      Script: {instanceID: 8058}
+      Script: {instanceID: 7844}
+    - Class: 114
+      Script: {instanceID: 8062}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -603,6 +604,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1616}
     - Class: 114
+      Script: {instanceID: 1752}
+    - Class: 114
       Script: {instanceID: 2702}
     - Class: 114
       Script: {instanceID: 2918}
@@ -613,6 +616,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4088}
     - Class: 114
+      Script: {instanceID: 4512}
+    - Class: 114
       Script: {instanceID: 4588}
     - Class: 114
       Script: {instanceID: 5038}
@@ -621,31 +626,31 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5384}
     - Class: 114
-      Script: {instanceID: 6140}
+      Script: {instanceID: 5998}
     - Class: 114
-      Script: {instanceID: 6188}
+      Script: {instanceID: 6142}
     - Class: 114
-      Script: {instanceID: 6496}
+      Script: {instanceID: 6190}
     - Class: 114
-      Script: {instanceID: 6506}
+      Script: {instanceID: 6498}
     - Class: 114
-      Script: {instanceID: 6896}
+      Script: {instanceID: 6508}
     - Class: 114
-      Script: {instanceID: 7528}
+      Script: {instanceID: 6898}
     - Class: 114
-      Script: {instanceID: 7648}
+      Script: {instanceID: 7530}
     - Class: 114
-      Script: {instanceID: 7656}
+      Script: {instanceID: 7650}
     - Class: 114
-      Script: {instanceID: 7726}
+      Script: {instanceID: 7658}
     - Class: 114
-      Script: {instanceID: 7774}
+      Script: {instanceID: 7776}
     - Class: 114
-      Script: {instanceID: 8058}
+      Script: {instanceID: 7822}
     - Class: 114
-      Script: {instanceID: 33160}
+      Script: {instanceID: 8062}
     - Class: 114
-      Script: {instanceID: 50836}
+      Script: {instanceID: 53424}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -762,21 +767,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5822}
     - Class: 114
-      Script: {instanceID: 6140}
+      Script: {instanceID: 6142}
     - Class: 114
-      Script: {instanceID: 6146}
+      Script: {instanceID: 6148}
     - Class: 114
-      Script: {instanceID: 6496}
+      Script: {instanceID: 6498}
     - Class: 114
-      Script: {instanceID: 6506}
+      Script: {instanceID: 6508}
     - Class: 114
-      Script: {instanceID: 6550}
+      Script: {instanceID: 6552}
     - Class: 114
-      Script: {instanceID: 7580}
+      Script: {instanceID: 7582}
     - Class: 114
-      Script: {instanceID: 7648}
+      Script: {instanceID: 7650}
     - Class: 114
-      Script: {instanceID: 7840}
+      Script: {instanceID: 7844}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1932,6 +1937,12 @@ ScriptsOnlyBuild:
     className: TextMeshSpawner
   - hash:
       serializedVersion: 2
+      Hash: 8cf1263759f8bdfcdd766ca0eec9ef73
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: UIControllerSingle
+  - hash:
+      serializedVersion: 2
       Hash: f5763415ffcb37f6278091eb8b77a954
     assemblyName: SimpleWebTransport.dll
     namespaceName: Mirror.SimpleWeb
@@ -1980,7 +1991,7 @@ ScriptsOnlyBuild:
     className: NetworkStartPosition
   - hash:
       serializedVersion: 2
-      Hash: c968e1e2001e153d047ec000fffa3420
+      Hash: 4fba29e9b728ba3652ac729493645a9e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerManagerSingle
@@ -2352,7 +2363,7 @@ ScriptsOnlyBuild:
     className: ScrollRect
   - hash:
       serializedVersion: 2
-      Hash: 5699ce27e792d40da9e419726a3fe7e8
+      Hash: 6135cdbc331394718f3ca3484317c28c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerSingle
@@ -2374,6 +2385,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ChangeBGmusic
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DicesTriggerSingle
   - hash:
       serializedVersion: 2
       Hash: 492bcb2d4cbb73afb9e618d49e4bdd82
@@ -2550,16 +2567,10 @@ ScriptsOnlyBuild:
     className: UnityOnSliderValueChangedMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 8cf1263759f8bdfcdd766ca0eec9ef73
+      Hash: e325c5713c17141452ae100b3887e30e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: UIControllerSingle
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: DicesTriggerSingle
+    className: ShopUiControllerSingle
   platform: 19
   scenePathNames:
   - Assets/Scenes/mainMenuScene.unity

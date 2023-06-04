@@ -81,6 +81,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
      <Compile Include="Assets\Scripts\StartScreen\StartSciriptLS.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+     <Compile Include="Assets\Scripts\SingleGame\UIControllerSingle.cs" />
      <Compile Include="Assets\Scripts\SingleGame\PlayerManagerSingle.cs" />
      <Compile Include="Assets\Scripts\Game\Field.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
@@ -98,6 +99,7 @@
      <Compile Include="Assets\Scripts\SingleGame\PlayerSingle.cs" />
      <Compile Include="Assets\Scripts\Game\ShopUIContoller.cs" />
      <Compile Include="Assets\Scripts\Game\ChangeBGmusic.cs" />
+     <Compile Include="Assets\Scripts\SingleGame\DicesTriggerSingle.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
@@ -105,8 +107,8 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
-     <Compile Include="Assets\Scripts\SingleGame\UIControllerSingle.cs" />
-     <Compile Include="Assets\Scripts\SingleGame\DicesTriggerSingle.cs" />
+     <Compile Include="Assets\Scripts\SingleGame\ShopUiControllerSingle.cs" />
+     <Compile Include="Assets\Scripts\SingleGame\OwnButtonUISingle.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\Prefab" />
      <Folder Include="Assets\UI\Animation\MainMenu\Messages" />

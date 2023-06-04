@@ -27,6 +27,11 @@ public class UIControllerSingle : MonoBehaviour
     //public GameObject pm;
     public TMP_Text listPlayersUI;
     
+
+   
+    
+    
+    
     void Start()
     {
         instance = this;
@@ -123,7 +128,7 @@ public class UIControllerSingle : MonoBehaviour
     public void ShowShopUI()
     {
         ShopUI.SetActive(true);
-        ShopUI.GetComponent<ShopUIContoller>().JoinShop();
+        ShopUI.GetComponent<ShopUiControllerSingle>().JoinShop();
     }
 
     public void HideShopUI()
@@ -131,6 +136,7 @@ public class UIControllerSingle : MonoBehaviour
         ShopUI.SetActive(false);
     }
 
+  
     
     // Update is called once per frame
     void Update()
